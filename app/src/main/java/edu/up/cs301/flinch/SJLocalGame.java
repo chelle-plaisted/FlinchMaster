@@ -2,6 +2,8 @@ package edu.up.cs301.flinch;
 
 import android.util.Log;
 
+import edu.up.cs301.card.Rank;
+import edu.up.cs301.flinch.FStateElements.*;
 import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.LocalGame;
 import edu.up.cs301.game.actionMsg.GameAction;
@@ -17,7 +19,8 @@ import edu.up.cs301.game.actionMsg.GameAction;
 public class SJLocalGame extends LocalGame {
 
     // the game's state
-    SJState state;
+    FState state;
+
 
     /**
      * Constructor for the SJLocalGame.
@@ -25,7 +28,7 @@ public class SJLocalGame extends LocalGame {
     public SJLocalGame() {
         Log.i("SJLocalGame", "creating game");
         // create the state for the beginning of the game
-        state = new SJState();
+        state = new FState();
     }
 
 
@@ -85,7 +88,7 @@ public class SJLocalGame extends LocalGame {
 
 		// make a copy of the state; null out all cards except for the
 		// top card in the middle deck
-		SJState stateForPlayer = new SJState(state); // copy of state
+		FState stateForPlayer = new FState(state); // copy of state
 		stateForPlayer.nullAllButTopOf2(); // put nulls except for visible card
 		
 		// send the modified copy of the state to the player

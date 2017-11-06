@@ -12,6 +12,7 @@ import android.view.View;
 import edu.up.cs301.animation.AnimationSurface;
 import edu.up.cs301.animation.Animator;
 import edu.up.cs301.card.Card;
+import edu.up.cs301.flinch.FStateElements.FState;
 import edu.up.cs301.game.GameHumanPlayer;
 import edu.up.cs301.game.GameMainActivity;
 import edu.up.cs301.game.R;
@@ -39,7 +40,7 @@ public class SJHumanPlayer extends GameHumanPlayer implements Animator {
 	private final static float VERTICAL_BORDER_PERCENT = 4; // width of top/bottom borders
 	
 	// our game state
-	protected SJState state;
+	protected FState state;
 
 	// our activity
 	private Activity myActivity;
@@ -71,12 +72,12 @@ public class SJHumanPlayer extends GameHumanPlayer implements Animator {
 	 */
 	@Override
 	public void receiveInfo(GameInfo info) {
-		Log.i("SJComputerPlayer", "receiving updated state ("+info.getClass()+")");
+		Log.i("FComputerPlayer", "receiving updated state ("+info.getClass()+")");
 		if (info instanceof IllegalMoveInfo || info instanceof NotYourTurnInfo) {
 			// if we had an out-of-turn or illegal move, flash the screen
 			surface.flash(Color.RED, 50);
 		}
-		else if (!(info instanceof SJState)) {
+		else if (!(info instanceof FState)) {
 			// otherwise, if it's not a game-state message, ignore
 			return;
 		}
@@ -84,7 +85,7 @@ public class SJHumanPlayer extends GameHumanPlayer implements Animator {
 			// it's a game-state object: update the state. Since we have an animation
 			// going, there is no need to explicitly display anything. That will happen
 			// at the next animation-tick, which should occur within 1/20 of a second
-			this.state = (SJState)info;
+			this.state = (FState)info;
 			Log.i("human player", "receiving");
 		}
 	}
