@@ -1,77 +1,75 @@
 package edu.up.cs301.flinch;
 
-import edu.up.cs301.card.Card;
-import edu.up.cs301.card.Rank;
-import edu.up.cs301.flinch.FStateElements.FPlayerState;
-import edu.up.cs301.flinch.FStateElements.FState;
+import edu.up.cs301.card.*;
+import edu.up.cs301.flinch.FStateElements.*;
 import edu.up.cs301.game.GameComputerPlayer;
 import edu.up.cs301.game.infoMsg.GameInfo;
 
 /**
  * This is a computer player that slaps at an average rate given
  * by the constructor parameter.
- * 
+ *
  * @author Steven R. Vegdahl
- * @version July 2013 
+ * @version July 2013
  */
 public class FComputerPlayer extends GameComputerPlayer
 {
 	// the minimum reaction time for this player, in milliseconds
 	protected double minReactionTimeInMillis;
-	
+
 	// the most recent state of the game
 	protected FState savedState;
 
-    /**
-     * Constructor for the FComputerPlayer class; creates an "average"
-     * player.
-     *
-     * @param name
-     * 		the player's name
-     */
-    public FComputerPlayer(String name) {
-        // invoke general constructor to create player whose average reaction
-    	// time is half a second.
-        this(name, 0.5);
-    }
+	/**
+	 * Constructor for the FComputerPlayer class; creates an "average"
+	 * player.
+	 *
+	 * @param name
+	 * 		the player's name
+	 */
+	public FComputerPlayer(String name) {
+		// invoke general constructor to create player whose average reaction
+		// time is half a second.
+		this(name, 0.5);
+	}
 
-    /*
+	/*
      * Constructor for the FComputerPlayer class
      */
-    public FComputerPlayer(String name, double avgReactionTime) {
-        // invoke superclass constructor
-        super(name);
+	public FComputerPlayer(String name, double avgReactionTime) {
+		// invoke superclass constructor
+		super(name);
 
-        // set the minimim reaction time, which is half the average reaction
-        // time, converted to milliseconds (0.5 * 1000 = 500)
-        minReactionTimeInMillis = 500*avgReactionTime;
-    }
+		// set the minimim reaction time, which is half the average reaction
+		// time, converted to milliseconds (0.5 * 1000 = 500)
+		minReactionTimeInMillis = 500*avgReactionTime;
+	}
 
 	/**
 	 * Invoked whenever the player's timer has ticked. It is expected
 	 * that this will be overridden in smart players.
 	 */
-    @Override
-    protected void timerTicked() {
-    	// stop the timer, since we don't want another timer-tick until it
-    	// again is explicitly started
-    	getTimer().stop();
-    }
+	@Override
+	protected void timerTicked() {
+		// stop the timer, since we don't want another timer-tick until it
+		// again is explicitly started
+		getTimer().stop();
+	}
 
-    /**
-     * callback method, called when we receive a message, typicallly from
-     * the game
-     */
-    @Override
-    protected void receiveInfo(GameInfo info) {
+	/**
+	 * callback method, called when we receive a message, typicallly from
+	 * the game
+	 */
+	@Override
+	protected void receiveInfo(GameInfo info) {
 
-    	// if we don't have a game-state, ignore
-    	if (!(info instanceof FState)) {
-    		return;
-    	}
-    	
-    	// update our state variable
-    	savedState = (FState)info;
+		// if we don't have a game-state, ignore
+		if (!(info instanceof FState)) {
+			return;
+		}
+
+		// update our state variable
+		savedState = (FState)info;
 
 		// if it is our turn, we will play cards
 		// otherwise, monitor for Flinches if able to
