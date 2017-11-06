@@ -31,7 +31,7 @@ public class SJState extends GameState
     private int toPlay;
 
     /**
-     * Constructor for objects of class SJState. Initializes for the beginning of the
+     * Constructor for objects of class FState. Initializes for the beginning of the
      * game, with a random player as the first to turn card
      *  
      */
@@ -57,7 +57,7 @@ public class SJState extends GameState
     }
     
     /**
-     * Copy constructor for objects of class SJState. Makes a copy of the given state
+     * Copy constructor for objects of class FState. Makes a copy of the given state
      *  
      * @param orig  the state to be copied
      */

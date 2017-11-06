@@ -2,6 +2,7 @@ package edu.up.cs301.flinch;
 
 import edu.up.cs301.card.Card;
 import edu.up.cs301.card.Rank;
+import edu.up.cs301.flinch.FStateElements.FState;
 import edu.up.cs301.game.GameComputerPlayer;
 import edu.up.cs301.game.infoMsg.GameInfo;
 
@@ -18,7 +19,7 @@ public class SJComputerPlayer extends GameComputerPlayer
 	private double minReactionTimeInMillis;
 	
 	// the most recent state of the game
-	private SJState savedState;
+	private FState savedState;
 
     /**
      * Constructor for the SJComputerPlayer class; creates an "average"
@@ -73,12 +74,12 @@ public class SJComputerPlayer extends GameComputerPlayer
     protected void receiveInfo(GameInfo info) {
 
     	// if we don't have a game-state, ignore
-    	if (!(info instanceof SJState)) {
+    	if (!(info instanceof FState)) {
     		return;
     	}
     	
     	// update our state variable
-    	savedState = (SJState)info;
+    	savedState = (FState)info;
     	
     	// access the state's middle deck
     	Deck middleDeck = savedState.getDeck(2);
