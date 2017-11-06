@@ -72,7 +72,7 @@ public class SJHumanPlayer extends GameHumanPlayer implements Animator {
 	 */
 	@Override
 	public void receiveInfo(GameInfo info) {
-		Log.i("SJComputerPlayer", "receiving updated state ("+info.getClass()+")");
+		Log.i("FComputerPlayer", "receiving updated state ("+info.getClass()+")");
 		if (info instanceof IllegalMoveInfo || info instanceof NotYourTurnInfo) {
 			// if we had an out-of-turn or illegal move, flash the screen
 			surface.flash(Color.RED, 50);

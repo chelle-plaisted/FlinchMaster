@@ -15,7 +15,7 @@ import edu.up.cs301.game.infoMsg.GameState;
 public class FState extends GameState
 {
 	private static final long serialVersionUID = -8269749892027578792L;
-
+/*
 	///////////////////////////////////////////////////
 	// ************** instance variables ************
 	///////////////////////////////////////////////////
@@ -133,7 +133,7 @@ public class FState extends GameState
 	 */
 	public Card[] getCenterPiles() {
 		Card[] tops = new Card[10];
-		// get all of the top cards
+		// get all of the top cards (including any that are null)
 		for(int i = 0; i < 10; i++) {
 			tops[i] = center[i].getTopCard();
 		}
@@ -278,23 +278,4 @@ public class FState extends GameState
 		players[playerId].hasFlinched = flinchable;
 	}
 
-	// THE REST OF THESE ARE SEPARTATE
-	/**
-	 * Replaces all cards with null, except for the top card of deck 2
-	 */
-	public void nullAllButTopOf2() {
-		// see if the middle deck is empty; remove top card from middle deck
-		boolean empty2 = piles[2].size() == 0;
-		Card c = piles[2].removeTopCard();
-
-		// set all cards in deck to null
-		for (Deck d : piles) {
-			d.nullifyDeck();
-		}
-
-		// if middle deck had not been empty, add back the top (non-null) card
-		if (!empty2) {
-			piles[2].add(c);
-		}
-	}
 }

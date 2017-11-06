@@ -50,11 +50,11 @@ public class FPlayerState {
      * @return
      * returns the top card of each of the player's discard piles
      */
-    public ArrayList<Card> getTopDiscards() {
-        ArrayList<Card> tops = new ArrayList<Card>();
+    public Card[] getTopDiscards() {
+        Card[] tops = new Card[5];
 
         for(DiscardPile d : discards) {
-            if(d.getTopCard() != null)
+            //get discard pile cards--including any that are null
                 tops.add(d.getTopCard());
         }
         return tops;
