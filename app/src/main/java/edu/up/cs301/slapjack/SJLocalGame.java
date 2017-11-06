@@ -1,11 +1,10 @@
 package edu.up.cs301.slapjack;
 
 import android.util.Log;
-import edu.up.cs301.card.Rank;
+
 import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.LocalGame;
 import edu.up.cs301.game.actionMsg.GameAction;
-import edu.up.cs301.game.config.GameConfig;
 
 /**
  * The LocalGame class for a slapjack game.  Defines and enforces
