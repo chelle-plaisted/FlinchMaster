@@ -1,4 +1,4 @@
-package edu.up.cs301.slapjack;
+package edu.up.cs301.flinch;
 
 import edu.up.cs301.card.Card;
 import edu.up.cs301.game.GameComputerPlayer;
@@ -18,11 +18,11 @@ public class SJComputerPlayer extends GameComputerPlayer
 	
 	// the most recent state of the game
 	private SJState savedState;
-	
+
     /**
-     * Constructor for the FComputerPlayer class; creates an "average"
+     * Constructor for the SJComputerPlayer class; creates an "average"
      * player.
-     * 
+     *
      * @param name
      * 		the player's name
      */
@@ -30,15 +30,15 @@ public class SJComputerPlayer extends GameComputerPlayer
         // invoke general constructor to create player whose average reaction
     	// time is half a second.
         this(name, 0.5);
-    }	
-    
+    }
+
     /*
-     * Constructor for the FComputerPlayer class
+     * Constructor for the SJComputerPlayer class
      */
     public SJComputerPlayer(String name, double avgReactionTime) {
         // invoke superclass constructor
         super(name);
-        
+
         // set the minimim reaction time, which is half the average reaction
         // time, converted to milliseconds (0.5 * 1000 = 500)
         minReactionTimeInMillis = 500*avgReactionTime;
@@ -51,14 +51,14 @@ public class SJComputerPlayer extends GameComputerPlayer
     @Override
     protected void timerTicked() {
     	// we had seen a Jack, now we have waited the requisite time to slap
-    	
+
     	// look at the top card now. If it's still a Jack, slap it
     	Card topCard = savedState.getDeck(2).peekAtTopCard();
     	if (topCard != null && topCard.getRank() == Rank.JACK) {
     		// the Jack is still there, so submit our move to the game object
     		game.sendAction(new SJSlapAction(this));
     	}
-    	
+
     	// stop the timer, since we don't want another timer-tick until it
     	// again is explicitly started
     	getTimer().stop();
@@ -70,7 +70,7 @@ public class SJComputerPlayer extends GameComputerPlayer
      */
     @Override
     protected void receiveInfo(GameInfo info) {
-    	
+
     	// if we don't have a game-state, ignore
     	if (!(info instanceof SJState)) {
     		return;
