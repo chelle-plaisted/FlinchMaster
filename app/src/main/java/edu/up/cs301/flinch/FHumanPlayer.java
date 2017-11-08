@@ -1,4 +1,4 @@
-package edu.up.cs301.flinch.FStateElements;
+package edu.up.cs301.flinch;
 
 import android.app.Activity;
 import android.graphics.Canvas;
@@ -12,6 +12,7 @@ import android.view.View;
 import edu.up.cs301.animation.AnimationSurface;
 import edu.up.cs301.animation.Animator;
 import edu.up.cs301.card.Card;
+import edu.up.cs301.flinch.FStateElements.FState;
 import edu.up.cs301.game.GameHumanPlayer;
 import edu.up.cs301.game.GameMainActivity;
 import edu.up.cs301.game.R;

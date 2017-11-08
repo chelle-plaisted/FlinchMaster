@@ -10,7 +10,11 @@ public class FlinchPile extends CardPile {
     /**
      * FlinchPile constructor
      */
+
     public FlinchPile() {
+        // DO NOT CHANGE THIS
+    }
+    public FlinchPile(Deck d) {
         // TODO: IMPLEMENT
     }
 

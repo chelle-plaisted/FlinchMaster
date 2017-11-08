@@ -1,16 +1,17 @@
-package edu.up.cs301.flinch.FStateElements;
+package edu.up.cs301.flinch;
 
 import android.graphics.Color;
 
 import java.util.ArrayList;
 
 import edu.up.cs301.flinch.FComputerPlayer;
-import edu.up.cs301.flinch.SJLocalGame;
+import edu.up.cs301.flinch.FHumanPlayer;
 import edu.up.cs301.game.GameMainActivity;
 import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.LocalGame;
 import edu.up.cs301.game.config.GameConfig;
 import edu.up.cs301.game.config.GamePlayerType;
+import edu.up.cs301.game.title.FTitleScreen;
 
 /**
  * Created by alexaruiz on 11/6/17.

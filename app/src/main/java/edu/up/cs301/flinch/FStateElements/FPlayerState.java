@@ -1,7 +1,6 @@
 package edu.up.cs301.flinch.FStateElements;
 
-import java.util.ArrayList;
-
+import edu.up.cs301.cardpile.*;
 import edu.up.cs301.card.*;
 
 /**
@@ -13,6 +12,8 @@ public class FPlayerState {
     FlinchPile flinch;
     DiscardPile[] discards;
     boolean hasFlinched;
+
+    public FPlayerState() {}
 
     public FPlayerState(FPlayerState orig) {
         hand = orig.hand;
@@ -34,7 +35,7 @@ public class FPlayerState {
      * @return
      *  the top card of the FlinchPile
      */
-    public Card getTopFlinchCard() {
+    public int getTopFlinchCard() {
         return flinch.getTopCard();
     }
 
@@ -50,12 +51,13 @@ public class FPlayerState {
      * @return
      * returns the top card of each of the player's discard piles
      */
-    public Card[] getTopDiscards() {
-        Card[] tops = new Card[5];
-
+    public int[] getTopDiscards() {
+        int[] tops = new int[5];
+        int count = 0;
         for(DiscardPile d : discards) {
             //get discard pile cards--including any that are null
-                tops.add(d.getTopCard());
+            tops[count] = d.getTopCard();
+            count++;
         }
         return tops;
     }
