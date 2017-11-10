@@ -278,4 +278,9 @@ public class FState extends GameState
 		players[playerId].hasFlinched = flinchable;
 	}
 
+	public void givePlayerCard(int player, int cardNum) {
+		players[player].hand = new Hand();
+		players[player].hand.add(new Card(cardNum));
+	}
+
 }
