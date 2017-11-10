@@ -4,41 +4,45 @@ import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.actionMsg.GameAction;
 
 /**
- * A game-move object that a tic-tac-toe player sends to the game to make
- * a move.
- * 
- * @author Steven R. Vegdahl
- * @version 2 July 2001
+ * Created by Rachel on 11/7/2017.
  */
-public abstract class SJMoveAction extends GameAction {
-	
-	private static final long serialVersionUID = -3107100271012188849L;
+
+public abstract class FMoveAction extends GameAction{
+
+    private static final long serialVersionUID = -3107100271012188849L;
 
     /**
      * Constructor for SJMoveAction
      *
      * @param player the player making the move
      */
-    public SJMoveAction(GamePlayer player)
+    public FMoveAction(GamePlayer player)
     {
         // invoke superclass constructor to set source
         super(player);
     }
-    
+
     /**
      * @return
-     * 		whether the move was a slap
+     * 		whether the move was a discard
      */
-    public boolean isSlap() {
-    	return false;
+    public boolean isDiscard() {
+        return false;
     }
-    
+
     /**
      * @return
      * 		whether the move was a "play"
      */
     public boolean isPlay() {
-    	return false;
+        return false;
     }
 
+    /**
+     * @return
+     * 		whether the move was a Flinch
+     */
+    public boolean isFlinch() {
+        return false;
+    }
 }

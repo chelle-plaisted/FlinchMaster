@@ -8,7 +8,11 @@ public class Hand extends CardPile {
     /**
      * Hand constructor
      */
+
     public Hand() {
+        // DO NOT CHANGE THIS
+    }
+    public Hand(Deck d) {
         // TODO: IMPLEMENT
     }
 
@@ -27,5 +31,15 @@ public class Hand extends CardPile {
      */
     public void arrangeHand() {
         // TODO: IMPLEMENT
+    }
+
+    public void fillHand(Deck d) {
+        // TODO: IMPLEMENT
+    }
+
+    public int getCardAt(int index) {
+        //TODO: IMPLEMENT
+
+        return -1; // dummy return
     }
 }

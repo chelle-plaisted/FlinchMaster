@@ -1,7 +1,7 @@
 package edu.up.cs301.flinch.FStateElements;
 
 import edu.up.cs301.card.*;
-import edu.up.cs301.flinch.Deck;
+import edu.up.cs301.cardpile.*;
 import edu.up.cs301.game.infoMsg.GameState;
 
 /**
@@ -15,7 +15,7 @@ import edu.up.cs301.game.infoMsg.GameState;
 public class FState extends GameState
 {
 	private static final long serialVersionUID = -8269749892027578792L;
-/*
+
 	///////////////////////////////////////////////////
 	// ************** instance variables ************
 	///////////////////////////////////////////////////
@@ -36,11 +36,11 @@ public class FState extends GameState
 	private boolean isStartOfGame;
 
 	/**
-	 * Constructor for objects of class SJState. Initializes for the beginning of the
+	 * Constructor for objects of class FState. Initializes for the beginning of the
 	 * game, with a random player as the first to turn card
 	 *
 	 */
-	public SJState(int num) {
+	public FState(int num) {
 		// initialize the number of the players in the game
 		numPlayers = num;
 		// randomly pick the player who starts
@@ -59,15 +59,15 @@ public class FState extends GameState
 			c = new CenterPile();
 		}
 		// initialize the players
-		initPlayers(num);
+		initPlayers();
 	}
 
 	/**
-	 * Copy constructor for objects of class SJState. Makes a copy of the given state
+	 * Copy constructor for objects of class FState. Makes a copy of the given state
 	 *
 	 * @param orig  the state to be copied
 	 */
-	public SJState(SJState orig) {
+	public FState(FState orig) {
 		// initialize the number of the players in the game
 		numPlayers = orig.numPlayers;
 		// pick the player who starts
@@ -131,8 +131,8 @@ public class FState extends GameState
 	 * @return
 	 * 	the tops of the center piles
 	 */
-	public Card[] getCenterPiles() {
-		Card[] tops = new Card[10];
+	public int[] getCenterPiles() {
+		int[] tops = new int[10];
 		// get all of the top cards (including any that are null)
 		for(int i = 0; i < 10; i++) {
 			tops[i] = center[i].getTopCard();
@@ -196,7 +196,7 @@ public class FState extends GameState
 	 * 	the id of the player who needs a new hand
 	 */
 	public void replenishPlayerHand() {
-		players[toPlay].hand.fillHand();
+		players[toPlay].hand.fillHand(deck);
 	}
 
 	/**
@@ -249,7 +249,7 @@ public class FState extends GameState
 	 */
 	public void discard(int indexFrom, int indexTo) {
 		Card c = players[toPlay].hand.removeCardAt(indexFrom);
-		players[toPlay].discards[indexTo].add();
+		players[toPlay].discards[indexTo].add(c);
 	}
 
 	/**

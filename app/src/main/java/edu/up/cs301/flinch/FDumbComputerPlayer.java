@@ -3,6 +3,7 @@ package edu.up.cs301.flinch;
 import edu.up.cs301.card.Card;
 import edu.up.cs301.flinch.FStateElements.FPlayerState;
 import edu.up.cs301.flinch.FStateElements.FState;
+import edu.up.cs301.cardpile.*;
 import edu.up.cs301.game.infoMsg.GameInfo;
 
 /**
@@ -48,26 +49,26 @@ public class FDumbComputerPlayer extends FComputerPlayer{
 
         if(toLook == LOOK_FLINCH) {
             // look at the Flinch Pile
-            // if I can play the card, play it
+            // if I can play the card, play it -- play from index 0
             int index = isCardPlayable(me.getTopFlinchCard());
             if(index != -1) {
-                game.sendAction(new PlayAction(0, FlinchPile, index));
+                game.sendAction(new FPlayAction(this, 0, index, new FlinchPile()));
             }
         } else if (toLook == LOOK_HAND) {
             // pick a random hand index
             Hand h = me.getHand();
             for(int i = 0; i < h.size(); i++) {
-                int index = isCardPlayable(h.get(i));
+                int index = isCardPlayable(h.getCardAt(i));
                 if(index != -1) {
-                    game.sendAction(new PlayAction(i, HandPile, index));
+                    game.sendAction(new FPlayAction(this, index, i, new Hand()));
                 }
             }
         } else {
-            Card[] d = me.getTopDiscards();
+            int[] d = me.getTopDiscards();
             for(int i = 0; i < d.length; i++) {
-                int index = isCardPlayable(c[i]);
+                int index = isCardPlayable(d[i]);
                 if(index != -1) {
-                    game.sendAction(new PlayAction(i, DiscardPile, index));
+                    game.sendAction(new FPlayAction(this, index, i, new DiscardPile()));
                 }
             }
         }// end play cards

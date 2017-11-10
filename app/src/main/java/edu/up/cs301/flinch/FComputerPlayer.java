@@ -86,18 +86,18 @@ public class FComputerPlayer extends GameComputerPlayer
 
 	/**
 	 * tells whether or not a card is playable to the center piles
-	 * @param c
-	 * 	the card to check
+	 * @param cardVal
+	 * 	the card value to check
 	 * @return
 	 * 	the index of a pile to play on (-1 if none available)
 	 */
-	public int isCardPlayable(Card c) {
+	public int isCardPlayable(int cardVal) {
 		// a card is playable if it is a one OR the next lowest denomination is in the center pile
-		Card[] center = savedState.getCenterPiles();
+		int[] center = savedState.getCenterPiles();
 		for(int i = 0; i < center.length; i++) {
-			if(center[i] == null && c.getNum() == 1) {
+			if(center[i] == -1 && cardVal == 1) {
 				return i;
-			} else if (center[i].getNum() == c.getNum() - 1) {
+			} else if (center[i] == cardVal - 1) {
 				return i;
 			}
 		}
