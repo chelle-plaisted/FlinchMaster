@@ -1,8 +1,10 @@
 package edu.up.cs301.flinch;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+import edu.up.cs301.card.Card;
 import edu.up.cs301.cardpile.DiscardPile;
 import edu.up.cs301.cardpile.FlinchPile;
 import edu.up.cs301.cardpile.Hand;
@@ -15,8 +17,13 @@ import edu.up.cs301.game.infoMsg.GameInfo;
  */
 
 public class FSmartComputerPlayer extends FComputerPlayer {
+    // INSTANCE VARIABLES
+    private int goalIndex;
+    private ArrayList<Integer[]> buildingCards;
     public FSmartComputerPlayer(String name) {
         super(name);
+        goalIndex = -1;
+        buildingCards = new ArrayList<Integer[]>();
     }
 
     /**
@@ -63,18 +70,43 @@ public class FSmartComputerPlayer extends FComputerPlayer {
         if(index != -1) {
             // I can play the card
             game.sendAction(new FPlayAction(this, 0, index, new FlinchPile()));
+            // can I play the next Flinch card too?
+            playFlinch();
             return true;
         }
         // I could not directly play the card-- can we build to the card?
-        index = potentiallyPlayable();
+        goalIndex = potentiallyPlayable();
 
-        if(index != -1) {
-            int targetVal =savedState.getCenterPiles()[index];
-            // look at hand -- can I play the next card
-            playHand();
+        if(goalIndex != -1) {
+            boolean cardPlayed;
+            do {
+                cardPlayed = false;
+
+                // look at hand -- can I play the next card?
+                if(playHand())
+                        cardPlayed = true;
+                // are we to the goal now?
+                if (me.getTopFlinchCard() == savedState.getCenterPiles()[goalIndex] + buildingCards.size() + 1) {
+                    // play the card
+                    game.sendAction(new FPlayAction(this, 0, index, new FlinchPile()));
+                    // can we play the next one?
+                    playFlinch();
+                    return true;
+                } else {
+                    if (playDiscard())
+                            cardPlayed = true;
+                    if (me.getTopFlinchCard() == savedState.getCenterPiles()[goalIndex] + buildingCards.size() + 1) {
+                        // play the card
+                        game.sendAction(new FPlayAction(this, 0, index, new FlinchPile()));
+                        // can we play the next one?
+                        playFlinch();
+                        return true;
+                    }
+                }
+            } while(cardPlayed);
         }
 
-
+        goalIndex = -1;
         return false;
     }
 
@@ -84,6 +116,18 @@ public class FSmartComputerPlayer extends FComputerPlayer {
         boolean played = false;
         Hand h = me.getHand();
         for(int i = 0; i < h.size(); i++) {
+            // This is for building cards, ignore if we are playing regularly from the the Hand
+            if (goalIndex != -1) {
+                if(h.getCardAt(i) == savedState.getCenterPiles()[goalIndex] + buildingCards.size() + 1) {
+                    // this Card is a good building card-- play
+                    game.sendAction(new FPlayAction(this, goalIndex, i, new Hand()));
+                    // have we reached our goal?
+                    if(me.getTopFlinchCard() == savedState.getCenterPiles()[goalIndex] + buildingCards.size() + 1) {
+                        return true;
+                    }
+                    continue;
+                }
+            }
             int index = isCardPlayable(h.getCardAt(i));
             if(index != -1) {
                 // I can play the card
@@ -100,6 +144,18 @@ public class FSmartComputerPlayer extends FComputerPlayer {
         boolean played = false;
         int[] d = me.getTopDiscards();
         for(int i = 0; i < d.length; i++) {
+            // This is for building cards, ignore if we are playing regularly from the the Hand
+            if (goalIndex != -1) {
+                if(d[i] == savedState.getCenterPiles()[goalIndex] + buildingCards.size() + 1) {
+                    // this Card is a good building card-- play
+                    game.sendAction(new FPlayAction(this, goalIndex, i, new DiscardPile()));
+                    // have we reached our goal?
+                    if(me.getTopFlinchCard() == savedState.getCenterPiles()[goalIndex] + buildingCards.size() + 1) {
+                        return true;
+                    }
+                    continue;
+                }
+            }
             int index = isCardPlayable(d[i]);
             if(index != -1) {
                 // I can play the card
@@ -122,6 +178,58 @@ public class FSmartComputerPlayer extends FComputerPlayer {
             }
         }
         return closest;
+    }
+
+    private boolean playFlinchTest() {
+        // look at the flinch pile
+        // if there is a card in the center higher than the flinch pile, hunt to see if we can build to it
+        // if I have no building cards or can play the flinch card--then I'm done hunting
+        // look at the Flinch, then hand, then discards
+        // if there is a non Flinch pile card I can play, add it to the list of toBePlayed cards and call the method recursively with a one lower card goal
+
+        int index = isCardPlayable(me.getTopFlinchCard());
+        if(index != -1) {
+            // I can play the card
+            game.sendAction(new FPlayAction(this, 0, index, new FlinchPile()));
+            // can I play the next Flinch card too?
+            playFlinchTest();
+            return true;
+        }
+        // I could not directly play the card-- can we build to the card?
+        goalIndex = potentiallyPlayable();
+
+        if(goalIndex != -1) {
+            boolean cardPlayed;
+            do {
+                cardPlayed = false;
+
+                // look at hand -- can I play the next card?
+                if(playHand())
+                    cardPlayed = true;
+                // are we to the goal now?
+                if (me.getTopFlinchCard() == savedState.getCenterPiles()[goalIndex] + buildingCards.size() + 1) {
+                    // play the card
+                   // game.sendAction(new FPlayAction(this, 0, index, new FlinchPile()));
+                    game.
+                    // can we play the next one?
+                    playFlinchTest();
+                    return true;
+                } else {
+                    if (playDiscard())
+                        cardPlayed = true;
+                    if (me.getTopFlinchCard() == savedState.getCenterPiles()[goalIndex] + buildingCards.size() + 1) {
+                        // play the card
+                        game.sendAction(new FPlayAction(this, 0, index, new FlinchPile()));
+                        // can we play the next one?
+                        playFlinchTest();
+                        return true;
+                    }
+                }
+            } while(cardPlayed);
+        }
+
+        goalIndex = -1;
+        return false;
     }
 
 }
