@@ -12,30 +12,38 @@ import java.io.Serializable;
 public class Card implements Serializable {
     // to satisfy the Serializable interface
     private static final long serialVersionUID = 893542931190030342L;
+
     // instance variables
     private int cardNum;
 
     /**
-     * Card constructor
+     * Card()
+     *
+     * The Card constructor. Creates an object of Card with the given number.
      *
      * @param num
      */
     public Card(int num) {
-        // TODO: IMPLEMENT
-        cardNum = 0;
+        // set the Card object number to num
+        cardNum = num;
     }
 
     /**
-     * Card copy constructor
+     * Card()
+     *
+     * The Card copy constructor. Create a copy of the given Card object.
      *
      * @param orig
      */
     public Card(Card orig) {
-        // TODO: IMPLEMENT
+        // set the Card object number to the same as orig
+        cardNum = orig.getNum();
     }
 
     /**
      * drawCard()
+     *
+     * Method to draw the Card object on the GUI
      *
      * @param g
      * @param where
@@ -47,11 +55,12 @@ public class Card implements Serializable {
     /**
      * getCardNum()
      *
-     * @return
+     * Method to return the number of the Card object
+     *
+     * @return the value of the Card object
      */
     public int getNum() {
-        // TODO: IMPLEMENT
-        return 0;
+        return cardNum;
     }
 
     /* additional needed methods/variables: see the original card class for details
