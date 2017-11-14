@@ -1,9 +1,11 @@
 package edu.up.cs301.cardpile;
 
 /**
- * Created by Weslyn on 11/6/2017.
+ * Hand
+ *
+ * Class that inherits from CardPile. Creates the set of cards a player can play from during a game
+ * of Flinch.
  */
-
 public class Hand extends CardPile {
     /**
      * Hand constructor
