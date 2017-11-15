@@ -3,7 +3,7 @@ package edu.up.cs301.flinch.FStateElements;
 import static org.junit.Assert.*;
 
 /**
- * Created by rae-o on 11/9/2017.
+ * Created by Flinchie on 11/9/2017.
  */
 public class FStateTest {
     @org.junit.Test

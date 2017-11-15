@@ -1,6 +1,7 @@
 package edu.up.cs301.flinch;
 
 import edu.up.cs301.card.*;
+import edu.up.cs301.cardpile.Hand;
 import edu.up.cs301.flinch.FStateElements.*;
 import edu.up.cs301.game.GameComputerPlayer;
 import edu.up.cs301.game.infoMsg.GameInfo;
@@ -19,6 +20,12 @@ public class FComputerPlayer extends GameComputerPlayer
 
 	// the most recent state of the game
 	protected FState savedState;
+	protected FPlayerState me;
+
+	// constants
+	protected static final int LOOK_FLINCH = 0;
+	protected static final int LOOK_HAND = 1;
+	protected static final int LOOK_DISCARD = 2;
 
 	/**
 	 * Constructor for the FComputerPlayer class; creates an "average"
@@ -70,18 +77,11 @@ public class FComputerPlayer extends GameComputerPlayer
 
 		// update our state variable
 		savedState = (FState)info;
+		me = savedState.getPlayerState(this.playerNum);
 
 		// if it is our turn, we will play cards
 		// otherwise, monitor for Flinches if able to
 
-
-		/*
-		// discard to end turn--assume I am the current player
-		FPlayerState me = savedState.getPlayerState(savedState.getWhoseTurn());
-		int toDiscard = (int) (Math.random() * me.getHand().size());
-		int destination = (int) (Math.random() * 5);
-		game.sendAction(new DiscardAction(toDiscard, destination));
-		*/
 	}
 
 	/**
@@ -93,6 +93,8 @@ public class FComputerPlayer extends GameComputerPlayer
 	 */
 	public int isCardPlayable(int cardVal) {
 		// a card is playable if it is a one OR the next lowest denomination is in the center pile
+		// if the card is "empty" (meaning it was a blank space), this is not playable
+		if (cardVal == 0) return -1;
 		int[] center = savedState.getCenterPiles();
 		for(int i = 0; i < center.length; i++) {
 			if(center[i] == -1 && cardVal == 1) {
@@ -102,5 +104,24 @@ public class FComputerPlayer extends GameComputerPlayer
 			}
 		}
 		return -1;
+	}
+
+
+	/**
+	 * method to discard a card
+	 */
+	protected void discard() {
+		// select a random card from the hand
+		Hand h = savedState.getPlayerState(this.playerNum).getHand();
+		int handIndex = (int) (Math.random() * h.size());
+		// select a random index to discard to
+		int d[] = savedState.getPlayerState(this.playerNum).getTopDiscards();
+		int discardIndex;
+		do{
+			// keep getting a random discard index until we have a valid one
+			discardIndex = (int) (Math.random() * d.length);
+		}while(discardIndex == 0);
+
+		game.sendAction(new FDiscardAction(this,handIndex,discardIndex));
 	}
 }

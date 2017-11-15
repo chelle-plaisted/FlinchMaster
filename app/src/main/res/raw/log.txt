@@ -1,0 +1,15 @@
+TERM PROJECT LOG
+
+Entry #1
+Date:
+    November 14, 2018
+Problem:
+    Unknown how to randomly arrange the cards in an ArrayList for the shuffle() methods in the Deck
+    class.
+Source Used:
+    Googled "shuffling a deck of card in java" and was brought to a geeksforgeeks.org page.
+    http://www.geeksforgeeks.org/shuffle-a-deck-of-cards-3/
+Solution:
+    The source above discusses a method for shuffling cards using the Random class to generate a
+    random number and setting that as the index for a given card. Continually doing this for all
+    cards will randomly shuffle the whole deck.
