@@ -252,6 +252,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         float rectTop = (100-VERTICAL_BORDER_CENTERPILE-CARD_HEIGHT_PERCENT)*height/100f;
         float rectBottom = (100-VERTICAL_BORDER_CENTERPILE)*height/100f;
         return new RectF(rectLeft, rectTop, rectRight, rectBottom);
+        //
     }
     private RectF centerPile3() {
 
