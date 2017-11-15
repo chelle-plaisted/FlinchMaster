@@ -33,7 +33,7 @@ public class FSmartComputerPlayerTest {
          */
 
         // player has 1 in Flinch pile
-        FSmartComputerPlayer tester = new FSmartComputerPlayer("test", 0, 1, 0);
+      //  FSmartComputerPlayer tester = new FSmartComputerPlayer("test", 0, 1, 0);
     }
 
     public void playDiscard() {

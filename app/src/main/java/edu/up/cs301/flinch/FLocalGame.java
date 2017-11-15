@@ -1,5 +1,7 @@
 package edu.up.cs301.flinch;
 
+import edu.up.cs301.cardpile.FlinchPile;
+import edu.up.cs301.cardpile.Hand;
 import edu.up.cs301.flinch.FStateElements.* ;
 import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.LocalGame;
@@ -9,28 +11,56 @@ import edu.up.cs301.game.actionMsg.GameAction;
  * Created by pinkertr20 on 11/7/2017.
  */
 
+/*
+NOTE: TEST CASE THAT MIGHT FAIL WITH CURRENT DESIGN
+    A player fails to play from their flinch pile (flinches themselves) but plays that Flinch card NEXT
+        Since only two plays have gone by, if someone calls a Flinch action--it SHOULD be valid...but it might accidentally be reset
+
+ */
+
 public class FLocalGame extends LocalGame{
     //instance variables
-    FState state; //state of game UNCOMMENT ONCE FSTATE IS MADE
-    int numMoves; //number of moves since canBeFlinched was set to true
-    boolean potentialFlinch; //whether the current player is at risk of Flinching themselves
-    boolean alreadyFlinchedThisPlay; //whether current player has already been flinched this play of a single card
+    private FState state; //state of game UNCOMMENT ONCE FSTATE IS MADE
+    private int numMoves; //number of moves since canBeFlinched was set to true
+    private boolean flinchPotential; //whether the current player is at risk of Flinching themselves
+    private boolean alreadyFlinchedThisPlay; //whether current player has already been flinched this play of a single card
+    private int numPlayers; // the number of players in the game
 
     /**
+     * Constructor to set up the number of players
+     * @param num
+     */
+    public FLocalGame(int num) {
+        numPlayers = num;
+        numMoves = 0;
+        flinchPotential = false;
+        state = new FState(numPlayers);
+        alreadyFlinchedThisPlay = false;
+    }
+     /**
      * checkForFlinch()
      *
      * Checks whether the current player can be Flinched
-     *
-     * Returns: true if player can be Flinched, else false.
+
      *///TODO finish this
-    protected boolean checkForFlinch() {
-        /*if(potentialFlinch && alreadyFlinchedThisPlay == false) {
+    protected void checkForFlinch() {
+       /* if(flinchPotential && alreadyFlinchedThisPlay == false) {
             alreadyFlinchedThisPlay = true;
             numMoves = 0;
             return true;
         }
-        alreadyFlinchedThisPlay = false;*/
+        alreadyFlinchedThisPlay = false;
         return false;
+        */
+       // is the top card of flinch pile playable? (see FComputerPlayer isPlayable for <code></code>
+            /* if( ... ) {
+                    // they could possibly flinch themselves
+                    flinchPotential = true;
+                    numMoves = 0;
+               } else {
+                    flinchPotential = false;
+               }
+             */
     }
 
     /**
@@ -46,7 +76,7 @@ public class FLocalGame extends LocalGame{
      *///TODO finish this
     @Override
     protected boolean canMove(int playerIdx) {
-        if (playerIdx < 0 || playerIdx > 1) {
+        if (playerIdx < 0 || playerIdx > numPlayers) {
             // if our player-number is out of range, return false
             return false;
         }
@@ -85,6 +115,52 @@ public class FLocalGame extends LocalGame{
                 return false;
             } else {
                 // it's the correct player's turn
+                FPlayAction fpa = (FPlayAction) fma;
+                boolean flinch = false, hand = false, discard = false;
+                //HOW YOU KNOW WHICH DECK ITS COMING FROM
+                if (fpa.getCardPile() instanceof FlinchPile) {
+                    flinch = true;
+                } else if(fpa.getCardPile() instanceof Hand) {
+                    hand = true;
+                } else  {
+                    discard = true;
+                }
+                // is the play legal?
+                    // get the card from the correct location to check
+                    // check if first turn rules apply
+
+                    // it is the first turn--only ones are valid
+                        // a One was played, it is no longer the first turn
+
+
+
+
+                 // this is a legal move--remove the card from the players correct cardPile and play to center
+
+                // did the player Flinch themselves?
+                if(!flinchPotential) {
+                    // check
+                    checkForFlinch();
+                } else {
+                    // they already had the potential to Flinch themselves
+                    if(flinch) {
+                        // they played from their Flinch pile, so might not have Flinched
+                        checkForFlinch();
+                    } else {
+                        // they have officially Flinched themselves
+                        numMoves++;
+                        // too many moves have gone by: the flinch is invalid
+                        if(numMoves > 2) {
+                            state.setFlinchable(state.getWhoseTurn(), false );
+                            checkForFlinch();
+                        } else {
+                            state.setFlinchable(state.getWhoseTurn(), true);
+                        }
+                    }
+
+                    //TODO: CHANGE RETURN VALUE, CHECK THE PLAYER'S HAND FOR BEING EMPTY, ALREADY FLINCHED THIS PLAY STUFF, TESTING
+                }
+
                 // HOW TO GET WHICH DECK IT'S COMING FROM??
                 return false;//change later
             }

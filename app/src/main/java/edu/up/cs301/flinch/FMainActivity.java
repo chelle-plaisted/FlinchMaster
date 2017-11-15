@@ -19,6 +19,7 @@ import edu.up.cs301.game.title.FTitleScreen;
 
 public class FMainActivity extends GameMainActivity {
     public static final int PORT_NUMBER = 4752;
+    private GameConfig defaultConfig; // the default configuration
 
     public GameConfig createDefaultConfig() {
 
@@ -61,7 +62,7 @@ public class FMainActivity extends GameMainActivity {
         });
 
         // Create a game configuration class for SlapJack
-        GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "Flinch", PORT_NUMBER);
+        defaultConfig = new GameConfig(playerTypes, 2, 2, "Flinch", PORT_NUMBER);
 
         // Add the default players
         defaultConfig.addPlayer("Human", 0);
@@ -81,6 +82,6 @@ public class FMainActivity extends GameMainActivity {
 
     public LocalGame createLocalGame() {
         //FLocalGame needs to be created
-        return new FLocalGame();
+        return new FLocalGame(defaultConfig.getNumPlayers());
     }
 }

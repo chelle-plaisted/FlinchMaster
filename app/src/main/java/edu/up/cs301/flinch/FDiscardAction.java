@@ -12,7 +12,6 @@ public class FDiscardAction extends FMoveAction {
     private int indexFrom; //this index of the Card to be discarded from the hand
     private int indexTo; // the index fo where the card is going to in the discards
     public FDiscardAction(GamePlayer player, int source, int destination) {
-
         super(player);
         indexFrom = source;
         indexTo = destination;
