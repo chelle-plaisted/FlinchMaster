@@ -205,7 +205,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 (100-VERTICAL_BORDER_PERCENT)*height/100f);
     }
 
-
+//
     /**
      * @return
      * 		the rectangle that represents the location on the drawing
@@ -224,7 +224,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         float rectBottom = (100-VERTICAL_BORDER_CENTERPILE)*height/100f;
         return new RectF(rectLeft, rectTop, rectRight, rectBottom);
     }
-    //ALL CENTERPILES STIL NEED TO BE SCALED TO THE CORRECT SIZE AND PLACE ON SCREEN 
+    //ALL CENTERPILES STIL NEED TO BE SCALED TO THE CORRECT SIZE AND PLACE ON SCREEN
     private RectF centerPile2() {
 
         // near the middle-bottom (first row of cards) of the drawing surface, based on the height
