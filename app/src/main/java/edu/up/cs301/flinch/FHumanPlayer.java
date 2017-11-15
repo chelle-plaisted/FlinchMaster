@@ -205,7 +205,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 (100-VERTICAL_BORDER_PERCENT)*height/100f);
     }
 
-//
+////
     /**
      * @return
      * 		the rectangle that represents the location on the drawing
