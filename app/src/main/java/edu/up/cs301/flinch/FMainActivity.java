@@ -25,13 +25,13 @@ public class FMainActivity extends GameMainActivity {
         // Define the allowed player types
         ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
 
-        playerTypes.add(new GamePlayerType("human player (green)") {
+        playerTypes.add(new GamePlayerType("human player (White)") {
             public GamePlayer createPlayer(String name) {
-                return new FHumanPlayer(name, Color.GREEN);
+                return new FHumanPlayer(name, Color.WHITE);
             }});
-        playerTypes.add(new GamePlayerType("human player (yellow)") {
+        playerTypes.add(new GamePlayerType("human player (White)") {
             public GamePlayer createPlayer(String name) {
-                return new FHumanPlayer(name, Color.YELLOW);
+                return new FHumanPlayer(name, Color.WHITE);
             }
         });
         playerTypes.add(new GamePlayerType("computer player (normal)") {
