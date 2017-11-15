@@ -179,7 +179,7 @@ public class FSmartComputerPlayer extends FComputerPlayer {
         }
         return closest;
     }
-
+/*
     private boolean playFlinchTest() {
         // look at the flinch pile
         // if there is a card in the center higher than the flinch pile, hunt to see if we can build to it
@@ -212,7 +212,7 @@ public class FSmartComputerPlayer extends FComputerPlayer {
                    // game.sendAction(new FPlayAction(this, 0, index, new FlinchPile()));
                     game.
                     // can we play the next one?
-                    playFlinchTest();
+                    //playFlinchTest();
                     return true;
                 } else {
                     if (playDiscard())
@@ -230,6 +230,6 @@ public class FSmartComputerPlayer extends FComputerPlayer {
 
         goalIndex = -1;
         return false;
-    }
+    }*/
 
 }

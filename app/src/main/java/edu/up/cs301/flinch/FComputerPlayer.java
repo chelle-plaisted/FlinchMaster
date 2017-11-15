@@ -82,14 +82,6 @@ public class FComputerPlayer extends GameComputerPlayer
 		// if it is our turn, we will play cards
 		// otherwise, monitor for Flinches if able to
 
-
-		/*
-		// discard to end turn--assume I am the current player
-		FPlayerState me = savedState.getPlayerState(savedState.getWhoseTurn());
-		int toDiscard = (int) (Math.random() * me.getHand().size());
-		int destination = (int) (Math.random() * 5);
-		game.sendAction(new DiscardAction(toDiscard, destination));
-		*/
 	}
 
 	/**

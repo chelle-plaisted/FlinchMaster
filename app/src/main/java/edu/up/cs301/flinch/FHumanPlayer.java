@@ -132,6 +132,22 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     }
 
     public void tick(Canvas canvas) {
+        // TODO: BELOW
+            /*
+            // Draw the cards of each player
+                ///suggestion: use helper methods for each of the spaces
+                    drawBottomPlayer()
+                    drawLeftPlayer()
+                    drawRightPlayer()
+                    drawTopPlayer()
+                // draw the player cards based on the number of players
+                    2 players: top and bottom
+                    3 players: left, right, bottom
+                    4 players: all 4
+             // draw the center piles
+             // draw the flinch button
+
+             */
         // ignore if we have not yet received the game state
         if (state == null) return;
 
