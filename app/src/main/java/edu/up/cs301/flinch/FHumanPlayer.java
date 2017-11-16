@@ -30,7 +30,10 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     private final static float LEFT_BORDER_PERCENT = 4; // width of left border
     private final static float RIGHT_BORDER_PERCENT = 20; // width of right border
     private final static float VERTICAL_BORDER_PERCENT = 300; // width of top/bottom borders
-    private final static float VERTICAL_BORDER_CENTERPILE = 200;
+    private final static float FLINCH_PILE_HEIGHT = 30;
+    private final static float FLINCH_PILE_WIDTH = 10;
+
+
 
     // our game state
     protected FState state;
@@ -156,21 +159,10 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         int height = surface.getHeight();
         int width = surface.getWidth();
 
-        // draw the middle card-pile
-        Card c = state.getDeck(2).peekAtTopCard(); // top card in pile
-        //if (c != null) {
-            // if middle card is not empty, draw a set of N card-backs
-            // behind the middle card, so that the user can see the size of
-            // the pile
-            RectF centerPile1 = centerPile1();
-            //drawCardBacks(canvas, midTopLocation,
-                   // 0.0025f*width, -0.01f*height, state.getDeck(2).size());
-            // draw the top card, face-up
-            //drawCard(canvas, midTopLocation, c);
-        //}
+        //Card c = state.getDeck(2).peekAtTopCard(); // top card in pile
 
         // draw the opponent's cards, face down
-        RectF oppTopLocation = opponentTopCardLocation(); // drawing size/location
+       // RectF oppTopLocation = opponentTopCardLocation(); // drawing size/location
         //drawCardBacks(canvas, oppTopLocation,
                 //0.0025f*width, -0.01f*height, state.getDeck(1-this.playerNum).size());
 
@@ -180,7 +172,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 //0.0025f*width, -0.01f*height, state.getDeck(this.playerNum).size());
 
         // draw a red bar to denote which player is to play (flip) a card
-        RectF currentPlayerRect =
+       /* RectF currentPlayerRect =
                 state.toPlay() == this.playerNum ? thisTopLocation : oppTopLocation;
         RectF turnIndicator =
                 new RectF(currentPlayerRect.left,
@@ -189,19 +181,96 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                         height);
         Paint paint = new Paint();
         paint.setColor(Color.RED);
-        canvas.drawRect(turnIndicator, paint);
+        canvas.drawRect(turnIndicator, paint);*/
 
     }
 
-    private RectF opponentTopCardLocation() {
-        // near the upper-left of the drawing surface, based on the height
-        // and width, and the percentages defined above
+
+    //this will represent the human player's cards
+    private RectF drawBottomPlayerFLINCH() {
         int width = surface.getWidth();
         int height = surface.getHeight();
-        return new RectF(LEFT_BORDER_PERCENT*width/100f,
-                (100-VERTICAL_BORDER_PERCENT-CARD_HEIGHT_PERCENT)*height/100f,
-                (LEFT_BORDER_PERCENT+CARD_WIDTH_PERCENT)*width/100f,
-                (100-VERTICAL_BORDER_PERCENT)*height/100f);
+       RectF flinch = new RectF(LEFT_BORDER_PERCENT*width/100f,
+                (100-VERTICAL_BORDER_PERCENT-FLINCH_PILE_HEIGHT)*height/100f,
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH)*width/100f, 100-VERTICAL_BORDER_PERCENT/100f);
+        return flinch;
+    }
+    //draws the first card in the players hand
+    private RectF drawBottomPlayerONE () {
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF one = new RectF (LEFT_BORDER_PERCENT*width/90f,
+                (90-VERTICAL_BORDER_PERCENT-CARD_HEIGHT_PERCENT)*height/90f,
+                (LEFT_BORDER_PERCENT+CARD_WIDTH_PERCENT)*width/90f,
+                90-VERTICAL_BORDER_PERCENT/90f);
+        return one;
+    }
+    //draws the second card in the players hand
+    private RectF drawBottomPlayerTWO () {
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF two = new RectF (LEFT_BORDER_PERCENT*width/80f,
+                (80-VERTICAL_BORDER_PERCENT-CARD_HEIGHT_PERCENT)*height/80f,
+                (LEFT_BORDER_PERCENT+CARD_WIDTH_PERCENT)*width/80f,
+                80-VERTICAL_BORDER_PERCENT/80f);
+        return two;
+    }
+    //draws the third card in the players hand
+    private RectF drawBottomPlayerTHREE () {
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF three = new RectF (LEFT_BORDER_PERCENT*width/70f,
+                (70-VERTICAL_BORDER_PERCENT-CARD_HEIGHT_PERCENT)*height/70f,
+                (LEFT_BORDER_PERCENT+CARD_WIDTH_PERCENT)*width/70f,
+                70-VERTICAL_BORDER_PERCENT/70f);
+        return three;
+    }
+    //draws the fourth card in the players hand
+    private RectF drawBottomPlayerFOUR () {
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF four = new RectF (LEFT_BORDER_PERCENT*width/60f,
+                (60-VERTICAL_BORDER_PERCENT-CARD_HEIGHT_PERCENT)*height/60f,
+                (LEFT_BORDER_PERCENT+CARD_WIDTH_PERCENT)*width/60f,
+                60-VERTICAL_BORDER_PERCENT/60f);
+        return four;
+    }
+    //draws the fifth card in the players hand
+    private RectF drawBottomPlayerFIVE () {
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF five = new RectF (LEFT_BORDER_PERCENT*width/50f,
+                (50-VERTICAL_BORDER_PERCENT-CARD_HEIGHT_PERCENT)*height/50f,
+                (LEFT_BORDER_PERCENT+CARD_WIDTH_PERCENT)*width/50f,
+                50-VERTICAL_BORDER_PERCENT/50f);
+        return five;
+    }
+    /*
+    OPPONENTS CARDS
+    for following three methods:
+    will only be opponents flinch pile as the human player can not see the others hand
+
+     */
+    private RectF drawLeftPlayer() {
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF flinch1 = new RectF(LEFT_BORDER_PERCENT*width/100f,
+                (10-VERTICAL_BORDER_PERCENT-CARD_HEIGHT_PERCENT)*height/10f,
+                (LEFT_BORDER_PERCENT+CARD_WIDTH_PERCENT)*width/10f,
+                (100-VERTICAL_BORDER_PERCENT*height/100f));
+        return flinch1;
+    }
+    private RectF drawRightPlayer() {
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF flinch2 = new RectF((100-RIGHT_BORDER_PERCENT-CARD_WIDTH_PERCENT)*width/100f,
+                (100-VERTICAL_BORDER_PERCENT-CARD_HEIGHT_PERCENT)*height/75f,
+        (100-RIGHT_BORDER_PERCENT)*width/100f, (100-VERTICAL_BORDER_PERCENT)*height/100f);
+        return null;
+    }
+
+    private RectF drawTopPlayer() {
+        return null;
     }
 
     /**
@@ -221,165 +290,6 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 (100-VERTICAL_BORDER_PERCENT)*height/100f);
     }
 
-////
-    /**
-     * @return
-     * 		the rectangle that represents the location on the drawing
-     * 		surface where the top card in the middle pile is to
-     * 		be drawn
-     * 	can be used as our center piles
-     */
-    private RectF centerPile1 () {
-        // near the middle-bottom (second row of cards) of the drawing surface, based on the height
-        // and width, and the percentages defined above
-        int height = surface.getHeight();
-        int width = surface.getWidth();
-        float rectLeft = (100-CARD_WIDTH_PERCENT+LEFT_BORDER_PERCENT-RIGHT_BORDER_PERCENT)*width/200;
-        float rectRight = rectLeft + width*CARD_WIDTH_PERCENT/100;
-        float rectTop = (100-VERTICAL_BORDER_CENTERPILE-CARD_HEIGHT_PERCENT)*height/100f;
-        float rectBottom = (100-VERTICAL_BORDER_CENTERPILE)*height/100f;
-        return new RectF(rectLeft, rectTop, rectRight, rectBottom);
-    }
-    //ALL CENTERPILES STIL NEED TO BE SCALED TO THE CORRECT SIZE AND PLACE ON SCREEN
-    private RectF centerPile2() {
-
-        // near the middle-bottom (first row of cards) of the drawing surface, based on the height
-        // and width, and the percentages defined above
-        int height = surface.getHeight();
-        int width = surface.getWidth();
-        float rectLeft = (CARD_WIDTH_PERCENT+LEFT_BORDER_PERCENT-RIGHT_BORDER_PERCENT)*width/200;
-        float rectRight = rectLeft + width*CARD_WIDTH_PERCENT/100;
-        float rectTop = (100-VERTICAL_BORDER_CENTERPILE-CARD_HEIGHT_PERCENT)*height/100f;
-        float rectBottom = (100-VERTICAL_BORDER_CENTERPILE)*height/100f;
-        return new RectF(rectLeft, rectTop, rectRight, rectBottom);
-        //
-    }
-    private RectF centerPile3() {
-
-        // near the middle-bottom (first row of cards) of the drawing surface, based on the height
-        // and width, and the percentages defined above
-        int height = surface.getHeight();
-        int width = surface.getWidth();
-        float rectLeft = (CARD_WIDTH_PERCENT+LEFT_BORDER_PERCENT-RIGHT_BORDER_PERCENT)*width/200;
-        float rectRight = rectLeft + width*CARD_WIDTH_PERCENT/100;
-        float rectTop = (100-VERTICAL_BORDER_CENTERPILE-CARD_HEIGHT_PERCENT)*height/100f;
-        float rectBottom = (100-VERTICAL_BORDER_CENTERPILE)*height/100f;
-        return new RectF(rectLeft, rectTop, rectRight, rectBottom);
-    }
-    private RectF centerPile4() {
-
-        // near the middle-bottom (first row of cards) of the drawing surface, based on the height
-        // and width, and the percentages defined above
-        int height = surface.getHeight();
-        int width = surface.getWidth();
-        float rectLeft = (CARD_WIDTH_PERCENT+LEFT_BORDER_PERCENT-RIGHT_BORDER_PERCENT)*width/200;
-        float rectRight = rectLeft + width*CARD_WIDTH_PERCENT/100;
-        float rectTop = (100-VERTICAL_BORDER_CENTERPILE-CARD_HEIGHT_PERCENT)*height/100f;
-        float rectBottom = (100-VERTICAL_BORDER_CENTERPILE)*height/100f;
-        return new RectF(rectLeft, rectTop, rectRight, rectBottom);
-    }
-    private RectF centerPile5() {
-
-        // near the middle-bottom (first row of cards) of the drawing surface, based on the height
-        // and width, and the percentages defined above
-        int height = surface.getHeight();
-        int width = surface.getWidth();
-        float rectLeft = (CARD_WIDTH_PERCENT+LEFT_BORDER_PERCENT-RIGHT_BORDER_PERCENT)*width/200;
-        float rectRight = rectLeft + width*CARD_WIDTH_PERCENT/100;
-        float rectTop = (100-VERTICAL_BORDER_CENTERPILE-CARD_HEIGHT_PERCENT)*height/100f;
-        float rectBottom = (100-VERTICAL_BORDER_CENTERPILE)*height/100f;
-        return new RectF(rectLeft, rectTop, rectRight, rectBottom);
-    }
-    private RectF centerPile6() {
-
-        // near the middle-bottom (first row of cards) of the drawing surface, based on the height
-        // and width, and the percentages defined above
-        int height = surface.getHeight();
-        int width = surface.getWidth();
-        float rectLeft = (CARD_WIDTH_PERCENT+LEFT_BORDER_PERCENT-RIGHT_BORDER_PERCENT)*width/200;
-        float rectRight = rectLeft + width*CARD_WIDTH_PERCENT/100;
-        float rectTop = (100-VERTICAL_BORDER_CENTERPILE-CARD_HEIGHT_PERCENT)*height/100f;
-        float rectBottom = (100-VERTICAL_BORDER_CENTERPILE)*height/100f;
-        return new RectF(rectLeft, rectTop, rectRight, rectBottom);
-    }
-    private RectF centerPile7() {
-
-        // near the middle-bottom (first row of cards) of the drawing surface, based on the height
-        // and width, and the percentages defined above
-        int height = surface.getHeight();
-        int width = surface.getWidth();
-        float rectLeft = (CARD_WIDTH_PERCENT+LEFT_BORDER_PERCENT-RIGHT_BORDER_PERCENT)*width/200;
-        float rectRight = rectLeft + width*CARD_WIDTH_PERCENT/100;
-        float rectTop = (100-VERTICAL_BORDER_CENTERPILE-CARD_HEIGHT_PERCENT)*height/100f;
-        float rectBottom = (100-VERTICAL_BORDER_CENTERPILE)*height/100f;
-        return new RectF(rectLeft, rectTop, rectRight, rectBottom);
-    }
-    private RectF centerPile8() {
-
-        // near the middle-bottom (first row of cards) of the drawing surface, based on the height
-        // and width, and the percentages defined above
-        int height = surface.getHeight();
-        int width = surface.getWidth();
-        float rectLeft = (CARD_WIDTH_PERCENT+LEFT_BORDER_PERCENT-RIGHT_BORDER_PERCENT)*width/200;
-        float rectRight = rectLeft + width*CARD_WIDTH_PERCENT/100;
-        float rectTop = (100-VERTICAL_BORDER_CENTERPILE-CARD_HEIGHT_PERCENT)*height/100f;
-        float rectBottom = (100-VERTICAL_BORDER_CENTERPILE)*height/100f;
-        return new RectF(rectLeft, rectTop, rectRight, rectBottom);
-    }
-    private RectF centerPile9() {
-
-        // near the middle-bottom (first row of cards) of the drawing surface, based on the height
-        // and width, and the percentages defined above
-        int height = surface.getHeight();
-        int width = surface.getWidth();
-        float rectLeft = (CARD_WIDTH_PERCENT+LEFT_BORDER_PERCENT-RIGHT_BORDER_PERCENT)*width/200;
-        float rectRight = rectLeft + width*CARD_WIDTH_PERCENT/100;
-        float rectTop = (100-VERTICAL_BORDER_CENTERPILE-CARD_HEIGHT_PERCENT)*height/100f;
-        float rectBottom = (100-VERTICAL_BORDER_CENTERPILE)*height/100f;
-        return new RectF(rectLeft, rectTop, rectRight, rectBottom);
-    }
-    private RectF centerPile10() {
-
-        // near the middle-bottom (first row of cards) of the drawing surface, based on the height
-        // and width, and the percentages defined above
-        int height = surface.getHeight();
-        int width = surface.getWidth();
-        float rectLeft = (CARD_WIDTH_PERCENT+LEFT_BORDER_PERCENT-RIGHT_BORDER_PERCENT)*width/200;
-        float rectRight = rectLeft + width*CARD_WIDTH_PERCENT/100;
-        float rectTop = (100-VERTICAL_BORDER_CENTERPILE-CARD_HEIGHT_PERCENT)*height/100f;
-        float rectBottom = (100-VERTICAL_BORDER_CENTERPILE)*height/100f;
-        return new RectF(rectLeft, rectTop, rectRight, rectBottom);
-    }
-
-    /**
-     * MAY OR MAY NOT WANT THIS METHOD
-     * draws a sequence of card-backs, each offset a bit from the previous one, so that all can be
-     * seen to some extent
-     *
-     * @param g
-     * 		the canvas to draw on
-     * @param topRect
-     * 		the rectangle that defines the location of the top card (and the size of all
-     * 		the cards
-     * @param deltaX
-     * 		the horizontal change between the drawing position of two consecutive cards
-     * @param deltaY
-     * 		the vertical change between the drawing position of two consecutive cards
-     * @param numCards
-     * 		the number of card-backs to draw
-     */
-    private void drawCardBacks(Canvas g, RectF topRect, float deltaX, float deltaY,
-                               int numCards) {
-        // loop through from back to front, drawing a card-back in each location
-        for (int i = numCards-1; i >= 0; i--) {
-            // determine theh position of this card's top/left corner
-            float left = topRect.left + i*deltaX;
-            float top = topRect.top + i*deltaY;
-            // draw a card-back (hence null) into the appropriate rectangle
-            drawCard(g, new RectF(left, top, left + topRect.width(), top + topRect.height()),
-                    null);
-        }
-    }
 
     public void onTouch(MotionEvent event) {
         // ignore everything except down-touch events
@@ -392,7 +302,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         // determine whether the touch occurred on the top-card of either
         // the player's pile or the middle pile
         RectF myTopCardLoc = thisPlayerTopCardLocation();
-        RectF middleTopCardLoc = centerPile1();
+
         if (myTopCardLoc.contains(x, y)) {
             // it's on my pile: we're playing a card: send action to
             // the game
