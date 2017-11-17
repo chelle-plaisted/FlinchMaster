@@ -26,9 +26,9 @@ public class FMainActivity extends GameMainActivity {
         // Define the allowed player types
         ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
 
-        playerTypes.add(new GamePlayerType("human player (White)") {
+        playerTypes.add(new GamePlayerType("human player (Green)") {
             public GamePlayer createPlayer(String name) {
-                return new FHumanPlayer(name, Color.WHITE);
+                return new FHumanPlayer(name, Color.GREEN);
             }});
         playerTypes.add(new GamePlayerType("human player (White)") {
             public GamePlayer createPlayer(String name) {
@@ -37,10 +37,10 @@ public class FMainActivity extends GameMainActivity {
         });
         playerTypes.add(new GamePlayerType("computer player (normal)") {
             public GamePlayer createPlayer(String name) {
-                return new FComputerPlayer(name);
+                return new FDumbComputerPlayer(name);
             }
         });
-        playerTypes.add(new GamePlayerType("computer player (fast)") {
+   /*     playerTypes.add(new GamePlayerType("computer player (fast)") {
             public GamePlayer createPlayer(String name) {
                 return new FComputerPlayer(name, 0.3);
             }
@@ -60,9 +60,10 @@ public class FMainActivity extends GameMainActivity {
                 return new FComputerPlayer(name, 3.5);
             }
         });
+        */
 
-        // Create a game configuration class for SlapJack
-        defaultConfig = new GameConfig(playerTypes, 2, 2, "Flinch", PORT_NUMBER);
+        // Create a game configuration class for Flinch
+        defaultConfig = new GameConfig(playerTypes, 2, 4, "Flinch", PORT_NUMBER);
 
         // Add the default players
         defaultConfig.addPlayer("Human", 0);

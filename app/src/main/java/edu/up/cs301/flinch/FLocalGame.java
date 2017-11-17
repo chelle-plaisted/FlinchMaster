@@ -73,14 +73,16 @@ public class FLocalGame extends LocalGame{
      * @param playerIdx
      *          Index of current player
      *
-     *///TODO finish this
+     *///TODO comment stuff
     @Override
     protected boolean canMove(int playerIdx) {
         if (playerIdx < 0 || playerIdx > numPlayers) {
             // if our player-number is out of range, return false
             return false;
         }
-
+        if(playerIdx == state.getWhoseTurn()) {
+            return true;
+        }
         return false;
     }
 
@@ -110,7 +112,7 @@ public class FLocalGame extends LocalGame{
 
         //play action
         if (fma.isPlay()) {
-            if (thisPlayerIdx != state.toPlay()) {
+            if (thisPlayerIdx != state.getWhoseTurn()) {
                 // attempt to play when it's the other player's turn
                 return false;
             } else {
@@ -161,7 +163,7 @@ public class FLocalGame extends LocalGame{
                     //TODO: CHANGE RETURN VALUE, CHECK THE PLAYER'S HAND FOR BEING EMPTY, ALREADY FLINCHED THIS PLAY STUFF, TESTING
                 }
 
-                // HOW TO GET WHICH DECK IT'S COMING FROM??
+
                 return false;//change later
             }
 
@@ -184,7 +186,13 @@ public class FLocalGame extends LocalGame{
      * Returns: true if game is over and false if it is not
      *///TODO finish this
     protected String checkIfGameOver() {
-
+        // for loop
+        // check all player's flinch piles
+        // if one is empty.. return true
+        // else return false
+        for(int i = 0; i < state.numPlayers; i++) {
+            return null;
+        }
 
         return null;
     }
@@ -214,11 +222,15 @@ public class FLocalGame extends LocalGame{
      * Checks if the players hand is empty and gives them new cards
      *
      * Returns: true if the player needs cards and false if not
-     *///TODO finish this
+     *///TODO comment stuff
     protected boolean isNeedCards() {
-        if(state.getPlayerState(state.getWhoseTurn()).getHand().size() == 0) {
-            //state.getPlayerState(playerIdx).getHand().fillHand(d);
-            return false;//remove later
+        Hand h = state.getPlayerState(state.getWhoseTurn()).getHand();
+        if (h == null) {
+            return false;
+        }
+        if(h.size() == 0) {
+            state.replenishPlayerHand();
+            return true;
         }
 
         return false;

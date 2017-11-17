@@ -13,3 +13,9 @@ Solution:
     The source above discusses a method for shuffling cards using the Random class to generate a
     random number and setting that as the index for a given card. Continually doing this for all
     cards will randomly shuffle the whole deck.
+
+Entry #2
+Date:
+Problem:
+Source Used:
+Solution:

@@ -79,7 +79,8 @@ public abstract class CardPile {
      */
     public void add(Card c) {
         // if the Card object is valid and the card pile is not full
-        if((c != null) && (cardPile.size() < maxCards)) {
+        // a Card object with an invalid number should not be added
+        if((c != null) && (cardPile.size() < maxCards) && c.getNum() != -1) {
             // add the card object to the bottom of the cardPile ArrayList
             cardPile.add(c);
         }
@@ -95,7 +96,8 @@ public abstract class CardPile {
      */
     public void addAt(Card c, int index) {
         // if the card pile is not full, Card object is valid, and the index is valid
-        if((c != null) && (index >= 0) && (cardPile.size() < maxCards)) {
+        // a Card object with an invalid number should not be added
+        if((c != null) && (index >= 0) && (cardPile.size() < maxCards && c.getNum() != -1)) {
             // add the Card object (c) to the given position (index)
             cardPile.add(index, c);
         }
@@ -123,7 +125,8 @@ public abstract class CardPile {
      */
     public Card removeTopCard() {
         // if the top card exists
-        if(cardPile.get(0) != null) {
+        //if(cardPile.get(0) != null) {
+        if(size() >0) {
             // position zero represents the top card of the pile, therefore remove it
             return cardPile.remove(0);
         }
@@ -144,8 +147,8 @@ public abstract class CardPile {
      *         null if no Card object was removed
      */
     public Card removeCardAt(int index) {
-        // if the index number is valid and not above the maximum number of cards
-        if((index >= 0) && (index <= maxCards)) {
+        // if the index number is valid and not above the number of cards in the pile
+        if((index >= 0) && (index < size())) {
             // remove the Card object at the given index
             return cardPile.remove(index);
         }
@@ -166,6 +169,9 @@ public abstract class CardPile {
      */
     public int getTopCard() {
         // if the top card exists
+        if(cardPile == null || cardPile.size() == 0) {
+            return -1;
+        }
         if(cardPile.get(0) != null) {
             // return the value of the card in position zero
             return cardPile.get(0).getNum();
@@ -175,5 +181,11 @@ public abstract class CardPile {
             // return a negative number to indicate that the card does not exist
             return -1;
         }
+    }
+
+
+    // TESTING HOOKS BELOW HERE
+    public int testerGetMax() {
+        return maxCards;
     }
 }

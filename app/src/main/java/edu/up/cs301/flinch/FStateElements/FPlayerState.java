@@ -13,7 +13,8 @@ public class FPlayerState {
     DiscardPile[] discards;
     boolean hasFlinched;
 
-    public FPlayerState() {}
+    public FPlayerState() {
+    }
 
     public FPlayerState(FPlayerState orig) {
         hand = orig.hand;
@@ -68,6 +69,20 @@ public class FPlayerState {
      */
     public boolean isFlinchable() {
         return hasFlinched;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        FPlayerState compare = (FPlayerState) o;
+        // initialize the number of the players in the game
+        if(this.hand != compare.hand) {
+            return false;
+        } else if(this.discards != compare.discards || this.flinch != compare.flinch || this.hasFlinched != compare.hasFlinched) {
+            return false;
+        }
+
+
+        return true;
     }
 }
 

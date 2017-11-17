@@ -26,7 +26,7 @@ public class FState extends GameState
 	// whose turn is it to turn a card?
 	int toPlay;
 	// how many players are there
-	int numPlayers;
+	public int numPlayers;
 	// the individual player info
 	FPlayerState[] players;
 	// the contents of the center piles
@@ -38,6 +38,8 @@ public class FState extends GameState
 	/**
 	 * Constructor for objects of class FState. Initializes for the beginning of the
 	 * game, with a random player as the first to turn card
+	 *
+	 * Assumes num will satisfy: 0 <= num <= 4
 	 *
 	 */
 	public FState(int num) {
@@ -55,8 +57,8 @@ public class FState extends GameState
 
 		// initialize center piles to empty
 		center = new CenterPile[10];
-		for(CenterPile c : center){
-			c = new CenterPile();
+		for(int i = 0; i < 10; i++){
+			center[i] = new CenterPile();
 		}
 		// initialize the players
 		initPlayers();
@@ -99,19 +101,19 @@ public class FState extends GameState
 	 */
 	private void initPlayers() {
 		players = new FPlayerState[numPlayers];
-		for (FPlayerState p : players) {
-			p = new FPlayerState();
+		for (int i = 0; i < players.length; i++) {
+			players[i] = new FPlayerState();
 			// initialize Hand
-			p.hand = new Hand(deck);
+			players[i].hand = new Hand(deck);
 			// initialize Discard piles
-			p.discards = new DiscardPile[5];
-			for (DiscardPile d : p.discards) {
+			players[i].discards = new DiscardPile[5];
+			for (DiscardPile d : players[i].discards) {
 				// initialize each pile to empty
 				d = new DiscardPile();
 			}
 			// initialize Flinch pile
-			p.flinch = new FlinchPile(deck);
-			p.hasFlinched = false;
+			players[i].flinch = new FlinchPile(deck);
+			players[i].hasFlinched = false;
 		}
 	}
 
@@ -148,6 +150,9 @@ public class FState extends GameState
 	 * 	the player's publicly available info
 	 */
 	public FPlayerState getPlayerState(int playerID) {
+		if(playerID < 0 || playerID > numPlayers) {
+			return null;
+		}
 		return players[playerID];
 	}
 
@@ -171,14 +176,7 @@ public class FState extends GameState
 
 
 	/* MUTATORS */
-	/**
-	 * Tells which player's turn it is.
-	 *
-	 * @return the index (0 through numPlayers - 1) of the player whose turn it is.
-	 */
-	public int toPlay() {
-		return toPlay;
-	}
+
 
 	/**
 	 * change whose move it is
@@ -196,7 +194,9 @@ public class FState extends GameState
 	 * 	the id of the player who needs a new hand
 	 */
 	public void replenishPlayerHand() {
-		players[toPlay].hand.fillHand(deck);
+		if(players[toPlay].hand != null) {
+			players[toPlay].hand.fillHand(deck);
+		}
 	}
 
 	/**
@@ -205,7 +205,9 @@ public class FState extends GameState
 	 * 	index of the center pile that's full
 	 */
 	public void recycleFullCenterPile(int index){
-		center[index].empty();
+		if(center[index] != null) {
+			center[index].empty();
+		}
 	}
 
 	/**
@@ -275,12 +277,31 @@ public class FState extends GameState
 	 * 	whether or not the said player is flinchable
 	 */
 	public void setFlinchable(int playerId, boolean flinchable) {
+		if(playerId < 0 || playerId > numPlayers) {
+			return;
+		}
 		players[playerId].hasFlinched = flinchable;
 	}
 
 	public void givePlayerCard(int player, int cardNum) {
 		players[player].hand = new Hand();
 		players[player].hand.add(new Card(cardNum));
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		FState compare = (FState) o;
+		// initialize the number of the players in the game
+		if(!this.deck.equals(compare.deck)) {
+			return false;
+		}
+		if(this.numPlayers != compare.numPlayers || toPlay != compare.toPlay || deck != compare.deck ||
+				isStartOfGame != compare.isStartOfGame || center != compare.center || players != compare.players) {
+			return false;
+		}
+
+
+		return true;
 	}
 
 	public int getNumPlayers() {
