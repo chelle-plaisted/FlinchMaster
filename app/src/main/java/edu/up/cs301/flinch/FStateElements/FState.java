@@ -304,4 +304,8 @@ public class FState extends GameState
 		return true;
 	}
 
+	public int getNumPlayers() {
+		return numPlayers;
+	}
+
 }
