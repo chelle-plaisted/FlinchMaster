@@ -1,6 +1,8 @@
 package edu.up.cs301.cardpile;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Random;
 
 import edu.up.cs301.card.Card;
 
@@ -47,9 +49,7 @@ public class Deck extends CardPile {
      *
      * @return the Deck object full of cards
      */
-    public Deck fillDeck() {
-        // TODO: IMPLEMENT
-        /* DO NOT DELETE
+    public void fillDeck() {
         // add ten sets of Card objects
         for(int i = 0; i < 10; i++) {
             // add a set of Card objects numbered 1 through 15
@@ -61,35 +61,43 @@ public class Deck extends CardPile {
                 cardPile.add(c);
             }
         }
-        */
-
-        return null; // dummy return
     }
 
     /**
      * shuffle()
      *
+     *
+     *
      * @return
      */
-    public Deck shuffle() {
+    public void shuffle() {
         // TODO: IMPLEMENT
-        /* DO NOT DELETE
-        // create a new Deck object
-        Deck shuffledDeck = new Deck();
+        // check if empty
+        /*Random rand = new Random();
+        // hashSet to store numbers assigned
+        HashSet<Integer> randHash = new HashSet<Integer>();
+
 
         // go through each element in a copy of the cardPile ArrayList
         for(Card temp : new ArrayList<Card>(cardPile)) {
 
-        }
-        */
+        }*/
 
-        return null;
     }
 
     /**
      * addSet()
+     *
+     * Method to add a set of Card objects to the deck (numbered one through fifteen)
      */
     public void addSet() {
-        // TODO: IMPLEMENT
+        // add a set of Card objects numbered 1 through 15
+        for (int j = 1; j <= 15; j++) {
+            // create the new Card object
+            Card c = new Card(j);
+
+            // add the new Card object to the pile
+            cardPile.add(c);
+        }
     }
 }

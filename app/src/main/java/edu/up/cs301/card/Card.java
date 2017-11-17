@@ -74,6 +74,7 @@ public class Card implements Serializable {
         // return the value of the card
         return cardNum;
     }
+
     /**
      * Tells whether object are equal -- in other words that they are both Card
      * objects that represent the same card.
@@ -88,22 +89,6 @@ public class Card implements Serializable {
         Card c = (Card)other;
         return this.cardNum == c.cardNum;
     }
-
-    /**
-     * NOT SURE IF THIS METHOD IS NEEDED*******************************************************
-     *
-     *
-     * Tells whether object are equal -- in other words that they are both Card
-     * objects that represent the same card.
-     *
-     * @return
-     *		true if the two card objects represent the same card, false
-     *		otherwise.
-     */
-    //@Override
-    //public int hashCode() {
-        //return cardNum.hashCode()*18737;
-    //}
 
     /**
      * Draws the card on a Graphics object.  The card is drawn as a
@@ -181,7 +166,7 @@ public class Card implements Serializable {
     }
 
     /* additional needed methods/variables: see the original card class for details
-    -public static void initImiages (Activity activity)
+    -public static void initImages (Activity activity)
     -private static Bitmap[][] cardImages
     -private static int[][] resIdx
     -public String shortName()

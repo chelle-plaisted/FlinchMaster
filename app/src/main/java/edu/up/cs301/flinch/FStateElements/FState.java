@@ -26,7 +26,7 @@ public class FState extends GameState
 	// whose turn is it to turn a card?
 	int toPlay;
 	// how many players are there
-	int numPlayers;
+	public int numPlayers;
 	// the individual player info
 	FPlayerState[] players;
 	// the contents of the center piles
