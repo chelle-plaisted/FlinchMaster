@@ -118,18 +118,18 @@ public class Card implements Serializable {
     // images
     private static int[][] resIdx = {
             {
-                    R.drawable.Card01_1x, R.drawable.Card02_1x, R.drawable.Card03_1x,
-                    R.drawable.Card04_1x, R.drawable.Card05_1x, R.drawable.Card06_1x,
-                    R.drawable.Card07_1x, R.drawable.Card08_1x, R.drawable.Card09_1x,
-                    R.drawable.Card10_1x, R.drawable.Card11_1x, R.drawable.Card12_1x,
-                    R.drawable.Card13_1x, R.drawable.Card14_1x, R.drawable.Card15_1x,
+                    R.drawable.card01_1x, R.drawable.card02_1x, R.drawable.card03_1x,
+                    R.drawable.card04_1x, R.drawable.card05_1x, R.drawable.card06_1x,
+                    R.drawable.card07_1x, R.drawable.card08_1x, R.drawable.card09_1x,
+                    R.drawable.card10_1x, R.drawable.card11_1x, R.drawable.card12_1x,
+                    R.drawable.card13_1x, R.drawable.card14_1x, R.drawable.card15_1x,
             },
             {
-                    R.drawable.Card01_2x, R.drawable.Card02_2x, R.drawable.Card03_2x,
-                    R.drawable.Card04_2x, R.drawable.Card05_2x, R.drawable.Card06_2x,
-                    R.drawable.Card07_2x, R.drawable.Card08_2x, R.drawable.Card09_2x,
-                    R.drawable.Card10_2x, R.drawable.Card11_2x, R.drawable.Card12_2x,
-                    R.drawable.Card13_2x, R.drawable.Card14_2x, R.drawable.Card15_2x,
+                    R.drawable.card01_2x, R.drawable.card02_2x, R.drawable.card03_2x,
+                    R.drawable.card04_2x, R.drawable.card05_2x, R.drawable.card06_2x,
+                    R.drawable.card07_2x, R.drawable.card08_2x, R.drawable.card09_2x,
+                    R.drawable.card10_2x, R.drawable.card11_2x, R.drawable.card12_2x,
+                    R.drawable.card13_2x, R.drawable.card14_2x, R.drawable.card15_2x,
             },
     };
 

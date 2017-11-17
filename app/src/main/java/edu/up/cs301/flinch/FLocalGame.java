@@ -163,7 +163,7 @@ public class FLocalGame extends LocalGame{
                     //TODO: CHANGE RETURN VALUE, CHECK THE PLAYER'S HAND FOR BEING EMPTY, ALREADY FLINCHED THIS PLAY STUFF, TESTING
                 }
 
-                // HOW TO GET WHICH DECK IT'S COMING FROM??
+
                 return false;//change later
             }
 

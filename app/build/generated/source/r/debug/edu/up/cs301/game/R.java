@@ -25,9 +25,39 @@ public final class R {
         public static final int table_row_vert_pad=0x7f070005;
     }
     public static final class drawable {
-        public static final int ic_action_search=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
-        public static final int purple_delete_button=0x7f020002;
+        public static final int card01_1x=0x7f020000;
+        public static final int card01_2x=0x7f020001;
+        public static final int card02_1x=0x7f020002;
+        public static final int card02_2x=0x7f020003;
+        public static final int card03_1x=0x7f020004;
+        public static final int card03_2x=0x7f020005;
+        public static final int card04_1x=0x7f020006;
+        public static final int card04_2x=0x7f020007;
+        public static final int card05_1x=0x7f020008;
+        public static final int card05_2x=0x7f020009;
+        public static final int card06_1x=0x7f02000a;
+        public static final int card06_2x=0x7f02000b;
+        public static final int card07_1x=0x7f02000c;
+        public static final int card07_2x=0x7f02000d;
+        public static final int card08_1x=0x7f02000e;
+        public static final int card08_2x=0x7f02000f;
+        public static final int card09_1x=0x7f020010;
+        public static final int card09_2x=0x7f020011;
+        public static final int card10_1x=0x7f020012;
+        public static final int card10_2x=0x7f020013;
+        public static final int card11_1x=0x7f020014;
+        public static final int card11_2x=0x7f020015;
+        public static final int card12_1x=0x7f020016;
+        public static final int card12_2x=0x7f020017;
+        public static final int card13_1x=0x7f020018;
+        public static final int card13_2x=0x7f020019;
+        public static final int card14_1x=0x7f02001a;
+        public static final int card14_2x=0x7f02001b;
+        public static final int card15_1x=0x7f02001c;
+        public static final int card15_2x=0x7f02001d;
+        public static final int ic_action_search=0x7f02001e;
+        public static final int ic_launcher=0x7f02001f;
+        public static final int purple_delete_button=0x7f020020;
     }
     public static final class id {
         public static final int addPlayerButton=0x7f0a0012;

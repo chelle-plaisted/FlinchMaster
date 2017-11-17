@@ -292,7 +292,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
 
     public void onTouch(MotionEvent event) {
-        // ignore everything except down-touch events
+       /* // ignore everything except down-touch events
         if (event.getAction() != MotionEvent.ACTION_DOWN) return;
 
         // get the location of the touch on the surface
@@ -319,6 +319,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             // illegal touch-location: flash for 1/20 second
             surface.flash(Color.RED, 50);
         }
+        */
     }
 
     /**
