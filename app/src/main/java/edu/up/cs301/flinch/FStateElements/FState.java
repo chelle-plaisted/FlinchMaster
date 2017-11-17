@@ -207,7 +207,9 @@ public class FState extends GameState
 	 * 	index of the center pile that's full
 	 */
 	public void recycleFullCenterPile(int index){
-		center[index].empty();
+		if(center[index] != null) {
+			center[index].empty();
+		}
 	}
 
 	/**

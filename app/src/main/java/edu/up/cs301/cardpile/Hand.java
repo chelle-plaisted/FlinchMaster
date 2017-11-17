@@ -16,6 +16,9 @@ public class Hand extends CardPile {
     }
     public Hand(Deck d) {
         // TODO: IMPLEMENT
+        super();
+        // set the maximum cards allowable to 5
+        maxCards = 5;
     }
 
     /**

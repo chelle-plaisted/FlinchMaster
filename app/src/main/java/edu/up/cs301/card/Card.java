@@ -46,9 +46,11 @@ public class Card implements Serializable {
      */
     public Card(int num) {
         // if the number is valid
-        if((num > 0) && (num <= 16)) {
+        if((num > 0) && (num <= 15)) {
             // set the Card object number to num
             cardNum = num;
+        } else {
+            cardNum = -1;
         }
 
         // ********* TODO DETERMINE WHAT TO DO WHEN THE NUMBER IS NOT WITHIN RANGE
@@ -100,6 +102,10 @@ public class Card implements Serializable {
      * @param where  a rectangle that tells where the card should be drawn
      */
     public void drawOn(Canvas g, RectF where) {
+        // don't draw an invalid card
+        if(cardNum == -1) {
+            return;
+        }
         // create the paint object
         Paint p = new Paint();
         p.setColor(Color.BLACK);
