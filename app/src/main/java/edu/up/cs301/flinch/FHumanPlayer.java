@@ -140,6 +140,10 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
     public void tick(Canvas canvas) {
         // TODO: BELOW
+        if(state == null) {
+            // don't do things yet
+            return;
+        }
         int height = surface.getHeight();
         int width = surface.getWidth();
         if (cardPlace == null ) {
