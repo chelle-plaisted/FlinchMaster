@@ -66,22 +66,43 @@ public class Deck extends CardPile {
     /**
      * shuffle()
      *
-     *
-     *
-     * @return
+     * Method to randomly sort the Card objects in the deck
      */
     public void shuffle() {
-        // TODO: IMPLEMENT
-        // check if empty
-        /*Random rand = new Random();
-        // hashSet to store numbers assigned
-        HashSet<Integer> randHash = new HashSet<Integer>();
+        /* DO NOT DELETE
+        Random rand = new Random();
 
+        // if the deck is not empty
+        if(cardPile.size() != 0) {
+            // shuffle the deck
 
-        // go through each element in a copy of the cardPile ArrayList
-        for(Card temp : new ArrayList<Card>(cardPile)) {
+            // variable to store the random number
+            int random;
 
-        }*/
+            // variable to store temporary number
+            int temp = 0;
+
+            // hashSet to store numbers assigned
+            HashSet<Integer> randHash = new HashSet<Integer>();
+
+            // go through all Card objects
+            while(temp < cardPile.size()) {
+                // generate a random number between 0 and the total number of Card objects
+                random = rand.nextInt(cardPile.size() - 1);
+
+                // if the randomly generated number has NOT already been used
+                if(!randHash.contains(random)) {
+                    // swap the current Card object with the Card object in the new location
+                    Card tempCard = cardPile.get(random);
+                    cardPile.set(random, cardPile.get(temp));
+                    cardPile.set(temp, tempCard);
+                }
+
+                // increment the count to move to the next Card object
+                temp++;
+            }
+        }
+        */
 
     }
 

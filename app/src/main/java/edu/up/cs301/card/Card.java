@@ -50,8 +50,6 @@ public class Card implements Serializable {
             // set the Card object number to num
             cardNum = num;
         }
-
-        // ********* TODO DETERMINE WHAT TO DO WHEN THE NUMBER IS NOT WITHIN RANGE
     }
 
     /**

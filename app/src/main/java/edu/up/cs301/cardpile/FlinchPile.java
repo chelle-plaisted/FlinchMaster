@@ -26,12 +26,12 @@ public class FlinchPile extends CardPile {
         // set the maximum number of allowable cards to 10
         maxCards = 10;
 
-        // TODO: IMPLEMENT
-        /* DO NOT DELETE
+        // grab the top ten cards from the deck to make one Flinch pile
         for(int i = 0; i < maxCards; i++) {
-
+            // remove the top card from the deck and add it to the Flinch pile
+            // this assumes that the deck has already been shuffled
+            cardPile.add(d.removeTopCard());
         }
-        */
     }
 
     /**
@@ -42,7 +42,10 @@ public class FlinchPile extends CardPile {
      * @param orig
      */
     public FlinchPile(FlinchPile orig) {
-        // TODO: IMPLEMENT
+        super(orig);
+
+        // set the maximum number of allowable cards to 10
+        maxCards = 10;
     }
 
     // FlinchPile Methods
@@ -55,12 +58,10 @@ public class FlinchPile extends CardPile {
      * @return the removed Card object
      */
     public Card removeBottomCard() {
-        // TODO: IMPLEMENT
-        /* DO NOT DELETE
         // grab the index of the last card in the pile
         int lastCard = cardPile.size() - 1;
 
-        // if the
+        // if the last card exists
         if((lastCard > 0) && (lastCard < maxCards)) {
             // remove and return the bottom card
             return cardPile.remove(lastCard);
@@ -70,7 +71,5 @@ public class FlinchPile extends CardPile {
             // the card does not exist therefore return nothing
             return null;
         }
-        */
-        return null; // dummy return
     }
 }
