@@ -33,6 +33,9 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     private final static float FLINCH_PILE_HEIGHT = 30;
     private final static float FLINCH_PILE_WIDTH = 10;
 
+    private RectF[] cardPlace;
+    private int getNumPlayers;
+
 
 
     // our game state
@@ -137,7 +140,28 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
     public void tick(Canvas canvas) {
         // TODO: BELOW
+        int height = surface.getHeight();
+        int width = surface.getWidth();
+        if (cardPlace == null ) {
+            getNumPlayers = 10 + 6 * state.getNumPlayers() + 5;
+            cardPlace = new RectF[getNumPlayers];
+            if (state.getNumPlayers() == 2) {
+                int counter = 0;
+                cardPlace[counter] = drawBottomPlayerFLINCH();
+                counter++;
+
+            } else if (state.getNumPlayers() == 3) {
+
+
+            } else if (state.getNumPlayers() == 4) {
+
+
+            }
+        }
+
+        // for(Rectf toDraw : cardPlace)....
             /*
+
             // Draw the cards of each player
                 ///suggestion: use helper methods for each of the spaces
                     drawBottomPlayer()
@@ -156,8 +180,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         if (state == null) return;
 
         // get the height and width of the animation surface
-        int height = surface.getHeight();
-        int width = surface.getWidth();
+
 
         //Card c = state.getDeck(2).peekAtTopCard(); // top card in pile
 

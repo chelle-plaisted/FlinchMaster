@@ -283,4 +283,8 @@ public class FState extends GameState
 		players[player].hand.add(new Card(cardNum));
 	}
 
+	public int getNumPlayers() {
+		return numPlayers;
+	}
+
 }
