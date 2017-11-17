@@ -52,8 +52,6 @@ public class Card implements Serializable {
         } else {
             cardNum = -1;
         }
-
-        // ********* TODO DETERMINE WHAT TO DO WHEN THE NUMBER IS NOT WITHIN RANGE
     }
 
     /**

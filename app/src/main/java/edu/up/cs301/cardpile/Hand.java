@@ -1,5 +1,9 @@
 package edu.up.cs301.cardpile;
 
+import java.util.ArrayList;
+
+import edu.up.cs301.card.Card;
+
 /**
  * Hand
  *
@@ -8,43 +12,98 @@ package edu.up.cs301.cardpile;
  */
 public class Hand extends CardPile {
     /**
-     * Hand constructor
+     * Hand()
+     *
+     * The Hand constructor. Creates a Hand object using inheritance from CardPile.
      */
-
     public Hand() {
         // DO NOT CHANGE THIS
     }
     public Hand(Deck d) {
-        // TODO: IMPLEMENT
         super();
-        // set the maximum cards allowable to 5
+
+        // set the maximum number of allowable cards to 5
         maxCards = 5;
+
+        // grab the top ten cards from the deck to make one Flinch pile
+        for(int i = 0; i < maxCards; i++) {
+            // remove the top card from the deck and add it to the Flinch pile
+            // this assumes that the deck has already been shuffled
+            cardPile.add(d.removeTopCard());
+        }
     }
 
     /**
-     * Hand copy constructor
+     * Hand()
+     *
+     * The Hand copy constructor. Creates a Hand object that is a copy of the input.
+     *
      * @param orig
      */
     public Hand(Hand orig) {
-        // TODO: IMPLEMENT
+        super(orig);
+
+        // set the maximum number of allowable cards to 5
+        maxCards = 5;
     }
 
     // Hand Methods
 
     /**
      * arrangeHand()
+     *
+     * Method to sort the Card objects in the Hand object. Uses selection sort.
      */
     public void arrangeHand() {
-        // TODO: IMPLEMENT
+        /* DO NOT DELETE
+        // go through each Card objects in the hand
+        for(int i = 0; i < cardPile.size() - 1; i++) {
+            // save the location of the current card
+            int index = i;
+
+            // go through the rest of the Card objects in the hand
+            for(int j = i+1; j < cardPile.size(); j++) {
+                // find the smallest value Card object
+                if (cardPile.get(j).getNum() < cardPile.get(index).getNum()) {
+                    // save the location of the smallest value Card object
+                    index = j;
+                }
+            }
+
+            // swap the current Card object with the Card object with the smallest value
+            Card tempCard = cardPile.get(index);
+            cardPile.set(index, cardPile.get(i));
+            cardPile.set(i, tempCard);
+        }
+        */
+
     }
 
+    /**
+     * fillHand()
+     *
+     * Method to refill the cards in the Hand.
+     *
+     * @param d the deck
+     */
     public void fillHand(Deck d) {
-        // TODO: IMPLEMENT
+        // if the hand is not full
+        while(cardPile.size() != maxCards) {
+            // add a card to the hand from the top of the deck
+            cardPile.add(d.removeTopCard());
+        }
     }
 
+    /**
+     * getCardAt()
+     *
+     * Method to get the number of the card at the given index
+     *
+     * @param index location of the Card object
+     * @return the value of the Card object at the given location
+     */
     public int getCardAt(int index) {
-        //TODO: IMPLEMENT
-
-        return -1; // dummy return
+        // get the value of the the Card object at the given index
+        return cardPile.get(index).getNum();
     }
 }
