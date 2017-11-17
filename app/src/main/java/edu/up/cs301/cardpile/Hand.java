@@ -20,8 +20,7 @@ public class Hand extends CardPile {
         // DO NOT CHANGE THIS
     }
     public Hand(Deck d) {
-        // initialize the cardPile ArrayList
-        cardPile = new ArrayList<Card>();
+        super();
 
         // set the maximum number of allowable cards to 5
         maxCards = 5;

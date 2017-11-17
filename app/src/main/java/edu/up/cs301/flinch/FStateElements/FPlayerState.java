@@ -13,7 +13,8 @@ public class FPlayerState {
     DiscardPile[] discards;
     boolean hasFlinched;
 
-    public FPlayerState() {}
+    public FPlayerState() {
+    }
 
     public FPlayerState(FPlayerState orig) {
         hand = orig.hand;
