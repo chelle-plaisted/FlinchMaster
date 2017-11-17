@@ -73,14 +73,13 @@ public class FLocalGame extends LocalGame{
      * @param playerIdx
      *          Index of current player
      *
-     *///TODO comment stuff
+     */
     @Override
     protected boolean canMove(int playerIdx) {
+        // if our player-number is out of range, return false
         if (playerIdx < 0 || playerIdx > numPlayers) {
-            // if our player-number is out of range, return false
             return false;
-        }
-        if(playerIdx == state.getWhoseTurn()) {
+        } else if(playerIdx == state.getWhoseTurn()) {// if this is current player return true
             return true;
         }
         return false;
@@ -90,11 +89,12 @@ public class FLocalGame extends LocalGame{
     /**
      * makeMove()
      *
-     * checks the validity of a move and acts accoridngly
+     * checks the validity of a move and acts accordingly
      * @param action
      * 			The move that the player has sent to the game
      * @return
-     *///TODO finish this
+     *          Return true if the move was made and false if the move can't be made
+     *///TODO finish- basics done
     @Override
     protected boolean makeMove(GameAction action) {
 
@@ -106,39 +106,58 @@ public class FLocalGame extends LocalGame{
 
         // get the index of the player making the move; return false
         int thisPlayerIdx = getPlayerIdx(fma.getPlayer());
-        if (thisPlayerIdx < 0) { // illegal player
+        /*if (thisPlayerIdx < 0) { // illegal player
             return false;
-        }
+        }*/ //^^don't think we need this
 
         //play action
         if (fma.isPlay()) {
-            if (thisPlayerIdx != state.getWhoseTurn()) {
-                // attempt to play when it's the other player's turn
+            // attempt to play when it's the other player's turn
+            if (!canMove(thisPlayerIdx)) {
                 return false;
             } else {
                 // it's the correct player's turn
+                // cast to a play action
                 FPlayAction fpa = (FPlayAction) fma;
+                // variables to find which pile card is coming from
                 boolean flinch = false, hand = false, discard = false;
-                //HOW YOU KNOW WHICH DECK ITS COMING FROM
+                // card from flinchPile
                 if (fpa.getCardPile() instanceof FlinchPile) {
                     flinch = true;
-                } else if(fpa.getCardPile() instanceof Hand) {
+                } else if(fpa.getCardPile() instanceof Hand) { // card from hand
                     hand = true;
-                } else  {
+                } else  { //card from discard pile
                     discard = true;
                 }
-                // is the play legal?
-                    // get the card from the correct location to check
-                    // check if first turn rules apply
 
+                // from flinch hand
+                if (flinch) {
+                    //get top flinch card
+                    int topCard = state.getPlayerState(state.getWhoseTurn()).getTopFlinchCard();
+                    // if flinch card can be played to center pile
+                    if(state.getCenterPiles()[fpa.getIndexTo()]+1 == topCard) {
+                        //play to this pile
+                        state.playToCenter(topCard, fpa.getCardPile(), fpa.getIndexTo());
+                        return true; //move was completed
+                    }
+
+                } else if (hand || discard) { //from hand
+                    // card from hand
+                    int card = fpa.getIndexFrom();
+                    // compare card to center piles
+                    if(state.getCenterPiles()[fpa.getIndexTo()]+1 == card) {
+                        //play to this pile
+                        state.playToCenter(card, fpa.getCardPile(), fpa.getIndexTo());
+                        //check if hand is now empty
+                        isNeedCards();//method checks for us
+                        return true;//move was completed
+                    }
+                    //TODO check for flinch
+                    //TODO check if first turn
                     // it is the first turn--only ones are valid
-                        // a One was played, it is no longer the first turn
-
-
-
-
-                 // this is a legal move--remove the card from the players correct cardPile and play to center
-
+                    // a One was played, it is no longer the first turn
+                    //discard all 5 cards from hand if it is first turn
+                }
                 // did the player Flinch themselves?
                 if(!flinchPotential) {
                     // check
@@ -160,21 +179,47 @@ public class FLocalGame extends LocalGame{
                         }
                     }
 
-                    //TODO: CHANGE RETURN VALUE, CHECK THE PLAYER'S HAND FOR BEING EMPTY, ALREADY FLINCHED THIS PLAY STUFF, TESTING
+                    //TODO: TESTING
+                    alreadyFlinchedThisPlay = false;
                 }
-
-
-                return false;//change later
+                return false;// move wasn't made
             }
-
         } else if (fma.isDiscard()) {//discard action
-            return false; //change later
+            // attempt to play when it's the other player's turn
+            if (!canMove(thisPlayerIdx)) {
+                return false;
+            } else {
+                // it's the correct player's turn
+                // cast to a play action
+                FDiscardAction fda = (FDiscardAction) fma;
+                // card from discard pile
+                int card = fda.getIndexFrom();
+                // compare card to center piles
+                if(state.getCenterPiles()[fda.getIndexTo()]+1 == card) {
+                    //discard the card
+                    state.discard(card, fda.getIndexTo());
+                    return true;//move was completed
+                }
+            }
+            return false; //move wasn't made
         } else if (fma.isFlinch()) {//flinch action
-            return false;//change later
+            // attempt to play when it's the other player's turn
+            if (!canMove(thisPlayerIdx)) {
+                return false;
+            } else {
+                // it's the correct player's turn
+                // cast to a play action
+                FFlinchAction ffa = (FFlinchAction) fma;
+                //check if player was flinched already
+                if(alreadyFlinchedThisPlay) {
+                    return false; //player has been flinched already
+                } else {
+                    //flinch the player
+                    state.flinchAPlayer(thisPlayerIdx);
+                    return true;
+                }
+            }
         }
-
-
-
         return false;
     }
 
@@ -183,15 +228,19 @@ public class FLocalGame extends LocalGame{
      *
      * Checks if the game is over
      *
-     * Returns: true if game is over and false if it is not
-     *///TODO finish this
+     * Returns: message if game is over and null if it is not
+     *///TODO finish this?
     protected String checkIfGameOver() {
         // for loop
         // check all player's flinch piles
         // if one is empty.. return true
         // else return false
         for(int i = 0; i < state.numPlayers; i++) {
-            return null;
+           //if their flinch pile is empty
+            if (state.getPlayerState(i).isFlinchEmpty()) {
+                return "Game Over"; //game is over
+            } else return null; //game is not over
+            //return null;
         }
 
         return null;
@@ -222,13 +271,17 @@ public class FLocalGame extends LocalGame{
      * Checks if the players hand is empty and gives them new cards
      *
      * Returns: true if the player needs cards and false if not
-     *///TODO comment stuff
+     */
     protected boolean isNeedCards() {
+        //get player's hand
         Hand h = state.getPlayerState(state.getWhoseTurn()).getHand();
+        // if hand doesn't exist
         if (h == null) {
             return false;
         }
+        //if hand is empty
         if(h.size() == 0) {
+            //add cards
             state.replenishPlayerHand();
             return true;
         }
