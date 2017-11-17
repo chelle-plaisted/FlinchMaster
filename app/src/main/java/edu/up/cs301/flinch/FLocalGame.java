@@ -20,8 +20,8 @@ NOTE: TEST CASE THAT MIGHT FAIL WITH CURRENT DESIGN
 
 public class FLocalGame extends LocalGame{
     //instance variables
-    private FState state; //state of game UNCOMMENT ONCE FSTATE IS MADE
-    private int numMoves; //number of moves since canBeFlinched was set to true
+    private FState state; //state of game
+    private int numMoves; //number of moves since canBeFlinched was set to true TODO what to do with this?
     private boolean flinchPotential; //whether the current player is at risk of Flinching themselves
     private boolean alreadyFlinchedThisPlay; //whether current player has already been flinched this play of a single card
     private int numPlayers; // the number of players in the game
@@ -29,6 +29,8 @@ public class FLocalGame extends LocalGame{
     /**
      * Constructor to set up the number of players
      * @param num
+     *          Number of players
+     *
      */
     public FLocalGame(int num) {
         numPlayers = num;
@@ -42,25 +44,20 @@ public class FLocalGame extends LocalGame{
      *
      * Checks whether the current player can be Flinched
 
-     *///TODO finish this
+     */
     protected void checkForFlinch() {
-       /* if(flinchPotential && alreadyFlinchedThisPlay == false) {
-            alreadyFlinchedThisPlay = true;
-            numMoves = 0;
-            return true;
+       //flinch card
+        int topCard = state.getPlayerState(state.getWhoseTurn()).getTopFlinchCard();
+        //compare each card in center pile
+        for (int j : state.getCenterPiles()) {
+            if (j+1 == topCard) {
+                // they could possibly flinch themselves
+                flinchPotential = true;
+                numMoves = 0;
+            } else {
+                flinchPotential = false;
+            }
         }
-        alreadyFlinchedThisPlay = false;
-        return false;
-        */
-       // is the top card of flinch pile playable? (see FComputerPlayer isPlayable for <code></code>
-            /* if( ... ) {
-                    // they could possibly flinch themselves
-                    flinchPotential = true;
-                    numMoves = 0;
-               } else {
-                    flinchPotential = false;
-               }
-             */
     }
 
     /**
@@ -68,7 +65,8 @@ public class FLocalGame extends LocalGame{
      *
      * Checks whether the current player can move
      *
-     * Returns: true if player can move and false if they can't
+     * @return
+     *          true if player can move and false if they can't
      *
      * @param playerIdx
      *          Index of current player
@@ -228,13 +226,11 @@ public class FLocalGame extends LocalGame{
      *
      * Checks if the game is over
      *
-     * Returns: message if game is over and null if it is not
+     * @return
+     *         message if game is over and null if it is not
      *///TODO finish this?
     protected String checkIfGameOver() {
-        // for loop
-        // check all player's flinch piles
-        // if one is empty.. return true
-        // else return false
+        //iterate through each player
         for(int i = 0; i < state.numPlayers; i++) {
            //if their flinch pile is empty
             if (state.getPlayerState(i).isFlinchEmpty()) {
@@ -242,7 +238,6 @@ public class FLocalGame extends LocalGame{
             } else return null; //game is not over
             //return null;
         }
-
         return null;
     }
 
@@ -270,7 +265,8 @@ public class FLocalGame extends LocalGame{
      *
      * Checks if the players hand is empty and gives them new cards
      *
-     * Returns: true if the player needs cards and false if not
+     * @return
+     *          true if the player needs cards and false if not
      */
     protected boolean isNeedCards() {
         //get player's hand
