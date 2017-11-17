@@ -228,7 +228,7 @@ public class FLocalGame extends LocalGame{
      *
      * @return
      *         message if game is over and null if it is not
-     *///TODO finish this?
+     */
     protected String checkIfGameOver() {
         //iterate through each player
         for(int i = 0; i < state.numPlayers; i++) {
@@ -236,7 +236,6 @@ public class FLocalGame extends LocalGame{
             if (state.getPlayerState(i).isFlinchEmpty()) {
                 return "Game Over"; //game is over
             } else return null; //game is not over
-            //return null;
         }
         return null;
     }
