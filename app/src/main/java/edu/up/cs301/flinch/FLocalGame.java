@@ -112,7 +112,7 @@ public class FLocalGame extends LocalGame{
 
         //play action
         if (fma.isPlay()) {
-            if (thisPlayerIdx != state.toPlay()) {
+            if (thisPlayerIdx != state.getWhoseTurn()) {
                 // attempt to play when it's the other player's turn
                 return false;
             } else {

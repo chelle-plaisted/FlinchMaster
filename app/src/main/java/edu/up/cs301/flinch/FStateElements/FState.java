@@ -39,6 +39,8 @@ public class FState extends GameState
 	 * Constructor for objects of class FState. Initializes for the beginning of the
 	 * game, with a random player as the first to turn card
 	 *
+	 * Assumes num will satisfy: 0 <= num <= 4
+	 *
 	 */
 	public FState(int num) {
 		// initialize the number of the players in the game
@@ -55,8 +57,8 @@ public class FState extends GameState
 
 		// initialize center piles to empty
 		center = new CenterPile[10];
-		for(CenterPile c : center){
-			c = new CenterPile();
+		for(int i = 0; i < 10; i++){
+			center[i] = new CenterPile();
 		}
 		// initialize the players
 		initPlayers();
@@ -148,6 +150,9 @@ public class FState extends GameState
 	 * 	the player's publicly available info
 	 */
 	public FPlayerState getPlayerState(int playerID) {
+		if(playerID < 0 || playerID > numPlayers) {
+			return null;
+		}
 		return players[playerID];
 	}
 
@@ -171,14 +176,7 @@ public class FState extends GameState
 
 
 	/* MUTATORS */
-	/**
-	 * Tells which player's turn it is.
-	 *
-	 * @return the index (0 through numPlayers - 1) of the player whose turn it is.
-	 */
-	public int toPlay() {
-		return toPlay;
-	}
+
 
 	/**
 	 * change whose move it is
@@ -279,12 +277,31 @@ public class FState extends GameState
 	 * 	whether or not the said player is flinchable
 	 */
 	public void setFlinchable(int playerId, boolean flinchable) {
+		if(playerId < 0 || playerId > numPlayers) {
+			return;
+		}
 		players[playerId].hasFlinched = flinchable;
 	}
 
 	public void givePlayerCard(int player, int cardNum) {
 		players[player].hand = new Hand();
 		players[player].hand.add(new Card(cardNum));
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		FState compare = (FState) o;
+		// initialize the number of the players in the game
+		if(!this.deck.equals(compare.deck)) {
+			return false;
+		}
+		if(this.numPlayers != compare.numPlayers || toPlay != compare.toPlay || deck != compare.deck ||
+				isStartOfGame != compare.isStartOfGame || center != compare.center || players != compare.players) {
+			return false;
+		}
+
+
+		return true;
 	}
 
 }

@@ -24,9 +24,11 @@ public class Deck extends CardPile {
      * Deck()
      *
      * The Deck constructor. Creates a Deck object using inheritance from CardPile.
+     * Fills the deck object.
      */
     public Deck() {
         super();
+        fillDeck();
     }
 
     /**
@@ -58,7 +60,7 @@ public class Deck extends CardPile {
                 Card c = new Card(j);
 
                 // add the new Card object to the pile
-                cardPile.add(c);
+                add(c);
             }
         }
     }
