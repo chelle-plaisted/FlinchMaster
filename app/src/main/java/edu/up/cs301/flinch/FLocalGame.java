@@ -224,8 +224,12 @@ public class FLocalGame extends LocalGame{
      * Returns: true if the player needs cards and false if not
      *///TODO comment stuff
     protected boolean isNeedCards() {
-        if(state.getPlayerState(state.getWhoseTurn()).getHand().size() == 0) {
-            state.getPlayerState(state.getWhoseTurn()).getHand().fillHand(state.getDeck());
+        Hand h = state.getPlayerState(state.getWhoseTurn()).getHand();
+        if (h == null) {
+            return false;
+        }
+        if(h.size() == 0) {
+            state.replenishPlayerHand();
             return true;
         }
 

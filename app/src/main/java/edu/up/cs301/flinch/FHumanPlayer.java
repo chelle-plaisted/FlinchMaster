@@ -100,7 +100,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         myActivity = activity;
 
         // Load the layout resource for the new configuration
-        activity.setContentView(R.layout.sj_human_player);
+        activity.setContentView(R.layout.f_human_player);
 
         // link the animator (this object) to the animation surface
         surface = (AnimationSurface) myActivity

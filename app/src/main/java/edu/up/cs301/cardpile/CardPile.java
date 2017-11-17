@@ -166,6 +166,9 @@ public abstract class CardPile {
      */
     public int getTopCard() {
         // if the top card exists
+        if(cardPile == null || cardPile.size() == 0) {
+            return -1;
+        }
         if(cardPile.get(0) != null) {
             // return the value of the card in position zero
             return cardPile.get(0).getNum();

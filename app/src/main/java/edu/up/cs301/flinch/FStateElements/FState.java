@@ -99,19 +99,19 @@ public class FState extends GameState
 	 */
 	private void initPlayers() {
 		players = new FPlayerState[numPlayers];
-		for (FPlayerState p : players) {
-			p = new FPlayerState();
+		for (int i = 0; i < players.length; i++) {
+			players[i] = new FPlayerState();
 			// initialize Hand
-			p.hand = new Hand(deck);
+			players[i].hand = new Hand(deck);
 			// initialize Discard piles
-			p.discards = new DiscardPile[5];
-			for (DiscardPile d : p.discards) {
+			players[i].discards = new DiscardPile[5];
+			for (DiscardPile d : players[i].discards) {
 				// initialize each pile to empty
 				d = new DiscardPile();
 			}
 			// initialize Flinch pile
-			p.flinch = new FlinchPile(deck);
-			p.hasFlinched = false;
+			players[i].flinch = new FlinchPile(deck);
+			players[i].hasFlinched = false;
 		}
 	}
 
@@ -196,7 +196,9 @@ public class FState extends GameState
 	 * 	the id of the player who needs a new hand
 	 */
 	public void replenishPlayerHand() {
-		players[toPlay].hand.fillHand(deck);
+		if(players[toPlay].hand != null) {
+			players[toPlay].hand.fillHand(deck);
+		}
 	}
 
 	/**
