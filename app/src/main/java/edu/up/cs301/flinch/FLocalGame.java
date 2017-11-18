@@ -20,8 +20,8 @@ NOTE: TEST CASE THAT MIGHT FAIL WITH CURRENT DESIGN
 
 public class FLocalGame extends LocalGame{
     //instance variables
-    private FState state; //state of game UNCOMMENT ONCE FSTATE IS MADE
-    private int numMoves; //number of moves since canBeFlinched was set to true
+    private FState state; //state of game
+    private int numMoves; //number of moves since canBeFlinched was set to true TODO what to do with this?
     private boolean flinchPotential; //whether the current player is at risk of Flinching themselves
     private boolean alreadyFlinchedThisPlay; //whether current player has already been flinched this play of a single card
     private int numPlayers; // the number of players in the game
@@ -29,6 +29,8 @@ public class FLocalGame extends LocalGame{
     /**
      * Constructor to set up the number of players
      * @param num
+     *          Number of players
+     *
      */
     public FLocalGame(int num) {
         numPlayers = num;
@@ -42,25 +44,20 @@ public class FLocalGame extends LocalGame{
      *
      * Checks whether the current player can be Flinched
 
-     *///TODO finish this
+     */
     protected void checkForFlinch() {
-       /* if(flinchPotential && alreadyFlinchedThisPlay == false) {
-            alreadyFlinchedThisPlay = true;
-            numMoves = 0;
-            return true;
+       //flinch card
+        int topCard = state.getPlayerState(state.getWhoseTurn()).getTopFlinchCard();
+        //compare each card in center pile
+        for (int j : state.getCenterPiles()) {
+            if (j+1 == topCard) {
+                // they could possibly flinch themselves
+                flinchPotential = true;
+                numMoves = 0;
+            } else {
+                flinchPotential = false;
+            }
         }
-        alreadyFlinchedThisPlay = false;
-        return false;
-        */
-       // is the top card of flinch pile playable? (see FComputerPlayer isPlayable for <code></code>
-            /* if( ... ) {
-                    // they could possibly flinch themselves
-                    flinchPotential = true;
-                    numMoves = 0;
-               } else {
-                    flinchPotential = false;
-               }
-             */
     }
 
     /**
@@ -68,19 +65,19 @@ public class FLocalGame extends LocalGame{
      *
      * Checks whether the current player can move
      *
-     * Returns: true if player can move and false if they can't
+     * @return
+     *          true if player can move and false if they can't
      *
      * @param playerIdx
      *          Index of current player
      *
-     *///TODO comment stuff
+     */
     @Override
     protected boolean canMove(int playerIdx) {
+        // if our player-number is out of range, return false
         if (playerIdx < 0 || playerIdx > numPlayers) {
-            // if our player-number is out of range, return false
             return false;
-        }
-        if(playerIdx == state.getWhoseTurn()) {
+        } else if(playerIdx == state.getWhoseTurn()) {// if this is current player return true
             return true;
         }
         return false;
@@ -90,11 +87,12 @@ public class FLocalGame extends LocalGame{
     /**
      * makeMove()
      *
-     * checks the validity of a move and acts accoridngly
+     * checks the validity of a move and acts accordingly
      * @param action
      * 			The move that the player has sent to the game
      * @return
-     *///TODO finish this
+     *          Return true if the move was made and false if the move can't be made
+     *///TODO finish- basics done
     @Override
     protected boolean makeMove(GameAction action) {
 
@@ -106,38 +104,71 @@ public class FLocalGame extends LocalGame{
 
         // get the index of the player making the move; return false
         int thisPlayerIdx = getPlayerIdx(fma.getPlayer());
-        if (thisPlayerIdx < 0) { // illegal player
+        /*if (thisPlayerIdx < 0) { // illegal player
             return false;
-        }
+        }*/ //^^don't think we need this
 
         //play action
         if (fma.isPlay()) {
-            if (thisPlayerIdx != state.getWhoseTurn()) {
-                // attempt to play when it's the other player's turn
+            // attempt to play when it's the other player's turn
+            if (!canMove(thisPlayerIdx)) {
                 return false;
             } else {
                 // it's the correct player's turn
+                // cast to a play action
                 FPlayAction fpa = (FPlayAction) fma;
+                // variables to find which pile card is coming from
                 boolean flinch = false, hand = false, discard = false;
-                //HOW YOU KNOW WHICH DECK ITS COMING FROM
+                // card from flinchPile
                 if (fpa.getCardPile() instanceof FlinchPile) {
                     flinch = true;
-                } else if(fpa.getCardPile() instanceof Hand) {
+                } else if(fpa.getCardPile() instanceof Hand) { // card from hand
                     hand = true;
-                } else  {
+                } else  { //card from discard pile
                     discard = true;
                 }
-                // is the play legal?
-                    // get the card from the correct location to check
-                    // check if first turn rules apply
 
-                    // it is the first turn--only ones are valid
-                        // a One was played, it is no longer the first turn
+                // from flinch hand
+                if (flinch) {
+                    //get top flinch card
+                    int topCard = state.getPlayerState(state.getWhoseTurn()).getTopFlinchCard();
+                    // if flinch card can be played to center pile
+                    if(state.getCenterPiles()[fpa.getIndexTo()]+1 == topCard) {
+                        //play to this pile
+                        state.playToCenter(topCard, fpa.getCardPile(), fpa.getIndexTo());
+                        return true; //move was completed
+                    }
 
-
-
-
-                 // this is a legal move--remove the card from the players correct cardPile and play to center
+                } else if (hand || discard) { //from hand
+                    // card from hand
+                    int card = fpa.getIndexFrom();
+                    // compare card to center piles
+                    if(!state.isStartOfGame) {
+                        if (state.getCenterPiles()[fpa.getIndexTo()] + 1 == card) {
+                            //play to this pile
+                            state.playToCenter(card, fpa.getCardPile(), fpa.getIndexTo());
+                            //check if they can be flinched now
+                            checkForFlinch();
+                            //check if hand is now empty
+                            isNeedCards();//method checks for us
+                            return true;//move was completed
+                        }
+                    } else {//TODO check if first turn
+                        //can only play a one
+                        if(card != 1) {
+                            //discard hand
+                            /*Hand handFT = state.getPlayerState(thisPlayerIdx).getHand();
+                            for (int d : handFT) {
+                                //discard the card
+                                state.discard(card, );
+                                return true;
+                            }*/ //TODO how to iterate through a hand???
+                        } else {
+                            //state.isStartOfGame = false; ????? TODO which class changes isStartOfGame?
+                            return true;
+                        }
+                    }
+                }
 
                 // did the player Flinch themselves?
                 if(!flinchPotential) {
@@ -160,21 +191,47 @@ public class FLocalGame extends LocalGame{
                         }
                     }
 
-                    //TODO: CHANGE RETURN VALUE, CHECK THE PLAYER'S HAND FOR BEING EMPTY, ALREADY FLINCHED THIS PLAY STUFF, TESTING
+                    //TODO: TESTING
+                    alreadyFlinchedThisPlay = false;
                 }
-
-
-                return false;//change later
+                return false;// move wasn't made
             }
-
         } else if (fma.isDiscard()) {//discard action
-            return false; //change later
+            // attempt to play when it's the other player's turn
+            if (!canMove(thisPlayerIdx)) {
+                return false;
+            } else {
+                // it's the correct player's turn
+                // cast to a play action
+                FDiscardAction fda = (FDiscardAction) fma;
+                // card from discard pile
+                int card = fda.getIndexFrom();
+                // compare card to center piles
+                if(state.getCenterPiles()[fda.getIndexTo()]+1 == card) {
+                    //discard the card
+                    state.discard(card, fda.getIndexTo());
+                    return true;//move was completed
+                }
+            }
+            return false; //move wasn't made
         } else if (fma.isFlinch()) {//flinch action
-            return false;//change later
+            // attempt to play when it's the other player's turn
+            if (!canMove(thisPlayerIdx)) {
+                return false;
+            } else {
+                // it's the correct player's turn
+                // cast to a play action
+                FFlinchAction ffa = (FFlinchAction) fma;
+                //check if player was flinched already
+                if(alreadyFlinchedThisPlay) {
+                    return false; //player has been flinched already
+                } else {
+                    //flinch the player
+                    state.flinchAPlayer(thisPlayerIdx);
+                    return true;
+                }
+            }
         }
-
-
-
         return false;
     }
 
@@ -183,17 +240,17 @@ public class FLocalGame extends LocalGame{
      *
      * Checks if the game is over
      *
-     * Returns: true if game is over and false if it is not
-     *///TODO finish this
+     * @return
+     *         message if game is over and null if it is not
+     */
     protected String checkIfGameOver() {
-        // for loop
-        // check all player's flinch piles
-        // if one is empty.. return true
-        // else return false
-        for(int i = 0; i < state.numPlayers; i++) {
-            return null;
+        //iterate through each player
+        for(int i = 0; i < numPlayers; i++) {
+           //if their flinch pile is empty
+            if (state.getPlayerState(i).isFlinchEmpty()) {
+                return "Game Over"; //game is over
+            } else return null; //game is not over
         }
-
         return null;
     }
 
@@ -221,18 +278,22 @@ public class FLocalGame extends LocalGame{
      *
      * Checks if the players hand is empty and gives them new cards
      *
-     * Returns: true if the player needs cards and false if not
-     *///TODO comment stuff
+     * @return
+     *          true if the player needs cards and false if not
+     */
     protected boolean isNeedCards() {
+        //get player's hand
         Hand h = state.getPlayerState(state.getWhoseTurn()).getHand();
+        // if hand doesn't exist
         if (h == null) {
             return false;
         }
+        //if hand is empty
         if(h.size() == 0) {
+            //add cards
             state.replenishPlayerHand();
             return true;
         }
-
         return false;
     }
 }

@@ -9,7 +9,7 @@ import edu.up.cs301.card.*;
 
 public class FPlayerState {
     Hand hand;
-    FlinchPile flinch;
+    public FlinchPile flinch;
     DiscardPile[] discards;
     boolean hasFlinched;
 
