@@ -109,7 +109,7 @@ public class Card implements Serializable {
         p.setColor(Color.BLACK);
 
         // get the bitmap for the card
-        Bitmap bitmap = cardImages[this.getNum()][0]; //.ordinal()][this.getRank().ordinal()];
+        Bitmap bitmap = cardImages[0][this.getNum()]; //.ordinal()][this.getRank().ordinal()];
 
         // create the source rectangle
         Rect r = new Rect(0,0,bitmap.getWidth(),bitmap.getHeight());

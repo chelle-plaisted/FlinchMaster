@@ -213,7 +213,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
         for(int i = 0; i <11; i++) {
             //canvas.drawRect(cardPlace[i], paint);
-            drawCard(canvas, cardPlace[i], new Card(1));
+            drawCard(canvas, cardPlace[i], new Card(3));
         }
 
 
