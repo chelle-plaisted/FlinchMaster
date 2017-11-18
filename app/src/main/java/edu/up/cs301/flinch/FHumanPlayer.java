@@ -38,8 +38,8 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     private final static float BUFFER_PERCENT_FLINCH_BUTTON = 75;
     private final static float HORIZONTAL_CARD_HEIGHT_PERCENT = 5;//height for players on the side of the GUI
     private final static float VERTICAL_CARD_WIDTH_PERCENT = 10;//width for players on the side of GUI
-    private final static float FLINCH_PILE_HEIGHT = 10;//Flinch pile height (slightly larger than regular card)
-    private final static float FLINCH_PILE_WIDTH = 5;//Flinch pile width
+    private final static float FLINCH_PILE_HEIGHT = 20;//Flinch pile height (slightly larger than regular card)
+    private final static float FLINCH_PILE_WIDTH = 10;//Flinch pile width
     private final static float FLINCH_BUTTON_WIDTH =10;
     private final static float FLINCH_BUTTON_HEIGHT = 5;
 
@@ -165,12 +165,14 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             depending on how many players there are will depend on how many of the RectFs are drawn, this will
             be dependent on the if statemtns below
              */
+
             if (state.getNumPlayers() == 2) {
                 /*
                 placing of cards including flinch pile, cards in hand, and discard pile for human player
                 done so by calling method where RectF is actually drawn adding them to an array
                  */
                 int counter = 0;
+                // draw Bottom Player cards
                 cardPlace[counter] = drawBottomPlayerFLINCH();
                 counter++;
                 cardPlace[counter] = drawBottomCardONE();
@@ -199,13 +201,24 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
 
             }
+
+
+
+            // TODO: loop to add center cards, draw center cards (make sure it doesn't crash when the card is null), other players, link the rectF's to the actual cards in the state
+        }
+        Paint paint = new Paint();
+        paint.setColor(Color.rgb(0,102,0));
+
+        // draw the cards
+
+        for(int i = 0; i <11; i++) {
+            //canvas.drawRect(cardPlace[i], paint);
+            drawCard(canvas, cardPlace[i], new Card(1));
         }
 
-        // for(Rectf toDraw : cardPlace)....
 
 
-        // ignore if we have not yet received the game state
-        if (state == null) return;
+
 
 
 
@@ -235,57 +248,57 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
        RectF flinch = new RectF(LEFT_BORDER_PERCENT*width/100f,
                 (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-FLINCH_PILE_HEIGHT)*height/100f,
                 (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH)*width/100f,
-               100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER/100f);
+               (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER) * height/100f);
         return flinch;
     }
     //draws the first card in the players hand
     private RectF drawBottomCardONE () {
         int width = surface.getWidth();
         int height = surface.getHeight();
-        RectF one = new RectF (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+BUFFER_PERCENT1*width/100f,
+        RectF one = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+BUFFER_PERCENT2)*width/100f,
                 (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-CARD_HEIGHT_PERCENT)*height/100f,
-                (LEFT_BORDER_PERCENT+CARD_WIDTH_PERCENT)*width/100f,
-                100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER/100f);
+                (LEFT_BORDER_PERCENT+CARD_WIDTH_PERCENT + FLINCH_PILE_WIDTH + BUFFER_PERCENT2)*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER) * height/100f);
         return one;
     }
     //draws the second card in the players hand
     private RectF drawBottomCardTWO () {
         int width = surface.getWidth();
         int height = surface.getHeight();
-        RectF two = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*2)*width/100f,
+        RectF two = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2 * 2) + CARD_WIDTH_PERCENT)*width/100f,
                 (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-CARD_HEIGHT_PERCENT)*height/100f,
-                (LEFT_BORDER_PERCENT+CARD_WIDTH_PERCENT)*width/100f,
-                100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER/100f);
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2 * 2) + (CARD_WIDTH_PERCENT * 2))*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER) * height/100f);
         return two;
     }
     //draws the third card in the players hand
     private RectF drawBottomCardTHREE () {
         int width = surface.getWidth();
         int height = surface.getHeight();
-        RectF three = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*3)*width/100f,
+        RectF three = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2 * 3) + (CARD_WIDTH_PERCENT * 2))*width/100f,
                 (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-CARD_HEIGHT_PERCENT)*height/100f,
-                (LEFT_BORDER_PERCENT+CARD_WIDTH_PERCENT)*width/100f,
-                100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER/100f);
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2 * 3) + (CARD_WIDTH_PERCENT * 3))*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER) * height/100f);
         return three;
     }
     //draws the fourth card in the players hand
     private RectF drawBottomCardFOUR () {
         int width = surface.getWidth();
         int height = surface.getHeight();
-        RectF four = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*4)*width/100f,
+        RectF four = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2 * 4) + (CARD_WIDTH_PERCENT * 3))*width/100f,
                 (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-CARD_HEIGHT_PERCENT)*height/100f,
-                (LEFT_BORDER_PERCENT+CARD_WIDTH_PERCENT)*width/100f,
-                100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER/100f);
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2 * 4) + (CARD_WIDTH_PERCENT * 4))*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER) * height/100f);
         return four;
     }
     //draws the fifth card in the players hand
     private RectF drawBottomCardFIVE () {
         int width = surface.getWidth();
         int height = surface.getHeight();
-        RectF five = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_HEIGHT+(BUFFER_PERCENT2)*5)*width/100f,
+        RectF five = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2 * 5) + (CARD_WIDTH_PERCENT * 4))*width/100f,
                 (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-CARD_HEIGHT_PERCENT)*height/100f,
-                (LEFT_BORDER_PERCENT+CARD_WIDTH_PERCENT)*width/100f,
-                100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER/100f);
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2 * 5) + (CARD_WIDTH_PERCENT * 5))*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER) * height/100f);
         return five;
 
     }
@@ -297,10 +310,10 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
         int width = surface.getWidth();
         int height = surface.getHeight();
-        RectF DiscardOne = new RectF (LEFT_BORDER_PERCENT+FLINCH_PILE_HEIGHT+(BUFFER_PERCENT_DISCARD)*width/100f,
-                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-CARD_HEIGHT_PERCENT)*height/100f,
-                (LEFT_BORDER_PERCENT+CARD_WIDTH_PERCENT)*width/100f,
-                100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+CARD_HEIGHT_PERCENT+15)/100f);
+        RectF DiscardOne = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+BUFFER_PERCENT2)*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(CARD_HEIGHT_PERCENT*2) - BUFFER_PERCENT2)*height/100f,
+                (LEFT_BORDER_PERCENT+CARD_WIDTH_PERCENT + FLINCH_PILE_WIDTH + BUFFER_PERCENT2)*width/100f,
+                (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+CARD_HEIGHT_PERCENT+BUFFER_PERCENT2)) * height/100f);
         return DiscardOne;
 
     }
@@ -308,10 +321,10 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
         int width = surface.getWidth();
         int height = surface.getHeight();
-        RectF DiscardTwo = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_HEIGHT+(BUFFER_PERCENT2)*2)*width/100f,
-                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-CARD_HEIGHT_PERCENT)*height/100f,
-                (LEFT_BORDER_PERCENT+CARD_WIDTH_PERCENT)*width/100f,
-                100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+CARD_HEIGHT_PERCENT+15)/100f);
+        RectF DiscardTwo = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*2 + (CARD_WIDTH_PERCENT))*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(CARD_HEIGHT_PERCENT*2) - BUFFER_PERCENT2)*height/100f,
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*2 + (CARD_WIDTH_PERCENT * 2))*width/100f,
+                (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+CARD_HEIGHT_PERCENT+BUFFER_PERCENT2)) * height/100f);
         return DiscardTwo;
 
     }
@@ -320,10 +333,10 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
         int width = surface.getWidth();
         int height = surface.getHeight();
-        RectF DiscardThree = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_HEIGHT+(BUFFER_PERCENT2)*3)*width/100f,
-                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-CARD_HEIGHT_PERCENT)*height/100f,
-                (LEFT_BORDER_PERCENT+CARD_WIDTH_PERCENT)*width/100f,
-                100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+CARD_HEIGHT_PERCENT+15)/100f);
+        RectF DiscardThree = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*3 + (CARD_WIDTH_PERCENT * 2))*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(CARD_HEIGHT_PERCENT*2) - BUFFER_PERCENT2)*height/100f,
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*3 + (CARD_WIDTH_PERCENT * 3))*width/100f,
+                (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+CARD_HEIGHT_PERCENT+BUFFER_PERCENT2)) * height/100f);
         return DiscardThree;
 
     }
@@ -332,10 +345,10 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
         int width = surface.getWidth();
         int height = surface.getHeight();
-        RectF DiscardFour = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_HEIGHT+(BUFFER_PERCENT2)*4)*width/100f,
-                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-CARD_HEIGHT_PERCENT)*height/100f,
-                (LEFT_BORDER_PERCENT+CARD_WIDTH_PERCENT)*width/100f,
-                100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+CARD_HEIGHT_PERCENT+15)/100f);
+        RectF DiscardFour = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*4 + (CARD_WIDTH_PERCENT * 3))*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(CARD_HEIGHT_PERCENT*2) - BUFFER_PERCENT2)*height/100f,
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*4 + (CARD_WIDTH_PERCENT * 4))*width/100f,
+                (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+CARD_HEIGHT_PERCENT+BUFFER_PERCENT2)) * height/100f);
         return DiscardFour;
 
     }
@@ -344,10 +357,10 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
         int width = surface.getWidth();
         int height = surface.getHeight();
-        RectF DiscardFive = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_HEIGHT+(BUFFER_PERCENT2)*5)*width/100f,
-                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-CARD_HEIGHT_PERCENT)*height/100f,
-                (LEFT_BORDER_PERCENT+CARD_WIDTH_PERCENT)*width/100f,
-                100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+CARD_HEIGHT_PERCENT+15)/100f);
+        RectF DiscardFive = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*5 + (CARD_WIDTH_PERCENT * 4))*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(CARD_HEIGHT_PERCENT*2) - BUFFER_PERCENT2)*height/100f,
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*5 + (CARD_WIDTH_PERCENT * 5))*width/100f,
+                (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+CARD_HEIGHT_PERCENT+BUFFER_PERCENT2)) * height/100f);
         return DiscardFive;
 
     }
@@ -358,7 +371,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         RectF FlinchButton = new RectF (BUFFER_PERCENT_FLINCH_BUTTON *width/100f,
                 (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-CARD_HEIGHT_PERCENT-5)*height/100f,
                 (BUFFER_PERCENT_FLINCH_BUTTON+FLINCH_BUTTON_WIDTH)*width/100f,
-                100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+CARD_HEIGHT_PERCENT+15)/100f);
+                (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+CARD_HEIGHT_PERCENT+15)) * height /100f);
         return FlinchButton;
     }
 
@@ -438,6 +451,19 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         }
         */
     }
+    private void drawCardBacks(Canvas g, RectF topRect, float deltaX, float deltaY,
+                               int numCards) {
+        // loop through from back to front, drawing a card-back in each location
+        for (int i = numCards-1; i >= 0; i--) {
+            // determine theh position of this card's top/left corner
+            float left = topRect.left + i*deltaX;
+            float top = topRect.top + i*deltaY;
+            // draw a card-back (hence null) into the appropriate rectangle
+            drawCard(g,
+                    new RectF(left, top, left + topRect.width(), top + topRect.height()),
+                    null);
+        }
+    }
 
     /**
      * draws a card on the canvas; if the card is null, draw a card-back
@@ -449,6 +475,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
      * @param c
      * 		the card to draw; if null, a card-back is drawn
      */
+
     private static void drawCard(Canvas g, RectF rect, Card c) {
         if (c == null) {
             // null: draw a card-back, consisting of a blue card

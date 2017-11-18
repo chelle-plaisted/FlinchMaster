@@ -28,7 +28,7 @@ public class FMainActivity extends GameMainActivity {
 
         playerTypes.add(new GamePlayerType("human player (Green)") {
             public GamePlayer createPlayer(String name) {
-                return new FHumanPlayer(name, Color.GREEN);
+                return new FHumanPlayer(name, Color.rgb(0,153,0));
             }});
         playerTypes.add(new GamePlayerType("human player (White)") {
             public GamePlayer createPlayer(String name) {
