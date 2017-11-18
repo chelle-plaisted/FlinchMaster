@@ -24,6 +24,8 @@ import edu.up.cs301.game.infoMsg.NotYourTurnInfo;
  * Created by alexaruiz on 11/6/17.
  */
 
+//
+
 public class FHumanPlayer extends GameHumanPlayer implements Animator {
     private final static float CARD_HEIGHT_PERCENT = 10; // height of a card
     private final static float CARD_WIDTH_PERCENT = 5; // width of a card
