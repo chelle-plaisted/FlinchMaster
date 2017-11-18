@@ -1,6 +1,7 @@
 package edu.up.cs301.flinch.FStateElements;
 
 import edu.up.cs301.cardpile.Deck;
+import edu.up.cs301.cardpile.Hand;
 import edu.up.cs301.flinch.FSmartComputerPlayer;
 
 import static org.junit.Assert.*;
@@ -80,17 +81,28 @@ public class FStateTest {
     @org.junit.Test
     public void replenishPlayerHand() throws Exception {
         FState state = new FState(2);
-        assertTrue(state.getPlayerState(0).getHand().size() == 0);
+        // hand should start at 5 cards
+        assertTrue(state.getPlayerState(0).getHand().size() == state.players[0].hand.testerGetMax());
+        Hand before = state.getPlayerState(0).getHand();
         state.setNextTurn(0);
+        // should not change the player's hand
+        state.replenishPlayerHand();
+        assertTrue(state.getPlayerState(0).getHand() == before);
+
+        // play all the cards \
+        while(state.getPlayerState(0).getHand().size() > 0) {
+            state.getPlayerState(0).getHand().removeTopCard();
+        }
         state.replenishPlayerHand();
         assertTrue(state.getPlayerState(0).getHand().size() == 5);
+        assertTrue(state.getPlayerState(0).getHand() != before);
     }
 
     @org.junit.Test
     public void recycleFullCenterPile() throws Exception {
         FState state = new FState(2);
         state.recycleFullCenterPile(0);
-        assertTrue(state.getCenterPiles()[0] == 0);
+        assertTrue(state.center[0].size() == 0);
     }
 
     @org.junit.Test
