@@ -107,9 +107,9 @@ public class FState extends GameState
 			players[i].hand = new Hand(deck);
 			// initialize Discard piles
 			players[i].discards = new DiscardPile[5];
-			for (DiscardPile d : players[i].discards) {
+			for (int j = 0; j < 5; j++){
 				// initialize each pile to empty
-				d = new DiscardPile();
+				players[i].discards[j] = new DiscardPile();
 			}
 			// initialize Flinch pile
 			players[i].flinch = new FlinchPile(deck);
@@ -131,7 +131,7 @@ public class FState extends GameState
 	/**
 	 *
 	 * @return
-	 * 	the tops of the center piles
+	 * 	the tops of the center piles--fills the space with -1 if there is no card
 	 */
 	public int[] getCenterPiles() {
 		int[] tops = new int[10];
@@ -194,7 +194,7 @@ public class FState extends GameState
 	 * 	the id of the player who needs a new hand
 	 */
 	public void replenishPlayerHand() {
-		if(players[toPlay].hand != null) {
+		if(players[toPlay].hand.size() <= 0) {
 			players[toPlay].hand.fillHand(deck);
 		}
 	}

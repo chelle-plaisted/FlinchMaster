@@ -51,6 +51,7 @@ public class FPlayerState {
     /**
      * @return
      * returns the top card of each of the player's discard piles
+     * If the space is empty, a -1 fills the slot
      */
     public int[] getTopDiscards() {
         int[] tops = new int[5];

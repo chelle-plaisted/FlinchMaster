@@ -1,6 +1,7 @@
 package edu.up.cs301.cardpile;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Random;
 
@@ -71,7 +72,10 @@ public class Deck extends CardPile {
      * Method to randomly sort the Card objects in the deck
      */
     public void shuffle() {
+        Collections.shuffle(cardPile);
+
         /* DO NOT DELETE
+
         Random rand = new Random();
 
         // if the deck is not empty
