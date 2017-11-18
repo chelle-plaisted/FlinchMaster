@@ -143,19 +143,33 @@ public class FLocalGame extends LocalGame{
                     // card from hand
                     int card = fpa.getIndexFrom();
                     // compare card to center piles
-                    if(state.getCenterPiles()[fpa.getIndexTo()]+1 == card) {
-                        //play to this pile
-                        state.playToCenter(card, fpa.getCardPile(), fpa.getIndexTo());
-                        //check if hand is now empty
-                        isNeedCards();//method checks for us
-                        return true;//move was completed
+                    if(!state.isStartOfGame) {
+                        if (state.getCenterPiles()[fpa.getIndexTo()] + 1 == card) {
+                            //play to this pile
+                            state.playToCenter(card, fpa.getCardPile(), fpa.getIndexTo());
+                            //check if they can be flinched now
+                            checkForFlinch();
+                            //check if hand is now empty
+                            isNeedCards();//method checks for us
+                            return true;//move was completed
+                        }
+                    } else {//TODO check if first turn
+                        //can only play a one
+                        if(card != 1) {
+                            //discard hand
+                            /*Hand handFT = state.getPlayerState(thisPlayerIdx).getHand();
+                            for (int d : handFT) {
+                                //discard the card
+                                state.discard(card, );
+                                return true;
+                            }*/ //TODO how to iterate through a hand???
+                        } else {
+                            //state.isStartOfGame = false; ????? TODO which class changes isStartOfGame?
+                            return true;
+                        }
                     }
-                    //TODO check for flinch
-                    //TODO check if first turn
-                    // it is the first turn--only ones are valid
-                    // a One was played, it is no longer the first turn
-                    //discard all 5 cards from hand if it is first turn
                 }
+
                 // did the player Flinch themselves?
                 if(!flinchPotential) {
                     // check
@@ -231,7 +245,7 @@ public class FLocalGame extends LocalGame{
      */
     protected String checkIfGameOver() {
         //iterate through each player
-        for(int i = 0; i < state.numPlayers; i++) {
+        for(int i = 0; i < numPlayers; i++) {
            //if their flinch pile is empty
             if (state.getPlayerState(i).isFlinchEmpty()) {
                 return "Game Over"; //game is over
@@ -280,7 +294,6 @@ public class FLocalGame extends LocalGame{
             state.replenishPlayerHand();
             return true;
         }
-
         return false;
     }
 }

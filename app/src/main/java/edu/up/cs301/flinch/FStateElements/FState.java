@@ -26,14 +26,14 @@ public class FState extends GameState
 	// whose turn is it to turn a card?
 	int toPlay;
 	// how many players are there
-	public int numPlayers;
+	int numPlayers;
 	// the individual player info
 	FPlayerState[] players;
 	// the contents of the center piles
 	CenterPile[] center;
 
 	// info on game stage: is it the start of the game?
-	private boolean isStartOfGame;
+	public boolean isStartOfGame;//made this public for FLocalGame
 
 	/**
 	 * Constructor for objects of class FState. Initializes for the beginning of the
