@@ -12,6 +12,9 @@ import android.view.View;
 import edu.up.cs301.animation.AnimationSurface;
 import edu.up.cs301.animation.Animator;
 import edu.up.cs301.card.Card;
+import edu.up.cs301.cardpile.CardPile;
+import edu.up.cs301.cardpile.CenterPile;
+import edu.up.cs301.cardpile.Hand;
 import edu.up.cs301.flinch.FStateElements.FState;
 import edu.up.cs301.game.GameHumanPlayer;
 import edu.up.cs301.game.GameMainActivity;
@@ -35,14 +38,13 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     private final static float BUFFER_PERCENT2 = 5;
     private final static float VERTICAL_BORDER_PERCENT_BOTTOMPLAYER = 5; // width of top/bottom borders
     private final static float VERTICAL_BORDER_PERCENT_TOPPLAYER = 70;
-    private final static float VERTICAL_BORDER_CENTER_ONE= 20;
-    private final static float VERTICAL_BORDER_CENTER_TWO= 40;
+    private final static float VERTICAL_CENTERONE = 20;
+    private final static float VERTICAL_CENTERTWO = 30;
+    private final static float CENTER_HEIGHT = 15;
+    private final static float CENTER_WIDTH  = 8 ;
     private final static float FLINCH_PILE_HEIGHT = 20;//Flinch pile height (slightly larger than regular card)
     private final static float FLINCH_PILE_WIDTH = 10;//Flinch pile width
-    private final static float CENTER_PILE_HEIGHT = 15;
-    private final static float CENTER_PILE_WIDTH = 8;
     private final static float FLINCH_BUTTON_WIDTH =10;
-
     private final static float FLINCH_BUTTON_HEIGHT = 5;
 
     //array to hold all the rectFs for the placing of the cards
@@ -123,9 +125,118 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 placing of cards including flinch pile, cards in hand, and discard pile for human player
                 done so by calling method where RectF is actually drawn adding them to an array
                  */
+                //cards of human player (discard)
+                cardPlace[counter] = drawBottomDiscardOne();
+                counter++;
+                cardPlace[counter] = drawBottomDiscardtwo();
+                counter++;
+                cardPlace[counter] = drawBottomDiscardthree();
+                counter++;
+                cardPlace[counter] = drawBottomDiscardfour();
+                counter++;
+                cardPlace[counter] = drawBottomDiscardfive();
+                counter++;
+
+                //cards in hand
+                cardPlace[counter] = drawBottomCardONE();
+                counter++;
+                cardPlace[counter] = drawBottomCardTWO();
+                counter++;
+                cardPlace[counter] = drawBottomCardTHREE();
+                counter++;
+                cardPlace[counter] = drawBottomCardFOUR();
+                counter++;
+                cardPlace[counter] = drawBottomCardFIVE();
+                counter++;
+                cardPlace[counter] = drawBottomPlayerFLINCH();
+                counter++;
+
+                //cards of second player(computer)
+                cardPlace[counter] = drawTopDiscardOne();
+                counter++;
+                cardPlace[counter] = drawTopDiscardtwo();
+                counter++;
+                cardPlace[counter] = drawTopDiscardthree();
+                counter++;
+                cardPlace[counter] = drawTopDiscardfour();
+                counter++;
+                cardPlace[counter] = drawTopDiscardfive();
+                counter++;
+                cardPlace[counter] = drawTopFlinch();
+                counter++;
+
+                //center piles
+                cardPlace[counter] = drawCenterOne();
+                counter++;
+                cardPlace[counter] = drawCentertwo();
+                counter++;
+                cardPlace[counter] = drawCenterThree();
+                counter++;
+                cardPlace[counter] = drawCenterFour();
+                counter++;
+                cardPlace[counter] = drawCenterFive();
+                counter++;
+                cardPlace[counter] = drawCenterSix();
+                counter++;
+                cardPlace[counter] = drawCenterSeven();
+                counter++;
+                cardPlace[counter] = drawCenterEight();
+                counter++;
+                cardPlace[counter] = drawCenterNine();
+                counter++;
+                cardPlace[counter] = drawCenterTen();
+                counter++;
                 counter = getPlayerCards(counter, player);
 
             } else if (state.getNumPlayers() == 3) {
+
+                //cards of human player (discard)
+                cardPlace[counter] = drawBottomDiscardOne();
+                counter++;
+                cardPlace[counter] = drawBottomDiscardtwo();
+                counter++;
+                cardPlace[counter] = drawBottomDiscardthree();
+                counter++;
+                cardPlace[counter] = drawBottomDiscardfour();
+                counter++;
+                cardPlace[counter] = drawBottomDiscardfive();
+                counter++;
+
+                //cards in hand
+                cardPlace[counter] = drawBottomCardONE();
+                counter++;
+                cardPlace[counter] = drawBottomCardTWO();
+                counter++;
+                cardPlace[counter] = drawBottomCardTHREE();
+                counter++;
+                cardPlace[counter] = drawBottomCardFOUR();
+                counter++;
+                cardPlace[counter] = drawBottomCardFIVE();
+                counter++;
+                cardPlace[counter] = drawBottomPlayerFLINCH();
+                counter++;
+
+                //center piles
+                cardPlace[counter] = drawCenterOne();
+                counter++;
+                cardPlace[counter] = drawCentertwo();
+                counter++;
+                cardPlace[counter] = drawCenterThree();
+                counter++;
+                cardPlace[counter] = drawCenterFour();
+                counter++;
+                cardPlace[counter] = drawCenterFive();
+                counter++;
+                cardPlace[counter] = drawCenterSix();
+                counter++;
+                cardPlace[counter] = drawCenterSeven();
+                counter++;
+                cardPlace[counter] = drawCenterEight();
+                counter++;
+                cardPlace[counter] = drawCenterNine();
+                counter++;
+                cardPlace[counter] = drawCenterTen();
+                counter++;
 
                 //draw Right player's cards (5 discard and one flinch pile)
                 counter = getPlayerCards(counter, player);
@@ -240,6 +351,28 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 if(player >= state.getNumPlayers()) {
                     player = 0;
                 }
+                int counter = 0;
+                cardPlace[counter] = drawCenterOne();
+                counter++;
+                cardPlace[counter] = drawCentertwo();
+                counter++;
+                cardPlace[counter] = drawCenterThree();
+                counter++;
+                cardPlace[counter] = drawCenterFour();
+                counter++;
+                cardPlace[counter] = drawCenterFive();
+                counter++;
+                cardPlace[counter] = drawCenterSix();
+                counter++;
+                cardPlace[counter] = drawCenterSeven();
+                counter++;
+                cardPlace[counter] = drawCenterEight();
+                counter++;
+                cardPlace[counter] = drawCenterNine();
+                counter++;
+                cardPlace[counter] = drawCenterTen();
+                counter++;
+
                 getTopCardLocs(counter1, player);
                 counter2 = getPlayerCards(counter2, player);
 
@@ -251,6 +384,28 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 if(player >= state.getNumPlayers()) {
                     player = 0;
                 }
+
+                int counter = 0;
+                cardPlace[counter] = drawCenterOne();
+                counter++;
+                cardPlace[counter] = drawCentertwo();
+                counter++;
+                cardPlace[counter] = drawCenterThree();
+                counter++;
+                cardPlace[counter] = drawCenterFour();
+                counter++;
+                cardPlace[counter] = drawCenterFive();
+                counter++;
+                cardPlace[counter] = drawCenterSix();
+                counter++;
+                cardPlace[counter] = drawCenterSeven();
+                counter++;
+                cardPlace[counter] = drawCenterEight();
+                counter++;
+                cardPlace[counter] = drawCenterNine();
+                counter++;
+                cardPlace[counter] = drawCenterTen();
+                counter++;
 
                 //draw Right player's cards (5 discard and one flinch pile)
                 counter1 = getRightLocs(counter1, player);
@@ -271,6 +426,28 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 if(player >= state.getNumPlayers()) {
                     player = 0;
                 }
+
+                int counter = 0;
+                cardPlace[counter] = drawCenterOne();
+                counter++;
+                cardPlace[counter] = drawCentertwo();
+                counter++;
+                cardPlace[counter] = drawCenterThree();
+                counter++;
+                cardPlace[counter] = drawCenterFour();
+                counter++;
+                cardPlace[counter] = drawCenterFive();
+                counter++;
+                cardPlace[counter] = drawCenterSix();
+                counter++;
+                cardPlace[counter] = drawCenterSeven();
+                counter++;
+                cardPlace[counter] = drawCenterEight();
+                counter++;
+                cardPlace[counter] = drawCenterNine();
+                counter++;
+                cardPlace[counter] = drawCenterTen();
+                counter++;
 
                 //draw Right player's cards (5 discard and one flinch pile)
                 counter1 = getRightLocs(counter1, player);
@@ -366,6 +543,29 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         return counter;
     }
 
+    private int getCenterCards (int counter, int player){
+        cardPlace[counter] = drawCenterOne();
+        counter++;
+        cardPlace[counter] = drawCentertwo();
+        counter++;
+        cardPlace[counter] = drawCenterThree();
+        counter++;
+        cardPlace[counter] = drawCenterFour();
+        counter++;
+        cardPlace[counter] = drawCenterFive();
+        counter++;
+        cardPlace[counter] = drawCenterSix();
+        counter++;
+        cardPlace[counter] = drawCenterSeven();
+        counter++;
+        cardPlace[counter] = drawCenterEight();
+        counter++;
+        cardPlace[counter] = drawCenterNine();
+        counter++;
+        cardPlace[counter] = drawCenterTen();
+        return counter;
+    }
+
     /**
      *
      * @param counter
@@ -444,10 +644,10 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     private RectF drawBottomPlayerFLINCH() {
         int width = surface.getWidth();
         int height = surface.getHeight();
-       RectF flinch = new RectF(LEFT_BORDER_PERCENT*width/100f,
+        RectF flinch = new RectF(LEFT_BORDER_PERCENT*width/100f,
                 (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-FLINCH_PILE_HEIGHT)*height/100f,
                 (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH)*width/100f,
-               (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER) * height/100f);
+                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER) * height/100f);
         return flinch;
     }
     //draws the first card in the players hand
@@ -504,7 +704,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     /*
     Start of drawing for discard piles for human player
      */
-
+    //discard card #1
     private RectF drawBottomDiscardOne () {
 
         int width = surface.getWidth();
@@ -516,6 +716,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         return DiscardOne;
 
     }
+    //discrd card #2
     private RectF drawBottomDiscardtwo() {
 
         int width = surface.getWidth();
@@ -527,7 +728,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         return DiscardTwo;
 
     }
-
+    //discard card #3
     private RectF drawBottomDiscardthree() {
 
         int width = surface.getWidth();
@@ -539,7 +740,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         return DiscardThree;
 
     }
-
+    //discard card #4
     private RectF drawBottomDiscardfour() {
 
         int width = surface.getWidth();
@@ -551,7 +752,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         return DiscardFour;
 
     }
-
+    //discard card #5
     private RectF drawBottomDiscardfive() {
 
         int width = surface.getWidth();
@@ -561,6 +762,129 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*5 + (CARD_WIDTH_PERCENT * 5))*width/100f,
                 (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+CARD_HEIGHT_PERCENT+BUFFER_PERCENT2)) * height/100f);
         return DiscardFive;
+
+    }
+
+    //start of center pile drawing
+
+    //bottom left center card
+    private RectF drawCenterOne () {
+
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF CenterOne = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+BUFFER_PERCENT2)*width/100f,
+                (100-VERTICAL_CENTERONE-(CENTER_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
+                (LEFT_BORDER_PERCENT+CARD_WIDTH_PERCENT + FLINCH_PILE_WIDTH + BUFFER_PERCENT2)*width/100f,
+                (100-(VERTICAL_CENTERONE+CENTER_HEIGHT+BUFFER_PERCENT2)) * height/100f);
+        return CenterOne;
+
+    }
+    //second card bottom row
+    private RectF drawCentertwo() {
+
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF CenterTwo = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*2 + (CENTER_WIDTH))*width/100f,
+                (100-VERTICAL_CENTERONE-(CENTER_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*2 + (CENTER_WIDTH * 2))*width/100f,
+                (100-(VERTICAL_CENTERONE+CENTER_HEIGHT+BUFFER_PERCENT2)) * height/100f);
+        return CenterTwo;
+
+    }
+    //third card bottom row
+    private RectF drawCenterThree() {
+
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF CenterThree = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*3 + (CENTER_WIDTH * 2))*width/100f,
+                (100-VERTICAL_CENTERONE-(CENTER_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*3 + (CENTER_WIDTH * 3))*width/100f,
+                (100-(VERTICAL_CENTERONE+CENTER_HEIGHT+BUFFER_PERCENT2)) * height/100f);
+        return CenterThree;
+
+    }
+    //fourth card bottom row
+    private RectF drawCenterFour() {
+
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF CenterFour = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*4 + (CENTER_WIDTH * 3))*width/100f,
+                (100-VERTICAL_CENTERONE-(CENTER_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*4 + (CENTER_WIDTH * 4))*width/100f,
+                (100-(VERTICAL_CENTERONE+CENTER_HEIGHT+BUFFER_PERCENT2)) * height/100f);
+        return CenterFour;
+
+    }
+    //fifth card bottom row
+    private RectF drawCenterFive() {
+
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF CenterFive = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*5 + (CENTER_WIDTH * 4))*width/100f,
+                (100-VERTICAL_CENTERTWO-(CENTER_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*5 + (CENTER_WIDTH * 5))*width/100f,
+                (100-(VERTICAL_CENTERTWO+CENTER_HEIGHT+BUFFER_PERCENT2)) * height/100f);
+        return CenterFive;
+
+    }
+    //top left card
+    private RectF drawCenterSix () {
+
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF CenterSix = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+BUFFER_PERCENT2)*width/100f,
+                (100-VERTICAL_CENTERTWO-(CENTER_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
+                (LEFT_BORDER_PERCENT+CARD_WIDTH_PERCENT + FLINCH_PILE_WIDTH + BUFFER_PERCENT2)*width/100f,
+                (100-(VERTICAL_CENTERTWO+CENTER_HEIGHT+BUFFER_PERCENT2)) * height/100f);
+        return CenterSix;
+
+    }
+    //second card top row
+    private RectF drawCenterSeven() {
+
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF CenterSeven = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*2 + (CENTER_WIDTH))*width/100f,
+                (100-VERTICAL_CENTERTWO-(CENTER_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*2 + (CENTER_WIDTH * 2))*width/100f,
+                (100-(VERTICAL_CENTERTWO+CENTER_HEIGHT+BUFFER_PERCENT2)) * height/100f);
+        return CenterSeven;
+
+    }
+    //third card top row
+    private RectF drawCenterEight() {
+
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF CenterEight = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*3 + (CENTER_WIDTH * 2))*width/100f,
+                (100-VERTICAL_CENTERTWO-(CENTER_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*3 + (CENTER_WIDTH * 3))*width/100f,
+                (100-(VERTICAL_CENTERTWO+CENTER_HEIGHT+BUFFER_PERCENT2)) * height/100f);
+        return CenterEight;
+
+    }
+    //fourth card top row
+    private RectF drawCenterNine() {
+
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF CenterNine = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*4 + (CENTER_WIDTH * 3))*width/100f,
+                (100-VERTICAL_CENTERTWO-(CENTER_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*4 + (CENTER_WIDTH * 4))*width/100f,
+                (100-(VERTICAL_CENTERTWO+CENTER_HEIGHT+BUFFER_PERCENT2)) * height/100f);
+        return CenterNine;
+
+    }
+    //fifth card top row
+    private RectF drawCenterTen() {
+
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF CenterTen = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*5 + (CENTER_WIDTH * 4))*width/100f,
+                (100-VERTICAL_CENTERTWO-(CENTER_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*5 + (CENTER_WIDTH * 5))*width/100f,
+                (100-(VERTICAL_CENTERTWO+CENTER_HEIGHT+BUFFER_PERCENT2)) * height/100f);
+        return CenterTen;
 
     }
 
@@ -574,6 +898,9 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         return FlinchButton;
     }*/
 
+   //drawing of top player cards ( 5 discard 1 flinch)
+
+    //discard one (left most)
     private RectF drawTopDiscardOne () {
 
         int width = surface.getWidth();
@@ -585,6 +912,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         return DiscardTopOne;
 
     }
+    //discard two
     private RectF drawTopDiscardtwo() {
 
         int width = surface.getWidth();
@@ -596,7 +924,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         return DiscardTwoTop;
 
     }
-
+    //discard three
     private RectF drawTopDiscardthree() {
 
         int width = surface.getWidth();
@@ -609,6 +937,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
     }
 
+    //discard four
     private RectF drawTopDiscardfour() {
 
         int width = surface.getWidth();
@@ -620,7 +949,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         return DiscardFourTop;
 
     }
-
+    //discard five
     private RectF drawTopDiscardfive() {
 
         int width = surface.getWidth();
@@ -632,6 +961,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         return DiscardFiveTop;
 
     }
+    //flinch pile
     private RectF drawTopFlinch() {
 
         int width = surface.getWidth();
@@ -643,124 +973,6 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         return FlinchTop;
 
     }
-    private RectF drawCenterOne () {
-
-        int width = surface.getWidth();
-        int height = surface.getHeight();
-        RectF CenterOne = new RectF ((LEFT_BORDER_PERCENT+BUFFER_PERCENT2)*width/100f,
-                (100-VERTICAL_BORDER_CENTER_ONE-(CENTER_PILE_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
-                (LEFT_BORDER_PERCENT+CENTER_PILE_WIDTH + BUFFER_PERCENT2)*width/100f,
-                (100-(VERTICAL_BORDER_CENTER_ONE+CENTER_PILE_HEIGHT+BUFFER_PERCENT2)) * height/100f);
-        return CenterOne;
-
-    }
-    private RectF drawCenterTwo() {
-
-        int width = surface.getWidth();
-        int height = surface.getHeight();
-        RectF CenterTwo = new RectF ((LEFT_BORDER_PERCENT+(BUFFER_PERCENT2)*2 + (CENTER_PILE_WIDTH))*width/100f,
-                (100-VERTICAL_BORDER_CENTER_ONE-(CENTER_PILE_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
-                (LEFT_BORDER_PERCENT+(BUFFER_PERCENT2)*2 + (CENTER_PILE_WIDTH * 2))*width/100f,
-                (100-(VERTICAL_BORDER_CENTER_ONE+CENTER_PILE_HEIGHT+BUFFER_PERCENT2)) * height/100f);
-        return CenterTwo;
-
-    }
-
-    private RectF drawCenterThree() {
-
-        int width = surface.getWidth();
-        int height = surface.getHeight();
-        RectF CenterThree = new RectF ((LEFT_BORDER_PERCENT+(BUFFER_PERCENT2)*3 + (CENTER_PILE_WIDTH * 2))*width/100f,
-                (100-VERTICAL_BORDER_CENTER_ONE-(CENTER_PILE_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
-                (LEFT_BORDER_PERCENT+(BUFFER_PERCENT2)*3 + (CENTER_PILE_WIDTH * 3))*width/100f,
-                (100-(VERTICAL_BORDER_CENTER_ONE+CENTER_PILE_HEIGHT+BUFFER_PERCENT2)) * height/100f);
-        return CenterThree;
-
-    }
-
-    private RectF drawCenterFour() {
-
-        int width = surface.getWidth();
-        int height = surface.getHeight();
-        RectF CenterFour = new RectF ((LEFT_BORDER_PERCENT+(BUFFER_PERCENT2)*4 + (CENTER_PILE_WIDTH * 3))*width/100f,
-                (100-VERTICAL_BORDER_CENTER_ONE-(CENTER_PILE_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
-                (LEFT_BORDER_PERCENT+(BUFFER_PERCENT2)*4 + (CENTER_PILE_WIDTH * 4))*width/100f,
-                (100-(VERTICAL_BORDER_CENTER_ONE+CENTER_PILE_HEIGHT+BUFFER_PERCENT2)) * height/100f);
-        return CenterFour;
-
-    }
-
-    private RectF drawCenterfive() {
-
-        int width = surface.getWidth();
-        int height = surface.getHeight();
-        RectF CenterFive = new RectF ((LEFT_BORDER_PERCENT+(BUFFER_PERCENT2)*5 + (CENTER_PILE_WIDTH * 4))*width/100f,
-                (100-VERTICAL_BORDER_CENTER_ONE-(CENTER_PILE_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
-                (LEFT_BORDER_PERCENT+(BUFFER_PERCENT2)*5 + (CENTER_PILE_WIDTH * 5))*width/100f,
-                (100-(VERTICAL_BORDER_CENTER_ONE+CENTER_PILE_HEIGHT+BUFFER_PERCENT2)) * height/100f);
-        return CenterFive;
-
-    }
-
-    private RectF drawCenterSix () {
-
-        int width = surface.getWidth();
-        int height = surface.getHeight();
-        RectF CenterSix = new RectF ((LEFT_BORDER_PERCENT+BUFFER_PERCENT2)*width/100f,
-                (100-VERTICAL_BORDER_CENTER_TWO-(CENTER_PILE_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
-                (LEFT_BORDER_PERCENT+CENTER_PILE_WIDTH + BUFFER_PERCENT2)*width/100f,
-                (100-(VERTICAL_BORDER_CENTER_TWO+CENTER_PILE_HEIGHT+BUFFER_PERCENT2)) * height/100f);
-        return CenterSix;
-
-    }
-    private RectF drawCenterSeven() {
-
-        int width = surface.getWidth();
-        int height = surface.getHeight();
-        RectF CenterSeven = new RectF ((LEFT_BORDER_PERCENT+(BUFFER_PERCENT2)*2 + (CENTER_PILE_WIDTH))*width/100f,
-                (100-VERTICAL_BORDER_CENTER_TWO-(CENTER_PILE_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
-                (LEFT_BORDER_PERCENT+(BUFFER_PERCENT2)*2 + (CENTER_PILE_WIDTH * 2))*width/100f,
-                (100-(VERTICAL_BORDER_CENTER_TWO+CENTER_PILE_HEIGHT+BUFFER_PERCENT2)) * height/100f);
-        return CenterSeven;
-
-    }
-
-    private RectF drawCenterEight() {
-
-        int width = surface.getWidth();
-        int height = surface.getHeight();
-        RectF CenterEight = new RectF ((LEFT_BORDER_PERCENT+(BUFFER_PERCENT2)*3 + (CENTER_PILE_WIDTH * 2))*width/100f,
-                (100-VERTICAL_BORDER_CENTER_TWO-(CENTER_PILE_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
-                (LEFT_BORDER_PERCENT+(BUFFER_PERCENT2)*3 + (CENTER_PILE_WIDTH * 3))*width/100f,
-                (100-(VERTICAL_BORDER_CENTER_TWO+CENTER_PILE_HEIGHT+BUFFER_PERCENT2)) * height/100f);
-        return CenterEight;
-
-    }
-
-    private RectF drawCenterNine() {
-
-        int width = surface.getWidth();
-        int height = surface.getHeight();
-        RectF CenterNine = new RectF ((LEFT_BORDER_PERCENT+(BUFFER_PERCENT2)*4 + (CENTER_PILE_WIDTH * 3))*width/100f,
-                (100-VERTICAL_BORDER_CENTER_TWO-(CENTER_PILE_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
-                (LEFT_BORDER_PERCENT+(BUFFER_PERCENT2)*4 + (CENTER_PILE_WIDTH * 4))*width/100f,
-                (100-(VERTICAL_BORDER_CENTER_TWO+CENTER_PILE_HEIGHT+BUFFER_PERCENT2)) * height/100f);
-        return CenterNine;
-
-    }
-
-    private RectF drawCenterTen() {
-
-        int width = surface.getWidth();
-        int height = surface.getHeight();
-        RectF CenterTen = new RectF ((LEFT_BORDER_PERCENT+(BUFFER_PERCENT2)*5 + (CENTER_PILE_WIDTH * 4))*width/100f,
-                (100-VERTICAL_BORDER_CENTER_TWO-(CENTER_PILE_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
-                (LEFT_BORDER_PERCENT+(BUFFER_PERCENT2)*5 + (CENTER_PILE_WIDTH * 5))*width/100f,
-                (100-(VERTICAL_BORDER_CENTER_TWO+CENTER_PILE_HEIGHT+BUFFER_PERCENT2)) * height/100f);
-        return CenterTen;
-
-    }
-
 
     //LEFT PLAYER
     //STILL NEEDS TO BE COMPLETED
@@ -858,6 +1070,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         // helper variable
         int playedTo;
         int discardedTo;
+        int CenterTo;
 
         // is it the player's turn
         if(state.getWhoseTurn() == this.playerNum) {
@@ -874,11 +1087,22 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             else if (cardPlace[2].contains(x, y)) {
                 selected = 2;
             }
-            // TODO: REPEAT FOR REMAINING CARDS IN THE HAND: 3, 4, 5
+            //card 3: cardPlace[3]
+            else if (cardPlace[3].contains(x,y)) {
+                selected = 3;
+            }
+            //card 4: cardPlace[4]
+            else if(cardPlace[4].contains(x,y)){
+                selected = 4;
+            }
+            //card 5: cardPlace[4]
+            else if(cardPlace[5].contains(x,y)){
+                selected = 5;
+            }
             else if((discardedTo = isDiscardPileTouched(x, y)) != -1){
-               // selected = discardedTo; for when we fix the below problem
-                //TODO: SEE NOTE ABOVE METHOD. Ignore for now and assume this means a discard action
+                // selected = discardedTo;
                 if (selected > 0 && selected < 6) {
+                        selected = discardedTo;
 
                     // this card is from the hand--we can discard
                     //TODO: generate a FDiscardAction
@@ -890,16 +1114,10 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             // do they want to play a card? -- use a helper method
             else if ((playedTo = isCenterPileTouched(x, y)) != -1) {
                 if(selected != -1) {
+                    //need to figure out cardPile
+                    //TODO: finish FPlayAction only one left is cardPile, not sure which to put there, tried things like "hand", "centerPile", etc all errors
+                    //game.sendAction(new FPlayAction(this,selected-1, playedTo, );
 
-                    // TODO: generate an FPlayAction
-                    // game.sendAction(new FPlayAction(player, source, destination, cardPile type)
-                    //player: this
-                    // source: if they played from the Flinch (0), if they played from hand-what index (0-4), if they played from discards (0 - 4)
-                    // use the variable selected and the order of things within cardPlace to figure it out
-                    // destination: some centerPile index 0 - 10
-                    // use variable playedTo and the order of things within cardPlace to figure it out
-                    // cardPile type: Hand, Discard, or Flinch--where did they play from
-                    // must either send this player's hand, discard, or flinch, OR send new Hand() ....
                     selected = -1;
                 }
             } else {
@@ -913,41 +1131,21 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             // illegal touch-location: flash for 1/20 second
             surface.flash(Color.RED, 50);
         }
-       /* // ignore everything except down-touch events
-        if (event.getAction() != MotionEvent.ACTION_DOWN) return;
-
-        // get the location of the touch on the surface
-        int x = (int) event.getX();
-        int y = (int) event.getY();
-
-        // determine whether the touch occurred on the top-card of either
-        // the player's pile or the middle pile
-        RectF myTopCardLoc = thisPlayerTopCardLocation();
-
-        if (myTopCardLoc.contains(x, y)) {
-            // it's on my pile: we're playing a card: send action to
-            // the game
-            //classes need to be implemented
-            game.sendAction(new FPlayAction(this));
-        }
-        else if (middleTopCardLoc.contains(x, y)) {
-            // it's on the middlel pile: we're slapping a card: send
-            // action to the game
-            //classes need to be implemented
-           game.sendAction(new FFlinchAction(this));
-        }
-        else {
-            // illegal touch-location: flash for 1/20 second
-            surface.flash(Color.RED, 50);
-        }
-
     }
 
     private int isDiscardPileTouched(int xTouch, int yTouch) {
-        // TODO: SEE isCenterPileTouched for how to implement
-        return -1; // dummy return
+        int index = cardPlace.length - 5;
+        for(int i = index; i <cardPlace.length; i++){
+            if(i<0 || i >= cardPlace.length||cardPlace[i] == null) {
+                continue;
+            }
+            if(cardPlace[i].contains(xTouch, yTouch)){
+                return i;
+            }
+        }
+        return -1; 
     }
-
+    //
     /**
      * Method to determine whether a center pile was selected
      * @param xTouch
@@ -971,7 +1169,6 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
     }
     private void drawCardBacks(Canvas g, RectF topRect, float deltaX, float deltaY,
-    /*private void drawCardBacks(Canvas g, RectF topRect, float deltaX, float deltaY,
                                int numCards) {
         // loop through from back to front, drawing a card-back in each location
         for (int i = numCards-1; i >= 0; i--) {
@@ -979,11 +1176,15 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             float left = topRect.left + i*deltaX;
             float top = topRect.top + i*deltaY;
             // draw a card-back (hence null) into the appropriate rectangle
-            drawCard(g,
-                    new RectF(left, top, left + topRect.width(), top + topRect.height()),
+            drawCard(g, new RectF(left, top, left + topRect.width(), top + topRect.height()),
                     null);
         }
-    }*/
+    }
+
+    /**
+     * draws a card on the canvas; if the card is null, draw a card-back
+     *  
+     */
 
     /**
      * draws a card on the canvas; if the card is null, draw a card-back
@@ -1058,3 +1259,5 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
 
 }
+
+
