@@ -82,6 +82,8 @@ public class FComputerPlayer extends GameComputerPlayer
 		// if it is our turn, we will play cards
 		// otherwise, monitor for Flinches if able to
 
+		// rest 3 seconds so play isn't immediate
+		sleep(3000);
 	}
 
 	/**

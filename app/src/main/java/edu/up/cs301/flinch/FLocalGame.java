@@ -201,19 +201,37 @@ public class FLocalGame extends LocalGame{
             if (!canMove(thisPlayerIdx)) {
                 return false;
             } else {
-                // it's the correct player's turn
-                // cast to a play action
+                // make a discard action
                 FDiscardAction fda = (FDiscardAction) fma;
                 // card from discard pile
-                int card = fda.getIndexFrom();
-                // compare card to center piles
-                if(state.getCenterPiles()[fda.getIndexTo()]+1 == card) {
+                int cardIdx = fda.getIndexFrom();
+                // get the discards
+                    // if any are blank--then we can only discard to a blank one
+                boolean blanks = false;
+                int[] d = state.getPlayerState(thisPlayerIdx).getTopDiscards();
+                for(int card : d) {
+                    if(card == -1) {
+                        blanks = true;
+                        break;
+                    }
+                }
+                if(blanks) {
+                    if(d[fda.getIndexTo()] == -1) {
+                        // the space was blank
+                        //discard the card
+                        state.discard(cardIdx, fda.getIndexTo());
+                        return true;//move was completed
+                    } else {
+                        // space not blank, invalid discard
+                        return false;
+                    }
+                } else
+                {
                     //discard the card
-                    state.discard(card, fda.getIndexTo());
+                    state.discard(cardIdx, fda.getIndexTo());
                     return true;//move was completed
                 }
             }
-            return false; //move wasn't made
         } else if (fma.isFlinch()) {//flinch action
             // attempt to play when it's the other player's turn
             if (!canMove(thisPlayerIdx)) {

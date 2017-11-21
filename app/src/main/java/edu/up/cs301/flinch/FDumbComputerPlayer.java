@@ -46,8 +46,10 @@ public class FDumbComputerPlayer extends FComputerPlayer{
 
     /**
      * Method to generate plays by playing as many cards as possible
+     * Will rest 3 seconds after playing a card
      */
     private void playCards() {
+
         // look randommly at Flinch, Hand or Discards
         int[] toLook = {0,1,2};
         Collections.shuffle(Arrays.asList(toLook));
@@ -64,6 +66,7 @@ public class FDumbComputerPlayer extends FComputerPlayer{
 
                         game.sendAction(new FPlayAction(this, 0, index, new FlinchPile()));
                         cardPlayed = true;
+                        sleep(3000);
                     }
                 } else if (toLook[idx] == LOOK_HAND) {
                     // look at the Hand---every card
@@ -75,6 +78,7 @@ public class FDumbComputerPlayer extends FComputerPlayer{
                             // I can play the card
                             game.sendAction(new FPlayAction(this, index, i, new Hand()));
                             cardPlayed = true;
+                            sleep(3000);
                         }
                     }
                 } else {
@@ -87,6 +91,7 @@ public class FDumbComputerPlayer extends FComputerPlayer{
                             // I can play the card
                             game.sendAction(new FPlayAction(this, index, i, new DiscardPile()));
                             cardPlayed = true;
+                            sleep(3000);
                         }
                     }
                 }
