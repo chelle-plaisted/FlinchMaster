@@ -46,7 +46,8 @@ public class FState extends GameState
 		// initialize the number of the players in the game
 		numPlayers = num;
 		// randomly pick the player who starts
-		toPlay = (int)(num * Math.random());
+		//toPlay = (int)(num * Math.random());
+		toPlay = 0;
 
 		// start a new Deck and shuffle it
 		deck = new Deck();

@@ -48,6 +48,8 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
     //array to hold all the rectFs for the placing of the cards
     private RectF[] cardPlace;
+    //array to hold actual cards
+    private int[] toDraw;
     //number of players (decided in configuration screen
     private int getNumPlayers;
 
@@ -63,6 +65,9 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     // the background color
     private int backgroundColor;
 
+    // the index of the player's selected card within cardPlace or toDraw
+    private int selected;
+
     /**
      * constructor
      *
@@ -74,6 +79,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     public FHumanPlayer(String name, int bkColor) {
         super(name);
         backgroundColor = bkColor;
+        selected = -1;
     }
 
     /**
@@ -97,8 +103,56 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             // it's a game-state object: update the state. Since we have an animation
             // going, there is no need to explicitly display anything. That will happen
             // at the next animation-tick, which should occur within 1/20 of a second
-            this.state = (FState)info;
+            this.state = (FState) info;
+
             Log.i("human player", "receiving");
+
+            //update cards for all the players
+            if (toDraw == null) {
+                return;
+            }
+            int counter = 0;
+            int player = this.playerNum;
+            // get Bottom Player cards
+            counter = getBottomCards(counter, player);
+            player++; // increment the player
+            if (player >= state.getNumPlayers()) {
+                player = 0;
+            }
+            if (state.getNumPlayers() == 2) {
+                /*
+                placing of cards including flinch pile, cards in hand, and discard pile for human player
+                done so by calling method where RectF is actually drawn adding them to an array
+                 */
+                counter = getPlayerCards(counter, player);
+
+            } else if (state.getNumPlayers() == 3) {
+
+                //draw Right player's cards (5 discard and one flinch pile)
+                counter = getPlayerCards(counter, player);
+                if (player >= state.getNumPlayers()) {
+                    player = 0;
+                }
+
+                //draw Left player's cards (5 discard and one flinch pile)
+                counter = getPlayerCards(counter, player);
+
+            } else if (state.getNumPlayers() == 4) {
+                //draw Right player's cards (5 discard and one flinch pile)
+                counter = getPlayerCards(counter, player);
+                if (player >= state.getNumPlayers()) {
+                    player = 0;
+                }
+
+                //draw Left player's cards (5 discard and one flinch pile)
+                counter = getPlayerCards(counter, player);
+                if (player >= state.getNumPlayers()) {
+                    player = 0;
+                }
+
+                //draw Left player's cards (5 discard and one flinch pile)
+                counter = getPlayerCards(counter, player);
+            }
         }
     }
 
@@ -164,95 +218,78 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             getNumPlayers = 10 + 6 * state.getNumPlayers() + 5;
             //filling array with the amount of numplayers for RectF
             cardPlace = new RectF[getNumPlayers];
+            toDraw = new int[getNumPlayers];
             /*
             depending on how many players there are will depend on how many of the RectFs are drawn, this will
             be dependent on the if statemtns below
              */
-
+            int counter1 = 0;
+            int counter2 = 0;
             if (state.getNumPlayers() == 2) {
                 /*
                 placing of cards including flinch pile, cards in hand, and discard pile for human player
                 done so by calling method where RectF is actually drawn adding them to an array
                  */
-                int counter = 0;
+
+                int player = this.playerNum;
                 // draw Bottom Player cards
-                cardPlace[counter] = drawBottomPlayerFLINCH();
-                counter++;
-                cardPlace[counter] = drawBottomCardONE();
-                counter++;
-                cardPlace[counter] = drawBottomCardTWO();
-                counter++;
-                cardPlace[counter] = drawBottomCardTHREE();
-                counter++;
-                cardPlace[counter] = drawBottomCardFOUR();
-                counter++;
-                cardPlace[counter] = drawBottomCardFIVE();
-                counter++;
-                cardPlace[counter] = drawBottomDiscardOne();
-                counter++;
-                cardPlace[counter] = drawBottomDiscardtwo();
-                counter++;
-                cardPlace[counter] = drawBottomDiscardthree();
-                counter++;
-                cardPlace[counter] = drawBottomDiscardfour();
-                counter++;
-                cardPlace[counter] = drawBottomDiscardfive();
-                counter++;
+
+                counter1 = getBottomCardLocs(counter1, player);
+                counter2 = getBottomCards(counter2, player);
                 //start of top players cards (5 discard and one flinch pile)
-                cardPlace[counter] = drawTopDiscardOne();
-                counter++;
-                cardPlace[counter] = drawTopDiscardtwo();
-                counter++;
-                cardPlace[counter] = drawTopDiscardthree();
-                counter++;
-                cardPlace[counter] = drawTopDiscardfour();
-                counter++;
-                cardPlace[counter] = drawTopDiscardfive();
-                counter++;
-                cardPlace[counter] = drawTopFlinch();
+                player++;
+                if(player >= state.getNumPlayers()) {
+                    player = 0;
+                }
+                getTopCardLocs(counter1, player);
+                counter2 = getPlayerCards(counter2, player);
 
             } else if (state.getNumPlayers() == 3) {
-                int counter = 0;
+                int player = this.playerNum;
                 // draw Bottom Player cards
-                cardPlace[counter] = drawBottomPlayerFLINCH();
-                counter++;
-                cardPlace[counter] = drawBottomCardONE();
-                counter++;
-                cardPlace[counter] = drawBottomCardTWO();
-                counter++;
-                cardPlace[counter] = drawBottomCardTHREE();
-                counter++;
-                cardPlace[counter] = drawBottomCardFOUR();
-                counter++;
-                cardPlace[counter] = drawBottomCardFIVE();
-                counter++;
-                cardPlace[counter] = drawBottomDiscardOne();
-                counter++;
-                cardPlace[counter] = drawBottomDiscardtwo();
-                counter++;
-                cardPlace[counter] = drawBottomDiscardthree();
-                counter++;
-                cardPlace[counter] = drawBottomDiscardfour();
-                counter++;
-                cardPlace[counter] = drawBottomDiscardfive();
+                counter1 = getBottomCardLocs(counter1, player);
+                counter2 = getBottomCards(counter2, player);
+                if(player >= state.getNumPlayers()) {
+                    player = 0;
+                }
 
-                //draw Top players cards (5 discard and one flinch pile)
-                cardPlace[counter] = drawTopDiscardOne();
-                counter++;
-                cardPlace[counter] = drawTopDiscardtwo();
-                counter++;
-                cardPlace[counter] = drawTopDiscardthree();
-                counter++;
-                cardPlace[counter] = drawTopDiscardfour();
-                counter++;
-                cardPlace[counter] = drawTopDiscardfive();
-                counter++;
-                cardPlace[counter] = drawTopFlinch();
+                //draw Right player's cards (5 discard and one flinch pile)
+                counter1 = getRightLocs(counter1, player);
+                counter2 = getPlayerCards(counter2, player);
+                if(player >= state.getNumPlayers()) {
+                    player = 0;
+                }
 
+                //draw Left player's cards (5 discard and one flinch pile)
+                counter1 = getLeftCardLocs(counter1, player);
+                counter2 = getPlayerCards(counter2, player);
 
             } else if (state.getNumPlayers() == 4) {
+                int player = this.playerNum;
+                // draw Bottom Player cards
+                counter1 = getBottomCardLocs(counter1, player);
+                counter2 = getBottomCards(counter2, player);
+                if(player >= state.getNumPlayers()) {
+                    player = 0;
+                }
 
+                //draw Right player's cards (5 discard and one flinch pile)
+                counter1 = getRightLocs(counter1, player);
+                counter2 = getPlayerCards(counter2, player);
+                if(player >= state.getNumPlayers()) {
+                    player = 0;
+                }
 
+                //draw Left player's cards (5 discard and one flinch pile)
+                counter1 = getLeftCardLocs(counter1, player);
+                counter2 = getPlayerCards(counter2, player);
+                if(player >= state.getNumPlayers()) {
+                    player = 0;
+                }
+
+                //draw Left player's cards (5 discard and one flinch pile)
+                getTopCardLocs(counter1, player);
+                counter2 = getPlayerCards(counter2, player);
             }
 
 
@@ -260,32 +297,147 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             // TODO: loop to add center cards, draw center cards (make sure it doesn't crash when the card is null), other players, link the rectF's to the actual cards in the state
         }
         Paint paint = new Paint();
-        paint.setColor(Color.rgb(0,102,0));
+        paint.setColor(Color.rgb(181,205,255));
 
         // draw the cards
 
-        for(int i = 0; i < 17; i++) {
+        for(int i = 0; i < getNumPlayers; i++) {
             //canvas.drawRect(cardPlace[i], paint);
-            drawCard(canvas, cardPlace[i], new Card(8))
-            ;
+            if(toDraw[i] < 1) {
+                // there is no card to draw here, just draw a rectangle
+                if (i >16) break;
+                canvas.drawRect(cardPlace[i], paint);
+                continue;
+            }
+            if (i >16) break;
+            drawCard(canvas, cardPlace[i], new Card(toDraw[i]));
         }
+    }
 
+    /**
+     *
+     * @param counter
+     * @param player
+     * @return
+     */
+    private int getBottomCardLocs(int counter, int player){
+        cardPlace[counter] = drawBottomPlayerFLINCH();
+        counter++;
+        cardPlace[counter] = drawBottomCardONE();
+        counter++;
+        cardPlace[counter] = drawBottomCardTWO();
+        counter++;
+        cardPlace[counter] = drawBottomCardTHREE();
+        counter++;
+        cardPlace[counter] = drawBottomCardFOUR();
+        counter++;
+        cardPlace[counter] = drawBottomCardFIVE();
+        counter++;
+        cardPlace[counter] = drawBottomDiscardOne();
+        counter++;
+        cardPlace[counter] = drawBottomDiscardtwo();
+        counter++;
+        cardPlace[counter] = drawBottomDiscardthree();
+        counter++;
+        cardPlace[counter] = drawBottomDiscardfour();
+        counter++;
+        cardPlace[counter] = drawBottomDiscardfive();
+        counter++;
+        return counter;
+    }
 
-        //Card c = state.getDeck(2).peekAtTopCard(); // top card in pile
+    /**
+     *
+     * @param counter
+     * @param player
+     * @return
+     */
+    private int getTopCardLocs(int counter, int player){
+        cardPlace[counter] = drawTopDiscardOne();
+        counter++;
+        cardPlace[counter] = drawTopDiscardtwo();
+        counter++;
+        cardPlace[counter] = drawTopDiscardthree();
+        counter++;
+        cardPlace[counter] = drawTopDiscardfour();
+        counter++;
+        cardPlace[counter] = drawTopDiscardfive();
+        counter++;
+        cardPlace[counter] = drawTopFlinch();
+        return counter;
+    }
 
-        //drawCardBacks(canvas, oppTopLocation,
-                //0.0025f*width, -0.01f*height, state.getDeck(1-this.playerNum).size());
+    /**
+     *
+     * @param counter
+     * @param player
+     * @return
+     */
+    private int getRightLocs(int counter, int player){
+        return counter;
+    }
 
-        // draw my cards, face down
-        //RectF thisTopLocation = thisPlayerTopCardLocation(); // drawing size/location
-        //drawCardBacks(canvas, thisTopLocation,
-                //0.0025f*width, -0.01f*height, state.getDeck(this.playerNum).size());
+    /**
+     *
+     * @param counter
+     * @param player
+     * @return
+     */
+    private int getLeftCardLocs(int counter, int player){
+        return counter;
+    }
 
-       /*
-        Paint paint = new Paint();
-        paint.setColor(Color.RED);
-        canvas.drawRect(turnIndicator, paint);*/
+    /**
+     *Note this should call get player cards to be more efficient
+     * @param counter
+     * @param player
+     * @return
+     */
+    private int getBottomCards(int counter, int player) {
+        toDraw[counter] = state.getPlayerState(player).getTopFlinchCard();
+        counter++;
+        toDraw[counter] = state.getPlayerState(player).getHand().getCardAt(0);
+        counter++;
+        toDraw[counter] = state.getPlayerState(player).getHand().getCardAt(1);
+        counter++;
+        toDraw[counter] = state.getPlayerState(player).getHand().getCardAt(2);
+        counter++;
+        toDraw[counter] = state.getPlayerState(player).getHand().getCardAt(3);
+        counter++;
+        toDraw[counter] = state.getPlayerState(player).getHand().getCardAt(4);
+        counter++;
+        toDraw[counter] = state.getPlayerState(player).getTopDiscards()[0];
+        counter++;
+        toDraw[counter] = state.getPlayerState(player).getTopDiscards()[1];
+        counter++;
+        toDraw[counter] = state.getPlayerState(player).getTopDiscards()[2];
+        counter++;
+        toDraw[counter] = state.getPlayerState(player).getTopDiscards()[3];
+        counter++;
+        toDraw[counter] = state.getPlayerState(player).getTopDiscards()[4];
+        counter++;
+        return counter;
+    }
 
+    /**
+     *
+     * @param counter
+     * @param player
+     * @return
+     */
+    private int getPlayerCards(int counter, int player) {
+        toDraw[counter] = state.getPlayerState(player).getTopDiscards()[0];
+        counter++;
+        toDraw[counter] = state.getPlayerState(player).getTopDiscards()[1];
+        counter++;
+        toDraw[counter] = state.getPlayerState(player).getTopDiscards()[2];
+        counter++;
+        toDraw[counter] = state.getPlayerState(player).getTopDiscards()[3];
+        counter++;
+        toDraw[counter] = state.getPlayerState(player).getTopDiscards()[4];
+        counter++;
+        toDraw[counter] = state.getPlayerState(player).getTopFlinchCard();
+        return counter;
     }
 
 
@@ -573,7 +725,77 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     }
 
 
+    /*
+        PROBLEM: HOW DO WE DIFFERENTIATE BETWEEN SELECTING A CARD FROM THE DISCARD PILE TO PLAY AND SELECTING A DISCARD PILE TO DISCARD TO
+        INTERIM SOLUTION: YOU CANNOT PLAY FROM THE DISCARD PILE
+     */
+
     public void onTouch(MotionEvent event) {
+        // ignore everything except down-touch events
+        if (event.getAction() != MotionEvent.ACTION_DOWN) return;
+
+        // get the location of the touch on the surface
+        int x = (int) event.getX();
+        int y = (int) event.getY();
+
+        // helper variable
+        int playedTo;
+        int discardedTo;
+
+        // is it the player's turn
+        if(state.getWhoseTurn() == this.playerNum) {
+            // it is the player's turn--did they select a card?
+            // flinch: cardPlace[0]
+            if (cardPlace[0].contains(x, y)) {
+                selected = 0;
+            }
+            //card 1: carcPlace[1]
+            else if (cardPlace[1].contains(x, y)) {
+                selected = 1;
+            }
+            // card 2: cardPlace[2]
+            else if (cardPlace[2].contains(x, y)) {
+                selected = 2;
+            }
+            // TODO: REPEAT FOR REMAINING CARDS IN THE HAND: 3, 4, 5
+            else if((discardedTo = isDiscardPileTouched(x, y)) != -1){
+               // selected = discardedTo; for when we fix the below problem
+                //TODO: SEE NOTE ABOVE METHOD. Ignore for now and assume this means a discard action
+                if (selected > 0 && selected < 6) {
+
+                    // this card is from the hand--we can discard
+                    //TODO: generate a FDiscardAction
+                    game.sendAction(new FDiscardAction(this,selected - 1, discardedTo - 6));
+                    selected = -1;
+                }
+            }
+            // they are not selected a card
+            // do they want to play a card? -- use a helper method
+            else if ((playedTo = isCenterPileTouched(x, y)) != -1) {
+                if(selected != -1) {
+
+                    // TODO: generate an FPlayAction
+                    // game.sendAction(new FPlayAction(player, source, destination, cardPile type)
+                    //player: this
+                    // source: if they played from the Flinch (0), if they played from hand-what index (0-4), if they played from discards (0 - 4)
+                    // use the variable selected and the order of things within cardPlace to figure it out
+                    // destination: some centerPile index 0 - 10
+                    // use variable playedTo and the order of things within cardPlace to figure it out
+                    // cardPile type: Hand, Discard, or Flinch--where did they play from
+                    // must either send this player's hand, discard, or flinch, OR send new Hand() ....
+                    selected = -1;
+                }
+            } else {
+                // illegal touch-location: flash for 1/20 second
+                surface.flash(Color.RED, 50);
+            }
+
+        } else {
+            // it is not the player's turn --did they Flinch someone?
+            // IGNORE FOR NOW
+            // illegal touch-location: flash for 1/20 second
+            surface.flash(Color.RED, 50);
+        }
        /* // ignore everything except down-touch events
         if (event.getAction() != MotionEvent.ACTION_DOWN) return;
 
@@ -602,6 +824,34 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             surface.flash(Color.RED, 50);
         }
         */
+    }
+
+    private int isDiscardPileTouched(int xTouch, int yTouch) {
+        // TODO: SEE isCenterPileTouched for how to implement
+        return -1; // dummy return
+    }
+
+    /**
+     * Method to determine whether a center pile was selected
+     * @param xTouch
+     * @param yTouch
+     * @return
+     *  -1 if no center pile was selected, or else the index of the center pile chosen within the cardPlace array
+     */
+    private int isCenterPileTouched(int xTouch, int yTouch) {
+        // Note: the center piles are the last 10 indices in the cardPlace array
+        int index = cardPlace.length - 10;
+        for (int i = index; i < cardPlace.length; i++ ) {
+            if(i < 0 || i >= cardPlace.length || cardPlace[i] == null)  {
+                continue;
+            }
+            if(cardPlace[i].contains(xTouch, yTouch)) {
+                return i;
+            }
+        }
+        // no card selected
+        return -1;
+
     }
     private void drawCardBacks(Canvas g, RectF topRect, float deltaX, float deltaY,
                                int numCards) {

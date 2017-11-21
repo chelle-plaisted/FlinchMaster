@@ -70,6 +70,7 @@ public class FSmartComputerPlayer extends FComputerPlayer {
         if(index != -1) {
             // I can play the card
             game.sendAction(new FPlayAction(this, 0, index, new FlinchPile()));
+            sleep(3000);
             // can I play the next Flinch card too?
             playFlinch();
             return true;
@@ -89,6 +90,7 @@ public class FSmartComputerPlayer extends FComputerPlayer {
                 if (me.getTopFlinchCard() == savedState.getCenterPiles()[goalIndex] + buildingCards.size() + 1) {
                     // play the card
                     game.sendAction(new FPlayAction(this, 0, index, new FlinchPile()));
+                    sleep(3000);
                     // can we play the next one?
                     playFlinch();
                     return true;
@@ -98,6 +100,7 @@ public class FSmartComputerPlayer extends FComputerPlayer {
                     if (me.getTopFlinchCard() == savedState.getCenterPiles()[goalIndex] + buildingCards.size() + 1) {
                         // play the card
                         game.sendAction(new FPlayAction(this, 0, index, new FlinchPile()));
+                        sleep(3000);
                         // can we play the next one?
                         playFlinch();
                         return true;
@@ -121,6 +124,7 @@ public class FSmartComputerPlayer extends FComputerPlayer {
                 if(h.getCardAt(i) == savedState.getCenterPiles()[goalIndex] + buildingCards.size() + 1) {
                     // this Card is a good building card-- play
                     game.sendAction(new FPlayAction(this, goalIndex, i, new Hand()));
+                    sleep(3000);
                     // have we reached our goal?
                     if(me.getTopFlinchCard() == savedState.getCenterPiles()[goalIndex] + buildingCards.size() + 1) {
                         return true;
@@ -132,6 +136,7 @@ public class FSmartComputerPlayer extends FComputerPlayer {
             if(index != -1) {
                 // I can play the card
                 game.sendAction(new FPlayAction(this, index, i, new Hand()));
+                sleep(3000);
                 played = true;
             }
         }
@@ -149,6 +154,7 @@ public class FSmartComputerPlayer extends FComputerPlayer {
                 if(d[i] == savedState.getCenterPiles()[goalIndex] + buildingCards.size() + 1) {
                     // this Card is a good building card-- play
                     game.sendAction(new FPlayAction(this, goalIndex, i, new DiscardPile()));
+                    sleep(3000);
                     // have we reached our goal?
                     if(me.getTopFlinchCard() == savedState.getCenterPiles()[goalIndex] + buildingCards.size() + 1) {
                         return true;
@@ -160,6 +166,7 @@ public class FSmartComputerPlayer extends FComputerPlayer {
             if(index != -1) {
                 // I can play the card
                 game.sendAction(new FPlayAction(this, index, i, new DiscardPile()));
+                sleep(3000);
                 played = true;
             }
         }

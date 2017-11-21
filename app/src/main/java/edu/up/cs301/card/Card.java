@@ -101,7 +101,7 @@ public class Card implements Serializable {
      */
     public void drawOn(Canvas g, RectF where) {
         // don't draw an invalid card
-        if(cardNum == -1) {
+        if(cardNum < 1) {
             return;
         }
         // create the paint object
@@ -109,10 +109,11 @@ public class Card implements Serializable {
         p.setColor(Color.BLACK);
 
         // get the bitmap for the card
-        Bitmap bitmap = cardImages[0][this.getNum()]; //.ordinal()][this.getRank().ordinal()];
+        Bitmap bitmap = cardImages[0][this.getNum()-1]; //.ordinal()][this.getRank().ordinal()];
 
         // create the source rectangle
         Rect r = new Rect(0,0,bitmap.getWidth(),bitmap.getHeight());
+
 
         // draw the bitmap into the target rectangle
         g.drawBitmap(bitmap, r, where, p);
