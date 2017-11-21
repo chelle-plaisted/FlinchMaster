@@ -959,6 +959,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             // do they want to play a card? -- use a helper method
             else if ((playedTo = isCenterPileTouched(x, y)) != -1) {
                 if(selected != -1) {
+                    selected = playedTo;
                     //need to figure out cardPile
                     //TODO: finish FPlayAction only one left is cardPile, not sure which to put there, tried things like "hand", "centerPile", etc all errors
                     //game.sendAction(new FPlayAction(this,selected-1, playedTo, );
