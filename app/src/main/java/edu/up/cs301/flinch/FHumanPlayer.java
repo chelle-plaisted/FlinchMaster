@@ -126,117 +126,11 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 done so by calling method where RectF is actually drawn adding them to an array
                  */
                 //cards of human player (discard)
-                cardPlace[counter] = drawBottomDiscardOne();
-                counter++;
-                cardPlace[counter] = drawBottomDiscardtwo();
-                counter++;
-                cardPlace[counter] = drawBottomDiscardthree();
-                counter++;
-                cardPlace[counter] = drawBottomDiscardfour();
-                counter++;
-                cardPlace[counter] = drawBottomDiscardfive();
-                counter++;
 
-                //cards in hand
-                cardPlace[counter] = drawBottomCardONE();
-                counter++;
-                cardPlace[counter] = drawBottomCardTWO();
-                counter++;
-                cardPlace[counter] = drawBottomCardTHREE();
-                counter++;
-                cardPlace[counter] = drawBottomCardFOUR();
-                counter++;
-                cardPlace[counter] = drawBottomCardFIVE();
-                counter++;
-                cardPlace[counter] = drawBottomPlayerFLINCH();
-                counter++;
-
-                //cards of second player(computer)
-                cardPlace[counter] = drawTopDiscardOne();
-                counter++;
-                cardPlace[counter] = drawTopDiscardtwo();
-                counter++;
-                cardPlace[counter] = drawTopDiscardthree();
-                counter++;
-                cardPlace[counter] = drawTopDiscardfour();
-                counter++;
-                cardPlace[counter] = drawTopDiscardfive();
-                counter++;
-                cardPlace[counter] = drawTopFlinch();
-                counter++;
-
-                //center piles
-                cardPlace[counter] = drawCenterOne();
-                counter++;
-                cardPlace[counter] = drawCentertwo();
-                counter++;
-                cardPlace[counter] = drawCenterThree();
-                counter++;
-                cardPlace[counter] = drawCenterFour();
-                counter++;
-                cardPlace[counter] = drawCenterFive();
-                counter++;
-                cardPlace[counter] = drawCenterSix();
-                counter++;
-                cardPlace[counter] = drawCenterSeven();
-                counter++;
-                cardPlace[counter] = drawCenterEight();
-                counter++;
-                cardPlace[counter] = drawCenterNine();
-                counter++;
-                cardPlace[counter] = drawCenterTen();
-                counter++;
-                counter = getPlayerCards(counter, player);
 
             } else if (state.getNumPlayers() == 3) {
 
-                //cards of human player (discard)
-                cardPlace[counter] = drawBottomDiscardOne();
-                counter++;
-                cardPlace[counter] = drawBottomDiscardtwo();
-                counter++;
-                cardPlace[counter] = drawBottomDiscardthree();
-                counter++;
-                cardPlace[counter] = drawBottomDiscardfour();
-                counter++;
-                cardPlace[counter] = drawBottomDiscardfive();
-                counter++;
 
-                //cards in hand
-                cardPlace[counter] = drawBottomCardONE();
-                counter++;
-                cardPlace[counter] = drawBottomCardTWO();
-                counter++;
-                cardPlace[counter] = drawBottomCardTHREE();
-                counter++;
-                cardPlace[counter] = drawBottomCardFOUR();
-                counter++;
-                cardPlace[counter] = drawBottomCardFIVE();
-                counter++;
-                cardPlace[counter] = drawBottomPlayerFLINCH();
-                counter++;
-
-                //center piles
-                cardPlace[counter] = drawCenterOne();
-                counter++;
-                cardPlace[counter] = drawCentertwo();
-                counter++;
-                cardPlace[counter] = drawCenterThree();
-                counter++;
-                cardPlace[counter] = drawCenterFour();
-                counter++;
-                cardPlace[counter] = drawCenterFive();
-                counter++;
-                cardPlace[counter] = drawCenterSix();
-                counter++;
-                cardPlace[counter] = drawCenterSeven();
-                counter++;
-                cardPlace[counter] = drawCenterEight();
-                counter++;
-                cardPlace[counter] = drawCenterNine();
-                counter++;
-                cardPlace[counter] = drawCenterTen();
-                counter++;
 
                 //draw Right player's cards (5 discard and one flinch pile)
                 counter = getPlayerCards(counter, player);
@@ -335,6 +229,8 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
              */
             int counter1 = 0;
             int counter2 = 0;
+            int counter3 = 0;
+            int counter4 = 0;
             if (state.getNumPlayers() == 2) {
                 /*
                 placing of cards including flinch pile, cards in hand, and discard pile for human player
@@ -346,32 +242,16 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
                 counter1 = getBottomCardLocs(counter1, player);
                 counter2 = getBottomCards(counter2, player);
+                //counter3 = getCenterCardsLocs(counter3, player);
+                //counter4 = getCenterCards(counter4, player);
+
+                //counter3 = getCenterCards(counter3, player)    ;
                 //start of top players cards (5 discard and one flinch pile)
                 player++;
                 if(player >= state.getNumPlayers()) {
                     player = 0;
                 }
-                int counter = 0;
-                cardPlace[counter] = drawCenterOne();
-                counter++;
-                cardPlace[counter] = drawCentertwo();
-                counter++;
-                cardPlace[counter] = drawCenterThree();
-                counter++;
-                cardPlace[counter] = drawCenterFour();
-                counter++;
-                cardPlace[counter] = drawCenterFive();
-                counter++;
-                cardPlace[counter] = drawCenterSix();
-                counter++;
-                cardPlace[counter] = drawCenterSeven();
-                counter++;
-                cardPlace[counter] = drawCenterEight();
-                counter++;
-                cardPlace[counter] = drawCenterNine();
-                counter++;
-                cardPlace[counter] = drawCenterTen();
-                counter++;
+
 
                 getTopCardLocs(counter1, player);
                 counter2 = getPlayerCards(counter2, player);
@@ -384,28 +264,6 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 if(player >= state.getNumPlayers()) {
                     player = 0;
                 }
-
-                int counter = 0;
-                cardPlace[counter] = drawCenterOne();
-                counter++;
-                cardPlace[counter] = drawCentertwo();
-                counter++;
-                cardPlace[counter] = drawCenterThree();
-                counter++;
-                cardPlace[counter] = drawCenterFour();
-                counter++;
-                cardPlace[counter] = drawCenterFive();
-                counter++;
-                cardPlace[counter] = drawCenterSix();
-                counter++;
-                cardPlace[counter] = drawCenterSeven();
-                counter++;
-                cardPlace[counter] = drawCenterEight();
-                counter++;
-                cardPlace[counter] = drawCenterNine();
-                counter++;
-                cardPlace[counter] = drawCenterTen();
-                counter++;
 
                 //draw Right player's cards (5 discard and one flinch pile)
                 counter1 = getRightLocs(counter1, player);
@@ -427,27 +285,6 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                     player = 0;
                 }
 
-                int counter = 0;
-                cardPlace[counter] = drawCenterOne();
-                counter++;
-                cardPlace[counter] = drawCentertwo();
-                counter++;
-                cardPlace[counter] = drawCenterThree();
-                counter++;
-                cardPlace[counter] = drawCenterFour();
-                counter++;
-                cardPlace[counter] = drawCenterFive();
-                counter++;
-                cardPlace[counter] = drawCenterSix();
-                counter++;
-                cardPlace[counter] = drawCenterSeven();
-                counter++;
-                cardPlace[counter] = drawCenterEight();
-                counter++;
-                cardPlace[counter] = drawCenterNine();
-                counter++;
-                cardPlace[counter] = drawCenterTen();
-                counter++;
 
                 //draw Right player's cards (5 discard and one flinch pile)
                 counter1 = getRightLocs(counter1, player);
@@ -543,10 +380,10 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         return counter;
     }
 
-    private int getCenterCards (int counter, int player){
+    private int getCenterCardsLocs (int counter, int player){
         cardPlace[counter] = drawCenterOne();
         counter++;
-        cardPlace[counter] = drawCentertwo();
+        cardPlace[counter] = drawCenterTwo();
         counter++;
         cardPlace[counter] = drawCenterThree();
         counter++;
@@ -638,6 +475,8 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         toDraw[counter] = state.getPlayerState(player).getTopFlinchCard();
         return counter;
     }
+
+
 
 
     //this will represent the human player's cards
@@ -768,6 +607,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     //start of center pile drawing
 
     //bottom left center card
+
     private RectF drawCenterOne () {
 
         int width = surface.getWidth();
@@ -779,8 +619,8 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         return CenterOne;
 
     }
-    //second card bottom row
-    private RectF drawCentertwo() {
+
+    private RectF drawCenterTwo() {
 
         int width = surface.getWidth();
         int height = surface.getHeight();
@@ -1070,7 +910,6 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         // helper variable
         int playedTo;
         int discardedTo;
-        int CenterTo;
 
         // is it the player's turn
         if(state.getWhoseTurn() == this.playerNum) {
@@ -1102,7 +941,11 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             else if((discardedTo = isDiscardPileTouched(x, y)) != -1){
                 // selected = discardedTo;
                 if (selected > 0 && selected < 6) {
-                        selected = discardedTo;
+                    int x1 = (int) event.getX();
+                    int y1 = (int) event.getY();
+                    selected = discardedTo;
+
+
 
                     // this card is from the hand--we can discard
                     //TODO: generate a FDiscardAction
