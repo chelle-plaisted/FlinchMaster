@@ -941,11 +941,13 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             else if((discardedTo = isDiscardPileTouched(x, y)) != -1){
                 // selected = discardedTo;
                 if (selected > 0 && selected < 6) {
+                    //get coordinates of second touch
                     int x1 = (int) event.getX();
                     int y1 = (int) event.getY();
+                    //set discarded to equal to those coordinates
+                    discardedTo = isDiscardPileTouched(x1, y1);
+                    //have selected card move to coordinates of discarded to
                     selected = discardedTo;
-
-
 
                     // this card is from the hand--we can discard
                     //TODO: generate a FDiscardAction
