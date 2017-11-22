@@ -123,7 +123,7 @@ public class FSmartComputerPlayer extends FComputerPlayer {
             if (goalIndex != -1) {
                 if(h.getCardAt(i) == savedState.getCenterPiles()[goalIndex] + buildingCards.size() + 1) {
                     // this Card is a good building card-- play
-                    game.sendAction(new FPlayAction(this, goalIndex, i, new Hand()));
+                    game.sendAction(new FPlayAction(this, i, goalIndex, new Hand()));
                     sleep(3000);
                     // have we reached our goal?
                     if(me.getTopFlinchCard() == savedState.getCenterPiles()[goalIndex] + buildingCards.size() + 1) {
@@ -135,7 +135,7 @@ public class FSmartComputerPlayer extends FComputerPlayer {
             int index = isCardPlayable(h.getCardAt(i));
             if(index != -1) {
                 // I can play the card
-                game.sendAction(new FPlayAction(this, index, i, new Hand()));
+                game.sendAction(new FPlayAction(this, i, index, new Hand()));
                 sleep(3000);
                 played = true;
             }
@@ -153,7 +153,7 @@ public class FSmartComputerPlayer extends FComputerPlayer {
             if (goalIndex != -1) {
                 if(d[i] == savedState.getCenterPiles()[goalIndex] + buildingCards.size() + 1) {
                     // this Card is a good building card-- play
-                    game.sendAction(new FPlayAction(this, goalIndex, i, new DiscardPile()));
+                    game.sendAction(new FPlayAction(this, i, goalIndex, new DiscardPile()));
                     sleep(3000);
                     // have we reached our goal?
                     if(me.getTopFlinchCard() == savedState.getCenterPiles()[goalIndex] + buildingCards.size() + 1) {
@@ -165,7 +165,7 @@ public class FSmartComputerPlayer extends FComputerPlayer {
             int index = isCardPlayable(d[i]);
             if(index != -1) {
                 // I can play the card
-                game.sendAction(new FPlayAction(this, index, i, new DiscardPile()));
+                game.sendAction(new FPlayAction(this, i, index, new DiscardPile()));
                 sleep(3000);
                 played = true;
             }

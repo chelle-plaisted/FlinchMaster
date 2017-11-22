@@ -32,7 +32,7 @@ public class FPlayAction extends FMoveAction {
     }
 
 
-    public int getIndexFrom() { return indexTo; }
+    public int getIndexFrom() { return indexFrom; }
 
     public CardPile getCardPile() { return cp; }
 

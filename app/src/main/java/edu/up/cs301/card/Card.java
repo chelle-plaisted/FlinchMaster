@@ -21,8 +21,7 @@ import edu.up.cs301.game.R;
  * and have been placed in the res/drawable-hdpi folder in the project.
  *
  * NOTE: In order to display the card-images on the android you need to call the
- *   Card.initImages(currentActivity)
- * method during initialization;
+ * Card.initImages(currentActivity) method during initialization;
  *
  * @author Alexa Ruiz
  * @author Chelle Plaisted
@@ -169,14 +168,4 @@ public class Card implements Serializable {
             }
         }
     }
-
-    /* additional needed methods/variables: see the original card class for details
-    -public static void initImages (Activity activity)
-    -private static Bitmap[][] cardImages
-    -private static int[][] resIdx
-    -public String shortName()
-    -public int hasCode()
-
-    ALS0 see res/drawable for card files
-     */
 }
