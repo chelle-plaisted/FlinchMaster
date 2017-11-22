@@ -238,7 +238,7 @@ public class FState extends GameState
 			return;
 		}
 		if(c != null) {
-			center[indexTo].add(c);
+			center[indexTo].addAt(c, 0);
 		}
 	}
 
@@ -252,7 +252,7 @@ public class FState extends GameState
 	 */
 	public void discard(int indexFrom, int indexTo) {
 		Card c = players[toPlay].hand.removeCardAt(indexFrom);
-		players[toPlay].discards[indexTo].add(c);
+		players[toPlay].discards[indexTo].addAt(c, 0);
 	}
 
 	/**
