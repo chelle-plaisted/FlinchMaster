@@ -328,7 +328,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             }
         }
 
-        // if it is the player's turn, draw what card they have selected
+        // if it is the player's turn, draw what card they have selecte
         paint.setColor(Color.BLUE);
 
         if(this.playerNum == state.getWhoseTurn() ) {
