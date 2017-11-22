@@ -329,12 +329,23 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         }
 
         // if it is the player's turn, draw what card they have selected
+        paint.setColor(Color.BLUE);
+
         if(this.playerNum == state.getWhoseTurn() ) {
-            paint.setColor(Color.BLUE);
+
             selectIndicator = getSelectRect();
             if(selectIndicator != null) {
                 canvas.drawRect(selectIndicator, paint);
             }
+            canvas.drawRect( new RectF(0/100f,
+                    (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-FLINCH_PILE_HEIGHT)*height/100f,
+                    ((BUFFER_PERCENT2 *width) + 25 )/100f,
+                    (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER) * height/100f), paint);
+        } else {
+            canvas.drawRect(new RectF ((LEFT_BORDER_PERCENT2+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*7 + (CARD_WIDTH_PERCENT * 6))*width/100f,
+                    (100-VERTICAL_BORDER_PERCENT_TOPPLAYER-(CARD_HEIGHT_PERCENT*2) - BUFFER_PERCENT2)*height/100f,
+                    ((LEFT_BORDER_PERCENT2+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*7 + (CARD_WIDTH_PERCENT * 6))*width) + 25/100f,
+                    (100-(VERTICAL_BORDER_PERCENT_TOPPLAYER+CARD_HEIGHT_PERCENT+BUFFER_PERCENT2)) * height/100f), paint);
         }
     }
 
