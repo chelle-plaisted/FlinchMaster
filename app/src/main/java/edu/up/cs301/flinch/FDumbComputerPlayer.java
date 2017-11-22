@@ -76,7 +76,7 @@ public class FDumbComputerPlayer extends FComputerPlayer{
                         int index = isCardPlayable(h.getCardAt(i));
                         if(index != -1) {
                             // I can play the card
-                            game.sendAction(new FPlayAction(this, index, i, new Hand()));
+                            game.sendAction(new FPlayAction(this, i, index, new Hand()));
                             cardPlayed = true;
                             sleep(3000);
                         }
@@ -89,7 +89,7 @@ public class FDumbComputerPlayer extends FComputerPlayer{
                         int index = isCardPlayable(d[i]);
                         if(index != -1) {
                             // I can play the card
-                            game.sendAction(new FPlayAction(this, index, i, new DiscardPile()));
+                            game.sendAction(new FPlayAction(this, i, index, new DiscardPile()));
                             cardPlayed = true;
                             sleep(3000);
                         }

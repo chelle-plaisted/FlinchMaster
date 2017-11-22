@@ -28,7 +28,7 @@ public class FDiscardAction extends FMoveAction {
     }
 
 
-    public int getIndexFrom() { return indexTo; }
+    public int getIndexFrom() { return indexFrom; }
 
     public int getIndexTo() { return indexTo; }
 }

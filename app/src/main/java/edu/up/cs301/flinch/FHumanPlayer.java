@@ -14,6 +14,8 @@ import edu.up.cs301.animation.Animator;
 import edu.up.cs301.card.Card;
 import edu.up.cs301.cardpile.CardPile;
 import edu.up.cs301.cardpile.CenterPile;
+import edu.up.cs301.cardpile.DiscardPile;
+import edu.up.cs301.cardpile.FlinchPile;
 import edu.up.cs301.cardpile.Hand;
 import edu.up.cs301.flinch.FStateElements.FState;
 import edu.up.cs301.game.GameHumanPlayer;
@@ -68,6 +70,9 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
     // the index of the player's selected card within cardPlace or toDraw
     private int selected;
+
+    // rectF to represent the currently selected card
+    private RectF selectIndicator;
 
     /**
      * constructor
@@ -125,12 +130,9 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 placing of cards including flinch pile, cards in hand, and discard pile for human player
                 done so by calling method where RectF is actually drawn adding them to an array
                  */
-                //cards of human player (discard)
-
+                counter = getPlayerCards(counter, player);
 
             } else if (state.getNumPlayers() == 3) {
-
-
 
                 //draw Right player's cards (5 discard and one flinch pile)
                 counter = getPlayerCards(counter, player);
@@ -157,6 +159,8 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 //draw Left player's cards (5 discard and one flinch pile)
                 counter = getPlayerCards(counter, player);
             }
+            // get center cards
+            counter = getCenterCards(counter);
         }
     }
 
@@ -223,6 +227,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             //filling array with the amount of numplayers for RectF
             cardPlace = new RectF[getNumPlayers];
             toDraw = new int[getNumPlayers];
+
             /*
             depending on how many players there are will depend on how many of the RectFs are drawn, this will
             be dependent on the if statemtns below
@@ -320,6 +325,15 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             }
             if(cardPlace[i] != null) {
                 drawCard(canvas, cardPlace[i], new Card(toDraw[i]));
+            }
+        }
+
+        // if it is the player's turn, draw what card they have selected
+        if(this.playerNum == state.getWhoseTurn() ) {
+            paint.setColor(Color.BLUE);
+            selectIndicator = getSelectRect();
+            if(selectIndicator != null) {
+                canvas.drawRect(selectIndicator, paint);
             }
         }
     }
@@ -883,6 +897,21 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
     }
 
+    /**
+     *
+     * @return
+     */
+    private RectF getSelectRect() {
+        // if there is no card selected
+        if(selected < 0 || selected > cardPlace.length) {
+            return null;
+        }
+
+        // what card is selected
+        RectF chosen = cardPlace[selected];
+        return new RectF(chosen.left, chosen.bottom, chosen.right, chosen.bottom - 5);
+    }
+
 
     /*
         PROBLEM: HOW DO WE DIFFERENTIATE BETWEEN SELECTING A CARD FROM THE DISCARD PILE TO PLAY AND SELECTING A DISCARD PILE TO DISCARD TO
@@ -906,31 +935,37 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             // it is the player's turn--did they select a card?
             // flinch: cardPlace[0]
             if (cardPlace[0].contains(x, y)) {
+                if(toDraw[0] > 0)
                 selected = 0;
             }
             //card 1: carcPlace[1]
             else if (cardPlace[1].contains(x, y)) {
+                if(toDraw[1] > 0)
                 selected = 1;
             }
             // card 2: cardPlace[2]
             else if (cardPlace[2].contains(x, y)) {
+                if(toDraw[2] > 0)
                 selected = 2;
             }
             //card 3: cardPlace[3]
             else if (cardPlace[3].contains(x,y)) {
+                if(toDraw[3] > 0)
                 selected = 3;
             }
             //card 4: cardPlace[4]
             else if(cardPlace[4].contains(x,y)){
+                if(toDraw[4] > 0)
                 selected = 4;
             }
-            //card 5: cardPlace[4]
+            //card 5: cardPlace[5]
             else if(cardPlace[5].contains(x,y)){
+                if(toDraw[5] > 0)
                 selected = 5;
             }
             else if((discardedTo = isDiscardPileTouched(x, y)) != -1){
-                // selected = discardedTo;
                 if (selected > 0 && selected < 6) {
+                    /*
                     //get coordinates of second touch
                     int x1 = (int) event.getX();
                     int y1 = (int) event.getY();
@@ -938,9 +973,9 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                     discardedTo = isDiscardPileTouched(x1, y1);
                     //have selected card move to coordinates of discarded to
                     selected = discardedTo;
+                    */
 
                     // this card is from the hand--we can discard
-                    //TODO: generate a FDiscardAction
                     game.sendAction(new FDiscardAction(this,selected - 1, discardedTo - 6));
                     selected = -1;
                 }
@@ -949,11 +984,18 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             // do they want to play a card? -- use a helper method
             else if ((playedTo = isCenterPileTouched(x, y)) != -1) {
                 if(selected != -1) {
-                    selected = playedTo;
-                    //need to figure out cardPile
-                    //TODO: finish FPlayAction only one left is cardPile, not sure which to put there, tried things like "hand", "centerPile", etc all errors
-                    //game.sendAction(new FPlayAction(this,selected-1, playedTo, );
-
+                    // did the player play from the hand?
+                    if (selected > 0 && selected < 6) {
+                        game.sendAction(new FPlayAction(this,selected-1, playedTo - (cardPlace.length - 10), new Hand()));
+                    }
+                    // did the player play from the Flinch pile
+                    else if(selected == 0) {
+                        game.sendAction(new FPlayAction(this, selected - 1, playedTo - (cardPlace.length - 10), new FlinchPile()));
+                    }
+                    // did the player play from the discard piles (INVALID FOR NOW) TODO: FIX
+                    else if(selected > 5 && selected < 11) {
+                        game.sendAction(new FPlayAction(this, selected - 1, playedTo - (cardPlace.length - 10), new DiscardPile()));
+                    }
                     selected = -1;
                 }
             } else {
@@ -970,13 +1012,10 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     }
 
     private int isDiscardPileTouched(int xTouch, int yTouch) {
-        int index = cardPlace.length - 5;
-        for(int i = index; i <cardPlace.length; i++){
-            if(i<0 || i >= cardPlace.length||cardPlace[i] == null) {
-                continue;
-            }
-            if(cardPlace[i].contains(xTouch, yTouch)){
-                return i;
+        int index = 6;
+        for(int i = 0; i < 5; i++){
+            if(cardPlace[i + index].contains(xTouch, yTouch)){
+                return i + index;
             }
         }
         return -1; 
@@ -993,9 +1032,6 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         // Note: the center piles are the last 10 indices in the cardPlace array
         int index = cardPlace.length - 10;
         for (int i = index; i < cardPlace.length; i++ ) {
-            if(i < 0 || i >= cardPlace.length || cardPlace[i] == null)  {
-                continue;
-            }
             if(cardPlace[i].contains(xTouch, yTouch)) {
                 return i;
             }

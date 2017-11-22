@@ -1,6 +1,7 @@
 package edu.up.cs301.cardpile;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import edu.up.cs301.card.Card;
 
@@ -31,6 +32,7 @@ public class Hand extends CardPile {
             // this assumes that the deck has already been shuffled
             cardPile.add(d.removeTopCard());
         }
+        arrangeHand();
     }
 
     /**
@@ -55,7 +57,6 @@ public class Hand extends CardPile {
      * Method to sort the Card objects in the Hand object. Uses selection sort.
      */
     public void arrangeHand() {
-        /* DO NOT DELETE
         // go through each Card objects in the hand
         for(int i = 0; i < cardPile.size() - 1; i++) {
             // save the location of the current card
@@ -75,7 +76,6 @@ public class Hand extends CardPile {
             cardPile.set(index, cardPile.get(i));
             cardPile.set(i, tempCard);
         }
-        */
 
     }
 
@@ -104,6 +104,9 @@ public class Hand extends CardPile {
      */
     public int getCardAt(int index) {
         // get the value of the the Card object at the given index
+        if(index < 0 || index >= size()) {
+            return -1;
+        }
         return cardPile.get(index).getNum();
     }
 }

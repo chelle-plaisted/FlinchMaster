@@ -118,11 +118,19 @@ public class FComputerPlayer extends GameComputerPlayer
 		int handIndex = (int) (Math.random() * h.size());
 		// select a random index to discard to
 		int d[] = savedState.getPlayerState(this.playerNum).getTopDiscards();
-		int discardIndex;
-		do{
-			// keep getting a random discard index until we have a valid one
-			discardIndex = (int) (Math.random() * d.length);
-		}while(discardIndex == 0);
+		int discardIndex = (int) (Math.random() * d.length);
+		boolean blanks = false;
+		for(int card : d) {
+			if(card == -1) {
+				blanks = true;
+				break;
+			}
+		}
+		if(blanks) {
+			while (d[discardIndex] != -1) {
+				discardIndex = (int) (Math.random() * d.length);
+			}
+		}
 
 		game.sendAction(new FDiscardAction(this,handIndex,discardIndex));
 	}

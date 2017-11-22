@@ -87,6 +87,8 @@ public class FLocalGame extends LocalGame{
     /**
      * makeMove()
      *
+     * note--will it let us do a Flinch action since its not this player's turn
+     *
      * checks the validity of a move and acts accordingly
      * @param action
      * 			The move that the player has sent to the game
@@ -104,9 +106,6 @@ public class FLocalGame extends LocalGame{
 
         // get the index of the player making the move; return false
         int thisPlayerIdx = getPlayerIdx(fma.getPlayer());
-        /*if (thisPlayerIdx < 0) { // illegal player
-            return false;
-        }*/ //^^don't think we need this
 
         //play action
         if (fma.isPlay()) {
@@ -127,49 +126,55 @@ public class FLocalGame extends LocalGame{
                 } else  { //card from discard pile
                     discard = true;
                 }
-
+                // NOTE: I think the below if(flinch) and if(hand || discard) structures could be consolidated TODO: fix
                 // from flinch hand
                 if (flinch) {
                     //get top flinch card
                     int topCard = state.getPlayerState(state.getWhoseTurn()).getTopFlinchCard();
                     // if flinch card can be played to center pile
-                    if(state.getCenterPiles()[fpa.getIndexTo()]+1 == topCard) {
+                    if(state.getCenterPiles()[fpa.getIndexTo()]+1 == topCard || (topCard == 1 && state.getCenterPiles()[fpa.getIndexTo()] == -1)) {
                         //play to this pile
                         state.playToCenter(topCard, fpa.getCardPile(), fpa.getIndexTo());
                         return true; //move was completed
                     }
 
                 } else if (hand || discard) { //from hand
+                    int card;
                     // card from hand
-                    int card = fpa.getIndexFrom();
+                    if(hand) {
+                        card = state.getPlayerState(thisPlayerIdx).getHand().getCardAt(fpa.getIndexFrom());
+                    } else  {
+                        // card from discard
+                        card = state.getPlayerState(thisPlayerIdx).getTopDiscards()[fpa.getIndexFrom()];
+                    }
                     // compare card to center piles
-                    if(!state.isStartOfGame) {
-                        if (state.getCenterPiles()[fpa.getIndexTo()] + 1 == card) {
+                   if(!state.isStartOfGame) {
+                       // is the move valid
+                       int[] center = state.getCenterPiles();
+                        if (center[fpa.getIndexTo()] + 1 == card || (card == 1 && state.getCenterPiles()[fpa.getIndexTo()] == -1)) {
                             //play to this pile
-                            state.playToCenter(card, fpa.getCardPile(), fpa.getIndexTo());
+                            state.playToCenter(fpa.getIndexFrom(), fpa.getCardPile(), fpa.getIndexTo());
                             //check if they can be flinched now
                             checkForFlinch();
                             //check if hand is now empty
                             isNeedCards();//method checks for us
                             return true;//move was completed
                         }
-                    } else {//TODO check if first turn
+                    } else {
                         //can only play a one
-                        if(card != 1) {
-                            //discard hand
-                            /*Hand handFT = state.getPlayerState(thisPlayerIdx).getHand();
-                            for (int d : handFT) {
-                                //discard the card
-                                state.discard(card, );
-                                return true;
-                            }*/ //TODO how to iterate through a hand???
+                        if( card != 1) {
+                            return false;
+
                         } else {
-                            //state.isStartOfGame = false; ????? TODO which class changes isStartOfGame?
+                            // no longer the start of the game
+                            state.notStartOfGame();
+                            // play the one
+                            state.playToCenter(fpa.getIndexFrom(), fpa.getCardPile(), fpa.getIndexTo());
                             return true;
                         }
                     }
                 }
-
+                // NOTE THE BELOW CODE DOES NOT WORK--IT WON'T BE REACHED CORRECTLY TODO: FIX
                 // did the player Flinch themselves?
                 if(!flinchPotential) {
                     // check
@@ -191,19 +196,20 @@ public class FLocalGame extends LocalGame{
                         }
                     }
 
-                    //TODO: TESTING
+                    //TODO: Recycle any full center piles
                     alreadyFlinchedThisPlay = false;
                 }
                 return false;// move wasn't made
             }
         } else if (fma.isDiscard()) {//discard action
+            // TODO: if it is the first turn, it's an invalid move if they have a one in the hand but try to discard anyways
             // attempt to play when it's the other player's turn
             if (!canMove(thisPlayerIdx)) {
                 return false;
             } else {
                 // make a discard action
                 FDiscardAction fda = (FDiscardAction) fma;
-                // card from discard pile
+                // card from hand
                 int cardIdx = fda.getIndexFrom();
                 // get the discards
                     // if any are blank--then we can only discard to a blank one
@@ -219,7 +225,8 @@ public class FLocalGame extends LocalGame{
                     if(d[fda.getIndexTo()] == -1) {
                         // the space was blank
                         //discard the card
-                        state.discard(cardIdx, fda.getIndexTo());
+                        discard(cardIdx, thisPlayerIdx, fda);
+
                         return true;//move was completed
                     } else {
                         // space not blank, invalid discard
@@ -228,7 +235,7 @@ public class FLocalGame extends LocalGame{
                 } else
                 {
                     //discard the card
-                    state.discard(cardIdx, fda.getIndexTo());
+                    discard(cardIdx, thisPlayerIdx, fda);
                     return true;//move was completed
                 }
             }
@@ -313,5 +320,28 @@ public class FLocalGame extends LocalGame{
             return true;
         }
         return false;
+    }
+
+    private void discard(int cardIdx, int thisPlayerIdx, FDiscardAction fda) {
+        int idxTo = fda.getIndexTo();
+        state.discard(cardIdx, idxTo);
+        if(state.isStartOfGame) {
+            // discard all cards
+            while(state.getPlayerState(thisPlayerIdx).getHand().size() != 0) {
+                idxTo++;
+                if(idxTo >= 5) {
+                    idxTo = 0;
+                }
+                state.discard(0, idxTo);
+            }
+        }
+        // do we need more cards?
+        isNeedCards();
+        // increment the play?
+        thisPlayerIdx++;
+        if(thisPlayerIdx >= numPlayers) {
+            thisPlayerIdx = 0;
+        }
+        state.setNextTurn(thisPlayerIdx);
     }
 }
