@@ -68,7 +68,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
     // the index of the player's selected card within cardPlace or toDraw
     private int selected;
-//
+////
     /**
      * constructor
      *
