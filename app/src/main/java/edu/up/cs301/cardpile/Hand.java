@@ -10,6 +10,13 @@ import edu.up.cs301.card.Card;
  *
  * Class that inherits from CardPile. Creates the set of cards a player can play from during a game
  * of Flinch.
+ *
+ * @author Alexa Ruiz
+ * @author Chelle Plaisted
+ * @author Rhianna Pinkerton
+ * @author Weslyn Nishimura
+ *
+ * @version November 2018
  */
 public class Hand extends CardPile {
     /**
