@@ -42,6 +42,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     private final static float LEFT_BORDER_SIDE = 5;
     private final static float BUFFER_PERCENT2 = 5;
     private final static float VERTICAL_BORDER_PERCENT_BOTTOMPLAYER = 5; // width of top/bottom borders
+    private final static float VERTICAL_BORDER_PERCENT_2 = 10;
     private final static float VERTICAL_BORDER_PERCENT_TOPPLAYER = 70;
     private final static float VERTICAL_CENTERONE = VERTICAL_BORDER_PERCENT_BOTTOMPLAYER + 10 + (CARD_HEIGHT_PERCENT * 2);
     private final static float VERTICAL_CENTERTWO = 20;
@@ -50,7 +51,9 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     private final static float FLINCH_PILE_HEIGHT = 20;//Flinch pile height (slightly larger than regular card)
     private final static float FLINCH_PILE_WIDTH = 10;//Flinch pile width
     private final static float FLINCH_BUTTON_WIDTH =10;
-    private final static float FLINCH_BUTTON_HEIGHT = 5;
+    private final static float FLINCH_BUTTON_HEIGHT = 7;
+    private final static float FLINCH_TOP_HEIGHT = 13;
+    private final static float FLINCH_TOP_WIDTH = 8;
 
     // non-card icons
     private Bitmap flinchButtonIcon;
@@ -230,14 +233,14 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     public void tick(Canvas canvas) {
         // get the height and width of the animation surface
         // TODO: BELOW
-        if(state == null) {
+        if (state == null) {
             // don't do things yet
             return;
         }
         int height = surface.getHeight();
         int width = surface.getWidth();
         //if the array is empty will add according to statements below
-        if (cardPlace == null ) {
+        if (cardPlace == null) {
             getNumPlayers = 10 + 6 * state.getNumPlayers() + 5;
             //filling array with the amount of numplayers for RectF
             cardPlace = new RectF[getNumPlayers];
@@ -263,7 +266,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 counter2 = getBottomCards(counter2, player);
                 //start of top players cards (5 discard and one flinch pile)
                 player++;
-                if(player >= state.getNumPlayers()) {
+                if (player >= state.getNumPlayers()) {
                     player = 0;
                 }
 
@@ -275,14 +278,14 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 // draw Bottom Player cards
                 counter1 = getBottomCardLocs(counter1, player);
                 counter2 = getBottomCards(counter2, player);
-                if(player >= state.getNumPlayers()) {
+                if (player >= state.getNumPlayers()) {
                     player = 0;
                 }
 
                 //draw Right player's cards (5 discard and one flinch pile)
                 counter1 = getRightLocs(counter1, player);
                 counter2 = getPlayerCards(counter2, player);
-                if(player >= state.getNumPlayers()) {
+                if (player >= state.getNumPlayers()) {
                     player = 0;
                 }
 
@@ -294,7 +297,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 // draw Bottom Player cards
                 counter1 = getBottomCardLocs(counter1, player);
                 counter2 = getBottomCards(counter2, player);
-                if(player >= state.getNumPlayers()) {
+                if (player >= state.getNumPlayers()) {
                     player = 0;
                 }
 
@@ -302,14 +305,14 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 //draw Right player's cards (5 discard and one flinch pile)
                 counter1 = getRightLocs(counter1, player);
                 counter2 = getPlayerCards(counter2, player);
-                if(player >= state.getNumPlayers()) {
+                if (player >= state.getNumPlayers()) {
                     player = 0;
                 }
 
                 //draw Left player's cards (5 discard and one flinch pile)
                 counter1 = getLeftCardLocs(counter1, player);
                 counter2 = getPlayerCards(counter2, player);
-                if(player >= state.getNumPlayers()) {
+                if (player >= state.getNumPlayers()) {
                     player = 0;
                 }
 
@@ -318,24 +321,26 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 counter2 = getPlayerCards(counter2, player);
             }
             // add the center cards
-                counter1 = getCenterCardsLocs(counter1);
-                counter2 = getCenterCards(counter2);
+            counter1 = getCenterCardsLocs(counter1);
+            counter2 = getCenterCards(counter2);
 
+
+            // TODO: loop to add center cards, draw center cards (make sure it doesn't crash when the card is null), other players, link the rectF's to the actual cards in the state
         }
         Paint paint = new Paint();
-        paint.setColor(Color.rgb(181,205,255));
+        paint.setColor(Color.rgb(181, 205, 255));
 
         // draw the cards
 
-        for(int i = 0; i < getNumPlayers; i++) {
-            if(toDraw[i] < 1) {
+        for (int i = 0; i < getNumPlayers; i++) {
+            if (toDraw[i] < 1) {
                 // there is no card to draw here, just draw a rectangle
-                if(cardPlace[i] != null) {
+                if (cardPlace[i] != null) {
                     canvas.drawRect(cardPlace[i], paint);
                     continue;
                 }
             }
-            if(cardPlace[i] != null) {
+            if (cardPlace[i] != null) {
                 drawCard(canvas, cardPlace[i], new Card(toDraw[i]));
             }
         }
@@ -343,13 +348,51 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         // if it is the player's turn, indicate what card was selected and show the card indicator
         // otherwise, draw the turn indicator for the other player and draw the flinch button;
         RectF turnIndicator;
+        // if it is the player's turn, draw what card they have selected//
         paint.setColor(Color.BLUE);
+
+        if (this.playerNum == state.getWhoseTurn()) {
+
         if(this.playerNum == state.getWhoseTurn() ) {
             // draw a blue line to indicate what card was selected
             selectIndicator = getSelectRect();
-            if(selectIndicator != null) {
+            if (selectIndicator != null) {
                 canvas.drawRect(selectIndicator, paint);
             }
+            canvas.drawRect(new RectF(0 / 100f,
+                    (100 - VERTICAL_BORDER_PERCENT_BOTTOMPLAYER - FLINCH_PILE_HEIGHT) * height / 100f,
+                    ((BUFFER_PERCENT2 * width) + 25) / 100f,
+                    (100 - VERTICAL_BORDER_PERCENT_BOTTOMPLAYER) * height / 100f), paint);
+            paint.setColor(Color.rgb(255, 153,153));
+            canvas.drawRect(new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2 * 6)+(CARD_WIDTH_PERCENT*5))*width/100f,
+                    (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(FLINCH_BUTTON_HEIGHT))*height/100f,
+                    (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2 * 6) + (CARD_WIDTH_PERCENT * 5)+ (FLINCH_BUTTON_WIDTH))*width/100f,
+                    (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER) * height/100f), paint);
+            canvas.drawRect(new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH +(CARD_WIDTH_PERCENT*5)+(BUFFER_PERCENT2)*6 )*width/100f,
+                    (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(FLINCH_BUTTON_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
+                    (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2*6) +(CARD_WIDTH_PERCENT*5)+ (FLINCH_BUTTON_WIDTH))*width/100f,
+                    (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+FLINCH_BUTTON_HEIGHT+BUFFER_PERCENT2)) * height/100f), paint);
+
+
+
+        } else  {
+            paint.setColor(Color.BLUE);
+            canvas.drawRect(new RectF((LEFT_BORDER_PERCENT2 + FLINCH_PILE_WIDTH + (BUFFER_PERCENT2) * 7 + (CARD_WIDTH_PERCENT * 6)) * width / 100f,
+                    (100 - VERTICAL_BORDER_PERCENT_TOPPLAYER - (CARD_HEIGHT_PERCENT * 2) - BUFFER_PERCENT2) * height / 100f,
+                    ((LEFT_BORDER_PERCENT2 + FLINCH_PILE_WIDTH + (BUFFER_PERCENT2) * 7 + (CARD_WIDTH_PERCENT * 6)) * width) + 25 / 100f,
+                    (100 - (VERTICAL_BORDER_PERCENT_TOPPLAYER + CARD_HEIGHT_PERCENT + BUFFER_PERCENT2)) * height / 100f), paint);
+
+    }
+        if(this.playerNum != state.getWhoseTurn()) {
+            paint.setColor(Color.rgb(255, 153, 153));
+           canvas.drawRect(new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH +(CARD_WIDTH_PERCENT*5)+(BUFFER_PERCENT2)*6 )*width/100f,
+                    (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(FLINCH_BUTTON_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
+                    (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2*6) +(CARD_WIDTH_PERCENT*5)+ (FLINCH_BUTTON_WIDTH))*width/100f,
+                    (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+FLINCH_BUTTON_HEIGHT+BUFFER_PERCENT2)) * height/100f), paint);
+            }
+
+        }
+
             // it is my turn
             turnIndicator =( new RectF(0/100f,
                     (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-FLINCH_PILE_HEIGHT)*height/100f,
@@ -640,6 +683,16 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
     }
 
+    private RectF drawFlinchButton() {
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF FlinchButton = new RectF ((LEFT_BORDER_PERCENT+ FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*6 +( FLINCH_BUTTON_WIDTH *5)) *width/100f,
+                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-FLINCH_BUTTON_HEIGHT*2 - BUFFER_PERCENT2)*height/100f,
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+ (BUFFER_PERCENT2)*6) + (FLINCH_PILE_WIDTH* 6 )*width/100f,
+                (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+FLINCH_BUTTON_HEIGHT+BUFFER_PERCENT2)) * height /100f);
+        return FlinchButton;
+    }
+
     //start of center pile drawing
 
     //bottom left center card
@@ -763,15 +816,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
     }
 
-   /* private RectF drawFlinchButton() {
-        int width = surface.getWidth();
-        int height = surface.getHeight();
-        RectF FlinchButton = new RectF (BUFFER_PERCENT_FLINCH_BUTTON *width/100f,
-                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-CARD_HEIGHT_PERCENT-5)*height/100f,
-                (BUFFER_PERCENT_FLINCH_BUTTON+FLINCH_BUTTON_WIDTH)*width/100f,
-                (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+CARD_HEIGHT_PERCENT+15)) * height /100f);
-        return FlinchButton;
-    }*/
+
 
    //drawing of top player cards ( 5 discard 1 flinch)
 
@@ -841,10 +886,10 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
         int width = surface.getWidth();
         int height = surface.getHeight();
-        RectF FlinchTop = new RectF ((LEFT_BORDER_PERCENT2+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*6 + (CARD_WIDTH_PERCENT * 5))*width/100f,
-                (100-VERTICAL_BORDER_PERCENT_TOPPLAYER-(CARD_HEIGHT_PERCENT*2) - BUFFER_PERCENT2)*height/100f,
-                (LEFT_BORDER_PERCENT2+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*6 + (CARD_WIDTH_PERCENT * 6))*width/100f,
-                (100-(VERTICAL_BORDER_PERCENT_TOPPLAYER+CARD_HEIGHT_PERCENT+BUFFER_PERCENT2)) * height/100f);
+        RectF FlinchTop = new RectF ((LEFT_BORDER_PERCENT2+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*6 + (FLINCH_TOP_WIDTH * 5))*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_TOPPLAYER-(FLINCH_TOP_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
+                (LEFT_BORDER_PERCENT2+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*6 + (FLINCH_TOP_WIDTH * 6))*width/100f,
+                (100-(VERTICAL_BORDER_PERCENT_TOPPLAYER+FLINCH_TOP_HEIGHT+BUFFER_PERCENT2)) * height/100f);
         return FlinchTop;
 
     }
@@ -1012,6 +1057,24 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                         // TODO: THIS SHOULD BE HANDLED BY LOCAL GAME
                         surface.flash(Color.rgb(102,178,255), 50);
                     }
+                /*if( toDraw[discardedTo] >0 ){
+                    selected = discardedTo;
+                }*/
+
+                if (selected > 0 && selected < 6) {
+                    /*
+                    //get coordinates of second touch
+                    int x1 = (int) event.getX();
+                    int y1 = (int) event.getY();
+                    //set discarded to equal to those coordinates
+                    discardedTo = isDiscardPileTouched(x1, y1);
+                    //have selected card move to coordinates of discarded to
+                    selected = discardedTo;
+                    */
+
+                    // this card is from the hand--we can discard
+                    game.sendAction(new FDiscardAction(this,selected - 1, discardedTo - 6));
+                    selected = -1;
                 }
             }
             // they are not selected a card

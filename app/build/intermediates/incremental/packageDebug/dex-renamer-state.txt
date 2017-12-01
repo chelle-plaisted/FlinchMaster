@@ -1,4 +1,4 @@
-#Thu Nov 30 18:06:07 PST 2017
-base.0=C\:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
+#Thu Nov 30 18:03:31 PST 2017
+base.0=C\:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
 renamed.0=classes.dex
-file.0=C\:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex
+file.0=C\:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex
