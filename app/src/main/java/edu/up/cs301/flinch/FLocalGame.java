@@ -21,7 +21,7 @@ NOTE: TEST CASE THAT MIGHT FAIL WITH CURRENT DESIGN
 public class FLocalGame extends LocalGame{
     //instance variables
     private FState state; //state of game
-    private int numMoves; //number of moves since canBeFlinched was set to true TODO what to do with this?
+    private int numMoves; //number of moves since canBeFlinched was set to true
     private boolean flinchPotential; //whether the current player is at risk of Flinching themselves
     private boolean alreadyFlinchedThisPlay; //whether current player has already been flinched this play of a single card
     private int numPlayers; // the number of players in the game
@@ -136,6 +136,31 @@ public class FLocalGame extends LocalGame{
                     if(state.getCenterPiles()[fpa.getIndexTo()]+1 == topCard || (topCard == 1 && state.getCenterPiles()[fpa.getIndexTo()] == -1)) {
                         //play to this pile
                         state.playToCenter(topCard, fpa.getCardPile(), fpa.getIndexTo());
+
+                        // NOTE THE BELOW CODE DOES NOT WORK--IT WON'T BE REACHED CORRECTLY TODO: FIX
+                        // did the player Flinch themselves?
+                        if(!flinchPotential) {
+                            // check
+                            checkForFlinch();
+                        } else {
+                            // they already had the potential to Flinch themselves
+                            if(flinch) {
+                                // they played from their Flinch pile, so might not have Flinched
+                                checkForFlinch();
+                            } else {
+                                // they have officially Flinched themselves
+                                numMoves++;
+                                // too many moves have gone by: the flinch is invalid
+                                if(numMoves > 2) {
+                                    state.setFlinchable(state.getWhoseTurn(), false );
+                                    checkForFlinch();
+                                } else {
+                                    state.setFlinchable(state.getWhoseTurn(), true);
+                                }
+                            }
+                            alreadyFlinchedThisPlay = false;
+                        }
+
                         //check if center pile is full
                         recycleCards();
                         return true; //move was completed
@@ -157,6 +182,31 @@ public class FLocalGame extends LocalGame{
                         if (center[fpa.getIndexTo()] + 1 == card || (card == 1 && state.getCenterPiles()[fpa.getIndexTo()] == -1)) {
                             //play to this pile
                             state.playToCenter(fpa.getIndexFrom(), fpa.getCardPile(), fpa.getIndexTo());
+
+                            // NOTE THE BELOW CODE DOES NOT WORK--IT WON'T BE REACHED CORRECTLY TODO: FIX
+                            // did the player Flinch themselves?
+                            if(!flinchPotential) {
+                                // check
+                                checkForFlinch();
+                            } else {
+                                // they already had the potential to Flinch themselves
+                                if(flinch) {
+                                    // they played from their Flinch pile, so might not have Flinched
+                                    checkForFlinch();
+                                } else {
+                                    // they have officially Flinched themselves
+                                    numMoves++;
+                                    // too many moves have gone by: the flinch is invalid
+                                    if(numMoves > 2) {
+                                        state.setFlinchable(state.getWhoseTurn(), false );
+                                        checkForFlinch();
+                                    } else {
+                                        state.setFlinchable(state.getWhoseTurn(), true);
+                                    }
+                                }
+                                alreadyFlinchedThisPlay = false;
+                            }
+
                             //check if they can be flinched now
                             checkForFlinch();
                             //check if hand is now empty
@@ -176,37 +226,38 @@ public class FLocalGame extends LocalGame{
                             state.isStartOfGame = false;
                             // play the one
                             state.playToCenter(fpa.getIndexFrom(), fpa.getCardPile(), fpa.getIndexTo());
+
+                            // NOTE THE BELOW CODE DOES NOT WORK--IT WON'T BE REACHED CORRECTLY TODO: FIX
+                            // did the player Flinch themselves?
+                            if(!flinchPotential) {
+                                // check
+                                checkForFlinch();
+                            } else {
+                                // they already had the potential to Flinch themselves
+                                if(flinch) {
+                                    // they played from their Flinch pile, so might not have Flinched
+                                    checkForFlinch();
+                                } else {
+                                    // they have officially Flinched themselves
+                                    numMoves++;
+                                    // too many moves have gone by: the flinch is invalid
+                                    if(numMoves > 2) {
+                                        state.setFlinchable(state.getWhoseTurn(), false );
+                                        checkForFlinch();
+                                    } else {
+                                        state.setFlinchable(state.getWhoseTurn(), true);
+                                    }
+                                }
+                                alreadyFlinchedThisPlay = false;
+                            }
+                            
                             //check if center pile is full
                             recycleCards();
                             return true;
                         }
                     }
                 }
-                // NOTE THE BELOW CODE DOES NOT WORK--IT WON'T BE REACHED CORRECTLY TODO: FIX
-                // did the player Flinch themselves?
-                if(!flinchPotential) {
-                    // check
-                    checkForFlinch();
-                } else {
-                    // they already had the potential to Flinch themselves
-                    if(flinch) {
-                        // they played from their Flinch pile, so might not have Flinched
-                        checkForFlinch();
-                    } else {
-                        // they have officially Flinched themselves
-                        numMoves++;
-                        // too many moves have gone by: the flinch is invalid
-                        if(numMoves > 2) {
-                            state.setFlinchable(state.getWhoseTurn(), false );
-                            checkForFlinch();
-                        } else {
-                            state.setFlinchable(state.getWhoseTurn(), true);
-                        }
-                    }
 
-
-                    alreadyFlinchedThisPlay = false;
-                }
                 //check if center pile is full
                 recycleCards();
                 return false;// move wasn't made
