@@ -2,6 +2,7 @@ package edu.up.cs301.flinch;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -51,6 +52,8 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     private final static float FLINCH_BUTTON_WIDTH =10;
     private final static float FLINCH_BUTTON_HEIGHT = 5;
 
+    // non-card icons
+    private Bitmap flinchButtonIcon;
 
     // are we in play mode
     private boolean inPlayMode;
@@ -193,6 +196,11 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
         // read in the card images
         Card.initImages(activity);
+
+        // read in the flinch button
+        flinchButtonIcon = BitmapFactory.decodeResource(
+                activity.getResources(),
+                R.drawable.card01_1x);
 
         // if the state is not null, simulate having just received the state so that
         // any state-related processing is done
@@ -1126,21 +1134,24 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
      * @param where
      */
     public void drawFlinchButton(Canvas g, RectF where) {
-/*
+        // ignore if the flinch button icon hasn't been loaded yet
+        if(flinchButtonIcon == null) {
+            return;
+        }
         // create the paint object
         Paint p = new Paint();
         p.setColor(Color.BLACK);
 
         // get the bitmap for the card
-        Bitmap bitmap = cardImages[0][this.getNum()-1]; //.ordinal()][this.getRank().ordinal()];
+
 
         // create the source rectangle
-        Rect r = new Rect(0,0,bitmap.getWidth(),bitmap.getHeight());
+        Rect r = new Rect(0,0,flinchButtonIcon.getWidth(),flinchButtonIcon.getHeight());
 
 
         // draw the bitmap into the target rectangle
-        g.drawBitmap(bitmap, r, where, p);
-        */
+        g.drawBitmap(flinchButtonIcon, r, where, p);
+
     }
 
 
