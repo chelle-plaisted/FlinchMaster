@@ -39,6 +39,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     private final static float LEFT_BORDER_SIDE = 5;
     private final static float BUFFER_PERCENT2 = 5;
     private final static float VERTICAL_BORDER_PERCENT_BOTTOMPLAYER = 5; // width of top/bottom borders
+    private final static float VERTICAL_BORDER_PERCENT_2 = 10;
     private final static float VERTICAL_BORDER_PERCENT_TOPPLAYER = 70;
     private final static float VERTICAL_CENTERONE = VERTICAL_BORDER_PERCENT_BOTTOMPLAYER + 10 + (CARD_HEIGHT_PERCENT * 2);
     private final static float VERTICAL_CENTERTWO = 20;
@@ -48,6 +49,8 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     private final static float FLINCH_PILE_WIDTH = 10;//Flinch pile width
     private final static float FLINCH_BUTTON_WIDTH =10;
     private final static float FLINCH_BUTTON_HEIGHT = 7;
+    private final static float FLINCH_TOP_HEIGHT = 13;
+    private final static float FLINCH_TOP_WIDTH = 8;
 
     //array to hold all the rectFs for the placing of the cards
     private RectF[] cardPlace;
@@ -340,6 +343,17 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                     (100 - VERTICAL_BORDER_PERCENT_BOTTOMPLAYER - FLINCH_PILE_HEIGHT) * height / 100f,
                     ((BUFFER_PERCENT2 * width) + 25) / 100f,
                     (100 - VERTICAL_BORDER_PERCENT_BOTTOMPLAYER) * height / 100f), paint);
+            paint.setColor(Color.rgb(255, 153,153));
+            canvas.drawRect(new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2 * 6)+(CARD_WIDTH_PERCENT*5))*width/100f,
+                    (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(FLINCH_BUTTON_HEIGHT))*height/100f,
+                    (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2 * 6) + (CARD_WIDTH_PERCENT * 5)+ (FLINCH_BUTTON_WIDTH))*width/100f,
+                    (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER) * height/100f), paint);
+            canvas.drawRect(new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH +(CARD_WIDTH_PERCENT*5)+(BUFFER_PERCENT2)*6 )*width/100f,
+                    (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(FLINCH_BUTTON_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
+                    (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2*6) +(CARD_WIDTH_PERCENT*5)+ (FLINCH_BUTTON_WIDTH))*width/100f,
+                    (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+FLINCH_BUTTON_HEIGHT+BUFFER_PERCENT2)) * height/100f), paint);
+
+
 
         } else  {
             paint.setColor(Color.BLUE);
@@ -353,7 +367,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             paint.setColor(Color.rgb(255, 153, 153));
            canvas.drawRect(new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH +(CARD_WIDTH_PERCENT*5)+(BUFFER_PERCENT2)*6 )*width/100f,
                     (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(FLINCH_BUTTON_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
-                    (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*6 +(CARD_WIDTH_PERCENT*5)+ (FLINCH_BUTTON_WIDTH))*width/100f,
+                    (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2*6) +(CARD_WIDTH_PERCENT*5)+ (FLINCH_BUTTON_WIDTH))*width/100f,
                     (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+FLINCH_BUTTON_HEIGHT+BUFFER_PERCENT2)) * height/100f), paint);
             }
 
@@ -834,10 +848,10 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
         int width = surface.getWidth();
         int height = surface.getHeight();
-        RectF FlinchTop = new RectF ((LEFT_BORDER_PERCENT2+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*6 + (CARD_WIDTH_PERCENT * 5))*width/100f,
-                (100-VERTICAL_BORDER_PERCENT_TOPPLAYER-(CARD_HEIGHT_PERCENT*2) - BUFFER_PERCENT2)*height/100f,
-                (LEFT_BORDER_PERCENT2+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*6 + (CARD_WIDTH_PERCENT * 6))*width/100f,
-                (100-(VERTICAL_BORDER_PERCENT_TOPPLAYER+CARD_HEIGHT_PERCENT+BUFFER_PERCENT2)) * height/100f);
+        RectF FlinchTop = new RectF ((LEFT_BORDER_PERCENT2+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*6 + (FLINCH_TOP_WIDTH * 5))*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_TOPPLAYER-(FLINCH_TOP_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
+                (LEFT_BORDER_PERCENT2+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*6 + (FLINCH_TOP_WIDTH * 6))*width/100f,
+                (100-(VERTICAL_BORDER_PERCENT_TOPPLAYER+FLINCH_TOP_HEIGHT+BUFFER_PERCENT2)) * height/100f);
         return FlinchTop;
 
     }
