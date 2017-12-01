@@ -202,42 +202,53 @@ public class FLocalGame extends LocalGame{
                 return false;// move wasn't made
             }
         } else if (fma.isDiscard()) {//discard action
-            // TODO: if it is the first turn, it's an invalid move if they have a one in the hand but try to discard anyways
+            boolean invalidDis = false;
             // attempt to play when it's the other player's turn
             if (!canMove(thisPlayerIdx)) {
                 return false;
             } else {
-                // make a discard action
-                FDiscardAction fda = (FDiscardAction) fma;
-                // card from hand
-                int cardIdx = fda.getIndexFrom();
-                // get the discards
-                    // if any are blank--then we can only discard to a blank one
-                boolean blanks = false;
-                int[] d = state.getPlayerState(thisPlayerIdx).getTopDiscards();
-                for(int card : d) {
-                    if(card == -1) {
-                        blanks = true;
-                        break;
+                if(state.isStartOfGame) {
+                    for (int i = 0; i < state.getPlayerState(thisPlayerIdx).getHand().size(); i++) {
+                        //go through cards in hand and search for 1's
+                        if(state.getPlayerState(thisPlayerIdx).getHand().getCardAt(i) == 1) {
+                            invalidDis = true;
+                            return false;
+                        }
                     }
                 }
-                if(blanks) {
-                    if(d[fda.getIndexTo()] == -1) {
-                        // the space was blank
+                if (invalidDis == false) {
+                    // make a discard action
+                    FDiscardAction fda = (FDiscardAction) fma;
+                    // card from hand
+                    int cardIdx = fda.getIndexFrom();
+                    // get the discards
+                    // if any are blank--then we can only discard to a blank one
+                    boolean blanks = false;
+                    int[] d = state.getPlayerState(thisPlayerIdx).getTopDiscards();
+                    for (int card : d) {
+                        if (card == -1) {
+                            blanks = true;
+                            break;
+                        }
+                    }
+                    if (blanks) {
+                        if (d[fda.getIndexTo()] == -1) {
+                            // the space was blank
+                            //discard the card
+                            discard(cardIdx, thisPlayerIdx, fda);
+
+                            return true;//move was completed
+                        } else {
+                            // space not blank, invalid discard
+                            return false;
+                        }
+                    } else {
                         //discard the card
                         discard(cardIdx, thisPlayerIdx, fda);
-
                         return true;//move was completed
-                    } else {
-                        // space not blank, invalid discard
-                        return false;
                     }
-                } else
-                {
-                    //discard the card
-                    discard(cardIdx, thisPlayerIdx, fda);
-                    return true;//move was completed
                 }
+                invalidDis = false;
             }
         } else if (fma.isFlinch()) {//flinch action
             // attempt to play when it's the other player's turn
