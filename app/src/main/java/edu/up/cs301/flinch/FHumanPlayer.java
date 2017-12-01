@@ -203,7 +203,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         // read in the flinch button
         flinchButtonIcon = BitmapFactory.decodeResource(
                 activity.getResources(),
-                R.drawable.card01_1x);
+                R.drawable.flinch_button);
 
         // if the state is not null, simulate having just received the state so that
         // any state-related processing is done
