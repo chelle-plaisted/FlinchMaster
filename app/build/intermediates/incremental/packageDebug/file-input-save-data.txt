@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Thu Nov 30 17:18:33 PST 2017
+#Thu Nov 30 18:03:31 PST 2017
 5.base=C\:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\resources-debug.ap_
 42.base=C\:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\resources-debug.ap_
 32.set=ANDROID_RESOURCE

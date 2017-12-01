@@ -107,6 +107,7 @@ public class FLocalGame extends LocalGame{
         // get the index of the player making the move; return false
         int thisPlayerIdx = getPlayerIdx(fma.getPlayer());
 
+
         //play action
         if (fma.isPlay()) {
             // attempt to play when it's the other player's turn
@@ -135,6 +136,8 @@ public class FLocalGame extends LocalGame{
                     if(state.getCenterPiles()[fpa.getIndexTo()]+1 == topCard || (topCard == 1 && state.getCenterPiles()[fpa.getIndexTo()] == -1)) {
                         //play to this pile
                         state.playToCenter(topCard, fpa.getCardPile(), fpa.getIndexTo());
+                        //check if center pile is full
+                        recycleCards();
                         return true; //move was completed
                     }
 
@@ -158,6 +161,8 @@ public class FLocalGame extends LocalGame{
                             checkForFlinch();
                             //check if hand is now empty
                             isNeedCards();//method checks for us
+                            //check if center pile is full
+                            recycleCards();
                             return true;//move was completed
                         }
                     } else {
@@ -167,9 +172,12 @@ public class FLocalGame extends LocalGame{
 
                         } else {
                             // no longer the start of the game
-                            state.notStartOfGame();
+                            //state.notStartOfGame();
+                            state.isStartOfGame = false;
                             // play the one
                             state.playToCenter(fpa.getIndexFrom(), fpa.getCardPile(), fpa.getIndexTo());
+                            //check if center pile is full
+                            recycleCards();
                             return true;
                         }
                     }
@@ -196,9 +204,11 @@ public class FLocalGame extends LocalGame{
                         }
                     }
 
-                    //TODO: Recycle any full center piles
+
                     alreadyFlinchedThisPlay = false;
                 }
+                //check if center pile is full
+                recycleCards();
                 return false;// move wasn't made
             }
         } else if (fma.isDiscard()) {//discard action
@@ -207,11 +217,16 @@ public class FLocalGame extends LocalGame{
             if (!canMove(thisPlayerIdx)) {
                 return false;
             } else {
+                //if this is the start of the game
                 if(state.isStartOfGame) {
+                    //go through center piles
                     for (int i = 0; i < state.getPlayerState(thisPlayerIdx).getHand().size(); i++) {
                         //go through cards in hand and search for 1's
                         if(state.getPlayerState(thisPlayerIdx).getHand().getCardAt(i) == 1) {
+                            //if there is a one then this is an invalid discard action
                             invalidDis = true;
+                            //check if center pile is full
+                            recycleCards();
                             return false;
                         }
                     }
@@ -236,15 +251,20 @@ public class FLocalGame extends LocalGame{
                             // the space was blank
                             //discard the card
                             discard(cardIdx, thisPlayerIdx, fda);
-
+                            //check if center pile is full
+                            recycleCards();
                             return true;//move was completed
                         } else {
                             // space not blank, invalid discard
+                            //check if center pile is full
+                            recycleCards();
                             return false;
                         }
                     } else {
                         //discard the card
                         discard(cardIdx, thisPlayerIdx, fda);
+                        //check if center pile is full
+                        recycleCards();
                         return true;//move was completed
                     }
                 }
@@ -268,6 +288,9 @@ public class FLocalGame extends LocalGame{
                 }
             }
         }
+        //check if center pile is full
+        recycleCards();
+
         return false;
     }
 
@@ -333,9 +356,21 @@ public class FLocalGame extends LocalGame{
         return false;
     }
 
+    /**
+     * discard()
+     *
+     * Discards a card
+     * 
+     * @param cardIdx
+     * @param thisPlayerIdx
+     * @param fda
+     */
     private void discard(int cardIdx, int thisPlayerIdx, FDiscardAction fda) {
+        //get the index to
         int idxTo = fda.getIndexTo();
+        //discard card
         state.discard(cardIdx, idxTo);
+        //if it is the first turn
         if(state.isStartOfGame) {
             // discard all cards
             while(state.getPlayerState(thisPlayerIdx).getHand().size() != 0) {
@@ -354,5 +389,24 @@ public class FLocalGame extends LocalGame{
             thisPlayerIdx = 0;
         }
         state.setNextTurn(thisPlayerIdx);
+    }
+
+    /**
+     * recycleCards()
+     *
+     * Checks if a center pile is full and recyles that pile
+     *
+     */
+    private void recycleCards() {
+        //put center piles in array
+        int arr[] = state.getCenterPiles();
+        //go through center piles
+        for(int i = 0; i < state.getCenterPiles().length; i++) {
+            //if the top card is 15
+            if(arr[i] == 15) {
+                //recycle pile
+                state.recycleFullCenterPile(i);
+            }
+        }
     }
 }
