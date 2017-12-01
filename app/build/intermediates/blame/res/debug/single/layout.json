@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\layout\\game_config_tabhost.xml",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\layout\\game_config_tabhost.xml"
+    },
+    {
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\layout\\game_config_main.xml",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\layout\\game_config_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\layout\\game_no_gui.xml",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\layout\\game_no_gui.xml"
+    },
+    {
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\layout\\f_human_player.xml",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\layout\\f_human_player.xml"
+    },
+    {
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\layout\\game_player_list_row.xml",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\layout\\game_player_list_row.xml"
+    },
+    {
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\layout\\counter_human_player.xml",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\layout\\counter_human_player.xml"
+    },
+    {
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\layout\\game_local_tab.xml",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\layout\\game_local_tab.xml"
+    },
+    {
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\layout\\game_remote_tab.xml",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\layout\\game_remote_tab.xml"
+    }
+]
