@@ -1,9 +1,11 @@
 package edu.up.cs301.flinch;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -49,6 +51,10 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     private final static float FLINCH_BUTTON_WIDTH =10;
     private final static float FLINCH_BUTTON_HEIGHT = 5;
 
+
+    // are we in play mode
+    private boolean inPlayMode;
+
     //array to hold all the rectFs for the placing of the cards
     private RectF[] cardPlace;
     //array to hold actual cards
@@ -86,6 +92,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         super(name);
         backgroundColor = bkColor;
         selected = -1;
+        inPlayMode = true; // assume we start in play mode
     }
 
     /**
@@ -306,9 +313,6 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 counter1 = getCenterCardsLocs(counter1);
                 counter2 = getCenterCards(counter2);
 
-
-
-            // TODO: loop to add center cards, draw center cards (make sure it doesn't crash when the card is null), other players, link the rectF's to the actual cards in the state
         }
         Paint paint = new Paint();
         paint.setColor(Color.rgb(181,205,255));
@@ -328,25 +332,33 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             }
         }
 
-        // if it is the player's turn, draw what card they have selected
+        // if it is the player's turn, indicate what card was selected and show the card indicator
+        // otherwise, draw the turn indicator for the other player and draw the flinch button;
+        RectF turnIndicator;
         paint.setColor(Color.BLUE);
-
         if(this.playerNum == state.getWhoseTurn() ) {
-
+            // draw a blue line to indicate what card was selected
             selectIndicator = getSelectRect();
             if(selectIndicator != null) {
                 canvas.drawRect(selectIndicator, paint);
             }
-            canvas.drawRect( new RectF(0/100f,
+            // it is my turn
+            turnIndicator =( new RectF(0/100f,
                     (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-FLINCH_PILE_HEIGHT)*height/100f,
                     ((BUFFER_PERCENT2 *width) + 25 )/100f,
-                    (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER) * height/100f), paint);
+                    (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER) * height/100f));
         } else {
-            canvas.drawRect(new RectF ((LEFT_BORDER_PERCENT2+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*7 + (CARD_WIDTH_PERCENT * 6))*width/100f,
+            turnIndicator = (new RectF ((LEFT_BORDER_PERCENT2+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*7 + (CARD_WIDTH_PERCENT * 6))*width/100f,
                     (100-VERTICAL_BORDER_PERCENT_TOPPLAYER-(CARD_HEIGHT_PERCENT*2) - BUFFER_PERCENT2)*height/100f,
                     ((LEFT_BORDER_PERCENT2+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*7 + (CARD_WIDTH_PERCENT * 6))*width) + 25/100f,
-                    (100-(VERTICAL_BORDER_PERCENT_TOPPLAYER+CARD_HEIGHT_PERCENT+BUFFER_PERCENT2)) * height/100f), paint);
+                    (100-(VERTICAL_BORDER_PERCENT_TOPPLAYER+CARD_HEIGHT_PERCENT+BUFFER_PERCENT2)) * height/100f));
+
+            // draw the flinch button
+            drawFlinchButton(canvas, null); //TODO PUT IN ALEXA'S BUTTON
         }
+
+        canvas.drawRect(turnIndicator, paint);
+
     }
 
     /**
@@ -975,20 +987,23 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 selected = 5;
             }
             else if((discardedTo = isDiscardPileTouched(x, y)) != -1){
-                if (selected > 0 && selected < 6) {
-                    /*
-                    //get coordinates of second touch
-                    int x1 = (int) event.getX();
-                    int y1 = (int) event.getY();
-                    //set discarded to equal to those coordinates
-                    discardedTo = isDiscardPileTouched(x1, y1);
-                    //have selected card move to coordinates of discarded to
-                    selected = discardedTo;
-                    */
-
-                    // this card is from the hand--we can discard
-                    game.sendAction(new FDiscardAction(this,selected - 1, discardedTo - 6));
-                    selected = -1;
+                // select a card from the discard Pile
+                if(!inPlayMode) {
+                    //TODO: SHOULD CHECK IF I am in play mode
+                    if (toDraw[discardedTo] > 0)
+                        selected = discardedTo;
+                }
+                // discard a card
+                {
+                    if (selected > 0 && selected < 6) {
+                        // this card is from the hand--we can discard
+                        game.sendAction(new FDiscardAction(this, selected - 1, discardedTo - 6));
+                        selected = -1;
+                    } else {
+                        // hand discard
+                        // TODO: THIS SHOULD BE HANDLED BY LOCAL GAME
+                        surface.flash(Color.rgb(102,178,255), 50);
+                    }
                 }
             }
             // they are not selected a card
@@ -1001,11 +1016,11 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                     }
                     // did the player play from the Flinch pile
                     else if(selected == 0) {
-                        game.sendAction(new FPlayAction(this, selected - 1, playedTo - (cardPlace.length - 10), new FlinchPile()));
+                        game.sendAction(new FPlayAction(this, 0, playedTo - (cardPlace.length - 10), new FlinchPile()));
                     }
                     // did the player play from the discard piles (INVALID FOR NOW) TODO: FIX
                     else if(selected > 5 && selected < 11) {
-                        game.sendAction(new FPlayAction(this, selected - 1, playedTo - (cardPlace.length - 10), new DiscardPile()));
+                        game.sendAction(new FPlayAction(this, selected - 6, playedTo - (cardPlace.length - 10), new DiscardPile()));
                     }
                     selected = -1;
                 }
@@ -1104,6 +1119,32 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             c.drawOn(g, rect);
         }
     }
+
+    /**
+     * method to draw the flinch button to the screen
+     * @param g
+     * @param where
+     */
+    public void drawFlinchButton(Canvas g, RectF where) {
+/*
+        // create the paint object
+        Paint p = new Paint();
+        p.setColor(Color.BLACK);
+
+        // get the bitmap for the card
+        Bitmap bitmap = cardImages[0][this.getNum()-1]; //.ordinal()][this.getRank().ordinal()];
+
+        // create the source rectangle
+        Rect r = new Rect(0,0,bitmap.getWidth(),bitmap.getHeight());
+
+
+        // draw the bitmap into the target rectangle
+        g.drawBitmap(bitmap, r, where, p);
+        */
+    }
+
+
+
 
     /**
      * scales a rectangle, moving all edges with respect to its center

@@ -37,12 +37,14 @@ public class FComputerPlayer extends GameComputerPlayer
 	public FComputerPlayer(String name) {
 		// invoke general constructor to create player whose average reaction
 		// time is half a second.
-		this(name, 0.5);
+		//this(name, 0.5);
+		super(name);
 	}
 
 	/*
      * Constructor for the FComputerPlayer class
      */
+	/*
 	public FComputerPlayer(String name, double avgReactionTime) {
 		// invoke superclass constructor
 		super(name);
@@ -51,6 +53,7 @@ public class FComputerPlayer extends GameComputerPlayer
 		// time, converted to milliseconds (0.5 * 1000 = 500)
 		minReactionTimeInMillis = 500*avgReactionTime;
 	}
+	*/
 
 	/**
 	 * Invoked whenever the player's timer has ticked. It is expected
