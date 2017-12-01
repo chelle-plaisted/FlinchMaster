@@ -1,5 +1,6 @@
 package edu.up.cs301.flinch;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 
 import java.util.ArrayList;
@@ -22,7 +23,8 @@ public class FMainActivity extends GameMainActivity {
     private GameConfig defaultConfig; // the default configuration
 
     public GameConfig createDefaultConfig() {
-
+        //lock orientation to landscape
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         // Define the allowed player types
         ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
 
@@ -40,11 +42,11 @@ public class FMainActivity extends GameMainActivity {
                 return new FDumbComputerPlayer(name);
             }
         });
-   /*     playerTypes.add(new GamePlayerType("computer player (fast)") {
+        playerTypes.add(new GamePlayerType("computer player (smart)") {
             public GamePlayer createPlayer(String name) {
-                return new FComputerPlayer(name, 0.3);
+                return new FSmartComputerPlayer(name);
             }
-        });
+        }); /*
         playerTypes.add(new GamePlayerType("computer player (slow)") {
             public GamePlayer createPlayer(String name) {
                 return new FComputerPlayer(name, 1.0);
