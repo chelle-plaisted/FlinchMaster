@@ -268,7 +268,7 @@ public class FLocalGame extends LocalGame{
                         return true;//move was completed
                     }
                 }
-                invalidDis = false;
+                invalidDis = false; //
             }
         } else if (fma.isFlinch()) {//flinch action
             // attempt to play when it's the other player's turn
@@ -360,7 +360,7 @@ public class FLocalGame extends LocalGame{
      * discard()
      *
      * Discards a card
-     * 
+     *
      * @param cardIdx
      * @param thisPlayerIdx
      * @param fda
