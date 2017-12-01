@@ -56,7 +56,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     private final static float FLINCH_TOP_WIDTH = 8;
 
     // non-card icons
-    private Bitmap flinchButtonIcon;
+    private Bitmap[] icons;
 
     // are we in play mode
     private boolean inPlayMode;
@@ -200,11 +200,17 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         // read in the card images
         Card.initImages(activity);
 
-        // read in the flinch button
-        flinchButtonIcon = BitmapFactory.decodeResource(
+        // read in the buttons
+        icons = new Bitmap[3];
+        icons[0] = BitmapFactory.decodeResource(
                 activity.getResources(),
                 R.drawable.flinch_button);
-
+        icons[1] = BitmapFactory.decodeResource(
+                activity.getResources(),
+                R.drawable.playbutton);
+        icons[2] = BitmapFactory.decodeResource(
+                activity.getResources(),
+                R.drawable.discardbutton);
         // if the state is not null, simulate having just received the state so that
         // any state-related processing is done
         if (state != null) {
@@ -345,7 +351,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             }
         }
 
-        // if it is the player's turn, draw what card they have selecte
+        // if it is the player's turn, draw what card they have selected
         /* EXTRA GUI ELEMENTS BELOW */
         // if it is the player's turn, indicate what card was selected and show the card indicator
         // otherwise, draw the turn indicator for the other player and draw the flinch button;
@@ -1195,24 +1201,26 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
      * @param where
      */
     public void drawFlinchButton(Canvas g, RectF where) {
-        // ignore if the flinch button icon hasn't been loaded yet
-        if(flinchButtonIcon == null) {
+        // ignore if the icons haven't been loaded yet
+        if(icons == null) {
             return;
         }
         // create the paint object
         Paint p = new Paint();
         p.setColor(Color.BLACK);
 
-        // get the bitmap for the card
-
 
         // create the source rectangle
-        Rect r = new Rect(0,0,flinchButtonIcon.getWidth(),flinchButtonIcon.getHeight());
-
-
-        // draw the bitmap into the target rectangle
-        g.drawBitmap(flinchButtonIcon, r, where, p);
-
+        for(int i = 0; i < 3; i++) {
+            // ignore if the flinch button icon hasn't been loaded yet
+            if(icons[i] == null) {
+                continue;
+            }
+            Rect r = new Rect(0, 0, icons[i].getWidth(), icons[i].getHeight());
+            // draw the bitmap into the target rectangle
+            g.drawBitmap(icons[i], r, where, p);
+            // g.drawBitmap(icons[i], r, buttons[i], p);
+        }
     }
 
 
