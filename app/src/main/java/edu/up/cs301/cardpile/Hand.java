@@ -114,6 +114,10 @@ public class Hand extends CardPile {
         if(index < 0 || index >= size()) {
             return -1;
         }
+        // if card is null
+        if(cardPile.get(index) == null) {
+            return -1;
+        }
         return cardPile.get(index).getNum();
     }
 }

@@ -359,7 +359,12 @@ public class FLocalGame extends LocalGame{
            //if their flinch pile is empty
             if (state.getPlayerState(i).isFlinchEmpty()) {
                 return "Game Over"; //game is over
-            } else return null; //game is not over
+            }
+        }
+
+        // or is the deck empty?
+        if(state.getDeck().size() <= 0) {
+            return "Game Over";
         }
         return null;
     }

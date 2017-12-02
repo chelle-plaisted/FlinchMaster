@@ -61,6 +61,8 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     // are we in play mode
     private boolean inPlayMode;
 
+    private RectF[] buttons;
+
     //array to hold all the rectFs for the placing of the cards
     private RectF[] cardPlace;
     //array to hold actual cards
@@ -324,9 +326,17 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             counter1 = getCenterCardsLocs(counter1);
             counter2 = getCenterCards(counter2);
 
+            // add buttons
+            buttons = new RectF[5];
+                /* POSITIONS:
+                        0: Flinch button
+                        1: toggle play
+                        2: toggle discard
+                 */
+            setUpButtons();
 
             // TODO: loop to add center cards, draw center cards (make sure it doesn't crash when the card is null), other players, link the rectF's to the actual cards in the state
-        }
+        } // setup completed
         Paint paint = new Paint();
         paint.setColor(Color.rgb(181, 205, 255));
 
@@ -366,20 +376,24 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                     ((BUFFER_PERCENT2 *width) + 25 )/100f,
                     (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER) * height/100f));
 
-            // toggle buttons
-                //paint.setColor(Color.rgb(255, 153,153));
+            // TOGGLE BUTTON
+                // which button is selected
+            paint.setColor(Color.rgb(255, 153,153));
+            if(inPlayMode) {
+                // highlight the play Mode
+                canvas.drawRect(buttons[3], paint);
+            } else {
+                //highlight the discard Mode
+                canvas.drawRect(buttons[4], paint);
+            }
+
             paint.setColor(Color.RED);
             // bottom toggle: discard
-            canvas.drawRect(new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2 * 6)+(CARD_WIDTH_PERCENT*5))*width/100f,
-                    (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(FLINCH_BUTTON_HEIGHT))*height/100f,
-                    (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2 * 6) + (CARD_WIDTH_PERCENT * 5)+ (FLINCH_BUTTON_WIDTH))*width/100f,
-                    (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER) * height/100f), paint);
+            canvas.drawRect(buttons[2], paint);
+
             // botton toggle: play
             paint.setColor(Color.GREEN);
-            canvas.drawRect(new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH +(CARD_WIDTH_PERCENT*5)+(BUFFER_PERCENT2)*6 )*width/100f,
-                    (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(FLINCH_BUTTON_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
-                    (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2*6) +(CARD_WIDTH_PERCENT*5)+ (FLINCH_BUTTON_WIDTH))*width/100f,
-                    (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+FLINCH_BUTTON_HEIGHT+BUFFER_PERCENT2)) * height/100f), paint);
+            canvas.drawRect(buttons[1], paint);
 
         } else  {
             // IT IS NOT MY TURN
@@ -390,11 +404,8 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
             // FLINCH Button
             paint.setColor(Color.rgb(255, 153, 153));
-            RectF flinchRect = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH +(CARD_WIDTH_PERCENT*5)+(BUFFER_PERCENT2)*6 )*width/100f,
-                    (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(FLINCH_BUTTON_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
-                    (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2*6) +(CARD_WIDTH_PERCENT*5)+ (FLINCH_BUTTON_WIDTH))*width/100f,
-                    (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+FLINCH_BUTTON_HEIGHT+BUFFER_PERCENT2)) * height/100f);
-            drawFlinchButton(canvas, flinchRect); //TODO PUT IN ALEXA'S BUTTON
+            canvas.drawRect(buttons[0], paint);
+            drawFlinchButton(canvas, buttons[0]);
 
          }
          /* TO BE DELETED
@@ -419,6 +430,38 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
          // DRAW WHOSE TURN IT IS
         paint.setColor(Color.BLUE);
         canvas.drawRect(turnIndicator, paint);
+
+    }
+
+    /**
+     *  Draws flinch button, discard mode button, play mode button
+     */
+    private void setUpButtons() {
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        // flinch button
+        buttons[0] =  new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH +(CARD_WIDTH_PERCENT*5)+(BUFFER_PERCENT2)*6 )*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(FLINCH_BUTTON_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2*6) +(CARD_WIDTH_PERCENT*5)+ (FLINCH_BUTTON_WIDTH))*width/100f,
+                (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+FLINCH_BUTTON_HEIGHT+BUFFER_PERCENT2)) * height/100f);
+        // botton toggle: play
+        buttons[1] = (new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH +(CARD_WIDTH_PERCENT*5)+(BUFFER_PERCENT2)*6 )*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(FLINCH_BUTTON_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2*6) +(CARD_WIDTH_PERCENT*5)+ (FLINCH_BUTTON_WIDTH))*width/100f,
+                (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+FLINCH_BUTTON_HEIGHT+BUFFER_PERCENT2)) * height/100f));
+        // bottom toggle: discard
+        buttons[2] = (new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2 * 6)+(CARD_WIDTH_PERCENT*5))*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(FLINCH_BUTTON_HEIGHT))*height/100f,
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2 * 6) + (CARD_WIDTH_PERCENT * 5)+ (FLINCH_BUTTON_WIDTH))*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER) * height/100f));
+        buttons[3] = (new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH +(CARD_WIDTH_PERCENT*5)+(BUFFER_PERCENT2)*6 )*width/100f - 5,
+                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(FLINCH_BUTTON_HEIGHT*2) - BUFFER_PERCENT2)*height/100f - 5,
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2*6) +(CARD_WIDTH_PERCENT*5)+ (FLINCH_BUTTON_WIDTH))*width/100f + 5,
+                (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+FLINCH_BUTTON_HEIGHT+BUFFER_PERCENT2)) * height/100f + 5));
+        buttons[4] = (new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2 * 6)+(CARD_WIDTH_PERCENT*5))*width/100f - 5,
+                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(FLINCH_BUTTON_HEIGHT))*height/100f - 5,
+                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2 * 6) + (CARD_WIDTH_PERCENT * 5)+ (FLINCH_BUTTON_WIDTH))*width/100f + 5,
+                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER) * height/100f + 5));
 
     }
 
@@ -904,10 +947,10 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
         int width = surface.getWidth();
         int height = surface.getHeight();
-        RectF FlinchTop = new RectF ((LEFT_BORDER_PERCENT2+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*6 + (FLINCH_TOP_WIDTH * 5))*width/100f,
-                (100-VERTICAL_BORDER_PERCENT_TOPPLAYER-(FLINCH_TOP_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
-                (LEFT_BORDER_PERCENT2+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*6 + (FLINCH_TOP_WIDTH * 6))*width/100f,
-                (100-(VERTICAL_BORDER_PERCENT_TOPPLAYER+FLINCH_TOP_HEIGHT+BUFFER_PERCENT2)) * height/100f);
+        RectF FlinchTop = new RectF ((LEFT_BORDER_PERCENT2+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2*6) + (CARD_WIDTH_PERCENT * 5))*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_TOPPLAYER-(FLINCH_TOP_HEIGHT) - CARD_HEIGHT_PERCENT-BUFFER_PERCENT2)*height/100f,
+                (LEFT_BORDER_PERCENT2+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2*6) + (CARD_WIDTH_PERCENT * 5) + FLINCH_TOP_WIDTH)*width/100f,
+                (100-(VERTICAL_BORDER_PERCENT_TOPPLAYER+CARD_HEIGHT_PERCENT +BUFFER_PERCENT2)) * height/100f);
         return FlinchTop;
 
     }
@@ -1059,20 +1102,21 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             }
             else if((discardedTo = isDiscardPileTouched(x, y)) != -1){
                 // select a card from the discard Pile
-                if(!inPlayMode) {
+                if(inPlayMode) {
                     //TODO: SHOULD CHECK IF I am in play mode
                     if (toDraw[discardedTo] > 0)
                         selected = discardedTo;
-                }
-                // discard a card
-                if (selected > 0 && selected < 6) {
-                    // this card is from the hand--we can discard
-                    game.sendAction(new FDiscardAction(this, selected - 1, discardedTo - 6));
-                    selected = -1;
                 } else {
-                    // hand discard
-                    // TODO: THIS SHOULD BE HANDLED BY LOCAL GAME
-                    surface.flash(Color.rgb(102,178,255), 50);
+                    // discard a card
+                    if (selected > 0 && selected < 6) {
+                        // this card is from the hand--we can discard
+                        game.sendAction(new FDiscardAction(this, selected - 1, discardedTo - 6));
+                        selected = -1;
+                    } else {
+                        // hand discard
+                        // TODO: THIS SHOULD BE HANDLED BY LOCAL GAME
+                        surface.flash(Color.rgb(102, 178, 255), 50);
+                    }
                 }
             }
             // they are not selected a card
@@ -1081,19 +1125,25 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 if(selected != -1) {
                     // did the player play from the hand?
                     if (selected > 0 && selected < 6) {
-                        game.sendAction(new FPlayAction(this,selected-1, playedTo - (cardPlace.length - 10), new Hand()));
+                        game.sendAction(new FPlayAction(this, selected - 1, playedTo - (cardPlace.length - 10), new Hand()));
                     }
                     // did the player play from the Flinch pile
-                    else if(selected == 0) {
+                    else if (selected == 0) {
                         game.sendAction(new FPlayAction(this, 0, playedTo - (cardPlace.length - 10), new FlinchPile()));
                     }
                     // did the player play from the discard piles (INVALID FOR NOW) TODO: FIX
-                    else if(selected > 5 && selected < 11) {
+                    else if (selected > 5 && selected < 11) {
                         game.sendAction(new FPlayAction(this, selected - 6, playedTo - (cardPlace.length - 10), new DiscardPile()));
                     }
                     selected = -1;
                 }
-            } else {
+            //  did they touch the playMode button
+            } else if(buttons[1].contains(x,y)) {
+                inPlayMode = true;
+            } else if(buttons[2].contains(x,y)) {
+                inPlayMode = false;
+            }
+            else {
                 // illegal touch-location: flash for 1/20 second
                 surface.flash(Color.RED, 50);
             }
