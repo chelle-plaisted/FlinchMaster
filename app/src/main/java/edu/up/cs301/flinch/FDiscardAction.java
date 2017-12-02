@@ -1,5 +1,7 @@
 package edu.up.cs301.flinch;
 
+import java.io.Serializable;
+
 import edu.up.cs301.cardpile.CardPile;
 import edu.up.cs301.game.GamePlayer;
 
@@ -7,7 +9,7 @@ import edu.up.cs301.game.GamePlayer;
  * Created by Rachel on 11/7/2017.
  */
 
-public class FDiscardAction extends FMoveAction {
+public class FDiscardAction extends FMoveAction implements Serializable {
 
     private int indexFrom; //this index of the Card to be discarded from the hand
     private int indexTo; // the index fo where the card is going to in the discards

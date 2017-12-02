@@ -1,5 +1,6 @@
 package edu.up.cs301.cardpile;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -20,7 +21,7 @@ import edu.up.cs301.card.Card;
  *
  * @version November 2018
  */
-public class Deck extends CardPile {
+public class Deck extends CardPile implements Serializable {
     /**
      * Deck()
      *
