@@ -1,5 +1,7 @@
 package edu.up.cs301.cardpile;
 
+import java.io.Serializable;
+
 /**
  * CenterPile
  *
@@ -13,7 +15,7 @@ package edu.up.cs301.cardpile;
  *
  * @version November 2018
  */
-public class CenterPile extends CardPile {
+public class CenterPile extends CardPile implements Serializable {
     /**
      * CenterPile()
      *

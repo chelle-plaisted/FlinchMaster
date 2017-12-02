@@ -1,5 +1,7 @@
 package edu.up.cs301.cardpile;
 
+import java.io.Serializable;
+
 /**
  * DiscardPile
  *
@@ -13,7 +15,7 @@ package edu.up.cs301.cardpile;
  *
  * @version November 2018
  */
-public class DiscardPile extends CardPile {
+public class DiscardPile extends CardPile implements Serializable{
     /**
      * DiscardPile
      *

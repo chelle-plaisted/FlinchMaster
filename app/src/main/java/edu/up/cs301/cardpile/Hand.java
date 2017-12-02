@@ -1,5 +1,6 @@
 package edu.up.cs301.cardpile;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -18,7 +19,7 @@ import edu.up.cs301.card.Card;
  *
  * @version November 2018
  */
-public class Hand extends CardPile {
+public class Hand extends CardPile implements Serializable{
     /**
      * Hand()
      *

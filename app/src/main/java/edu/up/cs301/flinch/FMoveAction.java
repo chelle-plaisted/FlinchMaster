@@ -1,5 +1,7 @@
 package edu.up.cs301.flinch;
 
+import java.io.Serializable;
+
 import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.actionMsg.GameAction;
 
@@ -7,7 +9,7 @@ import edu.up.cs301.game.actionMsg.GameAction;
  * Created by Rachel on 11/7/2017.
  */
 
-public abstract class FMoveAction extends GameAction{
+public abstract class FMoveAction extends GameAction implements Serializable{
 
     private static final long serialVersionUID = -3107100271012188849L;
 
