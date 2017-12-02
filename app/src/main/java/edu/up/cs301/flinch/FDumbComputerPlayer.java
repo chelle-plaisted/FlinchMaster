@@ -39,6 +39,7 @@ public class FDumbComputerPlayer extends FComputerPlayer{
 
         if(this.playerNum == savedState.getWhoseTurn()) {
             playCards();
+            sleep(1500);
             super.discard();
         }
 
@@ -91,7 +92,7 @@ public class FDumbComputerPlayer extends FComputerPlayer{
                             // I can play the card
                             game.sendAction(new FPlayAction(this, i, index, new DiscardPile()));
                             cardPlayed = true;
-                            sleep(3000);
+                            sleep(1500);
                         }
                     }
                 }

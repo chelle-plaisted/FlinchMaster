@@ -18,6 +18,16 @@ NOTE: TEST CASE THAT MIGHT FAIL WITH CURRENT DESIGN
 
  */
 
+/*
+    Flinching: A player flinches self by playing another card when he/she could have played from the flinch pile
+        This flinch becomes invalid when:
+        -The player corrects the action by playing from the flinch card
+        -The player lays down 3 other cards (flinch is too old)
+        If the player flinches self by ending her/his turn too early:
+        -This flinch is valid until the next player plays a card, the flincher will be given an opportunity to clarify whose he/she is trying to accuse
+        TODO: ABOVE
+ */
+
 public class FLocalGame extends LocalGame{
     //instance variables
     private FState state; //state of game
@@ -55,7 +65,7 @@ public class FLocalGame extends LocalGame{
             if (j+1 == topCard || topCard == 1) {
                 // they could possibly flinch themselves
                 flinchPotential = true;
-            }
+            } // add a break
         }
     }
 
@@ -107,8 +117,32 @@ public class FLocalGame extends LocalGame{
         int thisPlayerIdx = getPlayerIdx(fma.getPlayer());
 
 
+        if (fma.isFlinch()) {//flinch action
+            // it's the correct player's turn
+            // cast to a play action
+            FFlinchAction ffa = (FFlinchAction) fma;
+            //check if player was flinched already
+            if(alreadyFlinchedThisPlay) {
+                return false; //player has been flinched already
+            } else {
+                // is the flinch correct?
+                //has the player played this turn
+                //   if(state.getPlayerState(state.getWhoseTurn()).hasPlayedThisTurn()) {
+                // the player has played this turn, the flinch action applies to the current player
+                return makeFlinch(state.getWhoseTurn(), thisPlayerIdx);
+               /* } // the player has not palyed this turn, the flinch action applies to the previous player
+                else {
+                    // get the index of the previous player
+                    int playerIndex = state.getWhoseTurn() - 1;
+                    if(playerIndex < 0) {
+                        playerIndex = numPlayers - 1;
+                    }
+                    return makeFlinch(playerIndex, thisPlayerIdx);
+                }*/
+            }
+        }
         //play action
-        if (fma.isPlay()) {
+        else if (fma.isPlay()) {
             // it's the correct player's turn
             // cast to a play action
             FPlayAction fpa = (FPlayAction) fma;
@@ -134,6 +168,10 @@ public class FLocalGame extends LocalGame{
                     // if the player played a one at the start of the game: no longer start of game
                     if(state.isStartOfGame && topCard == 1) {
                         state.notStartOfGame();
+                    }
+                    // if I have flinched myself but correct it by playing the flinch card, that flinch is now invalid
+                    if(state.getPlayerState(thisPlayerIdx).isFlinchable()) {
+                        state.setFlinchable(thisPlayerIdx, false);
                     }
                     // Now that the player has played a card, check if the player has the risk for flinch
                     setFlinchPotential();
@@ -188,14 +226,9 @@ public class FLocalGame extends LocalGame{
                         //play to this pile
                         state.playToCenter(fpa.getIndexFrom(), fpa.getCardPile(), fpa.getIndexTo());
 
-                        // did I flinch myself that turn?
-                        if(flinchPotential) {
-                            // I flinched myself: notify state and start tracking my moves
-                            numMoves = 1;
-                            state.setFlinchable(thisPlayerIdx, true);
 
-                        } // otherwise: do I have an active flinch?
-                        else if(state.getPlayerState(thisPlayerIdx).isFlinchable()) {
+                         // do I have an active flinch?
+                        if(state.getPlayerState(thisPlayerIdx).isFlinchable()) {
                             if(numMoves >= 2) {
                                 // this Flinch is too old
                                 numMoves = 0;
@@ -203,6 +236,12 @@ public class FLocalGame extends LocalGame{
                             } else {
                                 numMoves++;
                             }
+                        } // otherwise : did I flinch myself that turn?
+                        else if(flinchPotential) {
+                            // I flinched myself: notify state and start tracking my moves
+                            numMoves = 1;
+                            state.setFlinchable(thisPlayerIdx, true);
+
                         }
                         // Now that the player has played a card, check if the player has the risk for flinch
                         setFlinchPotential();
@@ -359,29 +398,6 @@ public class FLocalGame extends LocalGame{
                 }
           //  }
             //invalidDis = false; //
-        } else if (fma.isFlinch()) {//flinch action
-            // it's the correct player's turn
-            // cast to a play action
-            FFlinchAction ffa = (FFlinchAction) fma;
-            //check if player was flinched already
-            if(alreadyFlinchedThisPlay) {
-                return false; //player has been flinched already
-            } else {
-                // is the flinch correct?
-                //has the player played this turn
-                if(state.getPlayerState(state.getWhoseTurn()).hasPlayedThisTurn()) {
-                    // the player has played this turn, the flinch action applies to the current player
-                    return makeFlinch(state.getWhoseTurn(), thisPlayerIdx);
-                } // the player has not palyed this turn, the flinch action applies to the previous player
-                else {
-                    // get the index of the previous player
-                    int playerIndex = state.getWhoseTurn() - 1;
-                    if(playerIndex < 0) {
-                        playerIndex = numPlayers - 1;
-                    }
-                    return makeFlinch(playerIndex, thisPlayerIdx);
-                }
-            }
         }
         //check if center pile is full
         recycleCards();
