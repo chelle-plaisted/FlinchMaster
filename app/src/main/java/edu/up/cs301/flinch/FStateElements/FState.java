@@ -1,5 +1,7 @@
 package edu.up.cs301.flinch.FStateElements;
 
+import java.io.Serializable;
+
 import edu.up.cs301.card.*;
 import edu.up.cs301.cardpile.*;
 import edu.up.cs301.game.infoMsg.GameState;
@@ -12,7 +14,7 @@ import edu.up.cs301.game.infoMsg.GameState;
  * @author Steven R. Vegdahl 
  * @version July 2013
  */
-public class FState extends GameState
+public class FState extends GameState implements Serializable
 {
 	private static final long serialVersionUID = -8269749892027578792L;
 

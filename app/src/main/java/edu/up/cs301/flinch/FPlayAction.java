@@ -1,5 +1,7 @@
 package edu.up.cs301.flinch;
 
+import java.io.Serializable;
+
 import edu.up.cs301.cardpile.CardPile;
 import edu.up.cs301.game.GamePlayer;
 
@@ -7,7 +9,7 @@ import edu.up.cs301.game.GamePlayer;
  * Created by Rachel on 11/7/2017.
  */
 
-public class FPlayAction extends FMoveAction {
+public class FPlayAction extends FMoveAction implements Serializable {
 
     /* INSTANCE VARIABLES */
     private int indexFrom; // the index of the Card played in its CardPile

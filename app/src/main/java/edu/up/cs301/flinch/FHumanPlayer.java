@@ -1032,6 +1032,8 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
      */
 
     public void onTouch(MotionEvent event) {
+
+        if(state == null) {return;}
         // ignore everything except down-touch events
         if (event.getAction() != MotionEvent.ACTION_DOWN) return;
 

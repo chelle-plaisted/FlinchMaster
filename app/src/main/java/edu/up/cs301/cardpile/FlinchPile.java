@@ -1,5 +1,6 @@
 package edu.up.cs301.cardpile;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import edu.up.cs301.card.Card;
@@ -17,7 +18,7 @@ import edu.up.cs301.card.Card;
  *
  * @version November 2018
  */
-public class FlinchPile extends CardPile {
+public class FlinchPile extends CardPile implements Serializable{
     /**
      * FlinchPile
      *

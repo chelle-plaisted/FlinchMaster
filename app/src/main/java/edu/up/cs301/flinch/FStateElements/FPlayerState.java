@@ -1,5 +1,7 @@
 package edu.up.cs301.flinch.FStateElements;
 
+import java.io.Serializable;
+
 import edu.up.cs301.cardpile.*;
 import edu.up.cs301.card.*;
 
@@ -7,7 +9,7 @@ import edu.up.cs301.card.*;
  * Created by rae-o on 10/18/2017.
  */
 
-public class FPlayerState {
+public class FPlayerState implements Serializable {
     Hand hand;
     public FlinchPile flinch;
     DiscardPile[] discards;
