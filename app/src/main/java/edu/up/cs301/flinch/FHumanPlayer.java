@@ -17,8 +17,6 @@ import java.util.HashMap;
 import edu.up.cs301.animation.AnimationSurface;
 import edu.up.cs301.animation.Animator;
 import edu.up.cs301.card.Card;
-import edu.up.cs301.cardpile.CardPile;
-import edu.up.cs301.cardpile.CenterPile;
 import edu.up.cs301.cardpile.DiscardPile;
 import edu.up.cs301.cardpile.FlinchPile;
 import edu.up.cs301.cardpile.Hand;
@@ -392,7 +390,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         // if it is the player's turn, draw what card they have selected
         /* EXTRA GUI ELEMENTS BELOW */
         // if it is the player's turn, indicate what card was selected and show the card indicator
-        // otherwise, draw the turn indicator for the other player and draw the flinch button;
+        // otherwise, draw the flinch button;
         RectF turnIndicator;
         // if it is the player's turn, draw what card they have selected
         paint.setColor(Color.BLUE);
@@ -404,12 +402,6 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 canvas.drawRect(selectIndicator, paint);
             }
 
-            // it is my turn
-            turnIndicator =( new RectF(0/100f,
-                    (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-FLINCH_PILE_HEIGHT)*height/100f,
-                    ((BUFFER_PERCENT2 *width) + 25 )/100f,
-                    (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER) * height/100f));
-
             // TOGGLE BUTTON
                 // which button is selected
             paint.setColor(Color.rgb(255, 153,153));
@@ -420,36 +412,18 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 //highlight the discard Mode
                 canvas.drawRect(buttons[4], paint);
             }
-
-            paint.setColor(Color.RED);
-            // bottom toggle: discard
-            canvas.drawRect(buttons[2], paint);
-
-            // botton toggle: play
-            paint.setColor(Color.GREEN);
-            canvas.drawRect(buttons[1], paint);
+            drawToggleButtons(canvas);
 
         } else  {
             // IT IS NOT MY TURN
-            turnIndicator = (new RectF ((LEFT_BORDER_PERCENT2+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*7 + (CARD_WIDTH_PERCENT * 6))*width/100f,
-                    (100-VERTICAL_BORDER_PERCENT_TOPPLAYER-(CARD_HEIGHT_PERCENT*2) - BUFFER_PERCENT2)*height/100f,
-                    ((LEFT_BORDER_PERCENT2+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*7 + (CARD_WIDTH_PERCENT * 6))*width) + 25/100f,
-                    (100-(VERTICAL_BORDER_PERCENT_TOPPLAYER+CARD_HEIGHT_PERCENT+BUFFER_PERCENT2)) * height/100f));
-
             // FLINCH Button
             paint.setColor(Color.rgb(255, 153, 153));
-            flinchRect = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH +(CARD_WIDTH_PERCENT*5)+(BUFFER_PERCENT2)*6 )*width/100f,
-                    (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(FLINCH_BUTTON_HEIGHT*2) - BUFFER_PERCENT2)*height/100f,
-                    (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2*6) +(CARD_WIDTH_PERCENT*5)+ (FLINCH_BUTTON_WIDTH))*width/100f,
-                    (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+FLINCH_BUTTON_HEIGHT+BUFFER_PERCENT2)) * height/100f);
-
-            canvas.drawRect(buttons[0], paint);
-            drawFlinchButton(canvas, buttons[0]);
+            drawFlinchButton(canvas);
 
          }
 
          // DRAW WHOSE TURN IT IS
-        //turnIndicator = turnTracker.get(state.getWhoseTurn());
+        turnIndicator = turnTracker.get(state.getWhoseTurn());
 
         paint.setColor(Color.BLUE);
         canvas.drawRect(turnIndicator, paint);
@@ -758,8 +732,8 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         return DiscardFive;
 
     }
-
-    private RectF drawFlinchButton() {
+/*
+    private RectF drawAllButtons() {
         int width = surface.getWidth();
         int height = surface.getHeight();
         RectF FlinchButton = new RectF ((LEFT_BORDER_PERCENT+ FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*6 +( FLINCH_BUTTON_WIDTH *5)) *width/100f,
@@ -769,6 +743,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         return FlinchButton;
     }
 
+*/
     //start of center pile drawing
 
     //bottom left center card
@@ -892,7 +867,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
     }
 
-   /* private RectF drawFlinchButton() {
+   /* private RectF drawAllButtons() {
         int width = surface.getWidth();
         int height = surface.getHeight();
         RectF FlinchButton = new RectF (BUFFER_PERCENT_FLINCH_BUTTON *width/100f,
@@ -1175,7 +1150,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
         } else {
             // it is not the player's turn --did they Flinch someone?
-            if(flinchRect.contains(x,y)) {
+            if(buttons[0].contains(x,y)) {
                 game.sendAction(new FFlinchAction(this));
             } else {
                 // illegal touch-location: flash for 1/20 second
@@ -1268,11 +1243,10 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     }
 
     /**
-     * method to draw the flinch button to the screen
+     * method to draw the toggle buttons to the screen
      * @param g
-     * @param where
      */
-    public void drawFlinchButton(Canvas g, RectF where) {
+    public void drawToggleButtons(Canvas g) {
         // ignore if the icons haven't been loaded yet
         if(icons == null) {
             return;
@@ -1280,21 +1254,35 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         // create the paint object
         Paint p = new Paint();
         p.setColor(Color.BLACK);
-
-
         // create the source rectangle
-        for(int i = 0; i < 3; i++) {
+        for(int i = 1; i < 3; i++) {
             // ignore if the flinch button icon hasn't been loaded yet
             if(icons[i] == null) {
                 continue;
             }
             Rect r = new Rect(0, 0, icons[i].getWidth(), icons[i].getHeight());
             // draw the bitmap into the target rectangle
-            g.drawBitmap(icons[i], r, where, p);
-            // g.drawBitmap(icons[i], r, buttons[i], p);
+            g.drawBitmap(icons[i], r, buttons[i], p);
         }
     }
 
+    /**
+     * method to draw the flinch button to the screen
+     * @param g
+     */
+    public void drawFlinchButton(Canvas g) {
+        // ignore if the icons haven't been loaded yet
+        if(icons == null || icons[0] == null) {
+            return;
+        }
+        // create the paint object
+        Paint p = new Paint();
+        p.setColor(Color.BLACK);
+        // create the source rectangle
+        Rect r = new Rect(0, 0, icons[0].getWidth(), icons[0].getHeight());
+            // draw the bitmap into the target rectangle
+        g.drawBitmap(icons[0], r, buttons[0], p);
+    }
 
 
 

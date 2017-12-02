@@ -110,49 +110,138 @@ public class FLocalGame extends LocalGame{
 
         //play action
         if (fma.isPlay()) {
-            // attempt to play when it's the other player's turn
-            if (!canMove(thisPlayerIdx)) {
-                return false;
-            } else {
-                // it's the correct player's turn
-                // cast to a play action
-                FPlayAction fpa = (FPlayAction) fma;
-                // variables to find which pile card is coming from
-                boolean flinch = false, hand = false, discard = false;
-                // card from flinchPile
-                if (fpa.getCardPile() instanceof FlinchPile) {
-                    flinch = true;
-                } else if(fpa.getCardPile() instanceof Hand) { // card from hand
-                    hand = true;
-                } else  { //card from discard pile
-                    discard = true;
+            // it's the correct player's turn
+            // cast to a play action
+            FPlayAction fpa = (FPlayAction) fma;
+            // variables to find which pile card is coming from
+            boolean flinch = false, hand = false, discard = false;
+            // card from flinchPile
+            if (fpa.getCardPile() instanceof FlinchPile) {
+                flinch = true;
+            } else if(fpa.getCardPile() instanceof Hand) { // card from hand
+                hand = true;
+            } else  { //card from discard pile
+                discard = true;
+            } // end card searching
+            // NOTE: I think the below if(flinch) and if(hand || discard) structures could be consolidated TODO: fix
+            // from flinch hand
+            if (flinch) {
+                //get top flinch card
+                int topCard = state.getPlayerState(state.getWhoseTurn()).getTopFlinchCard();
+                // if flinch card can be played to center pile
+                if(state.getCenterPiles()[fpa.getIndexTo()]+1 == topCard || (topCard == 1 && state.getCenterPiles()[fpa.getIndexTo()] == -1)) {
+                    //play to this pile
+                    state.playToCenter(topCard, fpa.getCardPile(), fpa.getIndexTo());
+                    // if the player played a one at the start of the game: no longer start of game
+                    if(state.isStartOfGame && topCard == 1) {
+                        state.notStartOfGame();
+                    }
+                    // NOTE THE BELOW CODE DOES NOT WORK--IT WON'T BE REACHED CORRECTLY TODO: FIX
+                    // did the player Flinch themselves?
+                    if(!flinchPotential) {
+                        // check
+                        checkForFlinch();
+                    } else {
+                        // they already had the potential to Flinch themselves
+                        if(flinch) {
+                            // they played from their Flinch pile, so might not have Flinched
+                            checkForFlinch();
+                        } else {
+                            // they have officially Flinched themselves
+                            numMoves++;
+                            // too many moves have gone by: the flinch is invalid
+                            if(numMoves > 2) {
+                                state.setFlinchable(state.getWhoseTurn(), false );
+                                checkForFlinch();
+                            } else {
+                                state.setFlinchable(state.getWhoseTurn(), true);
+                            }
+                        }
+                        alreadyFlinchedThisPlay = false;
+                    }
+
+                    //check if center pile is full
+                    recycleCards();
+                    return true; //move was completed
                 }
-                // NOTE: I think the below if(flinch) and if(hand || discard) structures could be consolidated TODO: fix
-                // from flinch hand
-                if (flinch) {
-                    //get top flinch card
-                    int topCard = state.getPlayerState(state.getWhoseTurn()).getTopFlinchCard();
-                    // if flinch card can be played to center pile
-                    if(state.getCenterPiles()[fpa.getIndexTo()]+1 == topCard || (topCard == 1 && state.getCenterPiles()[fpa.getIndexTo()] == -1)) {
+
+            } else if (hand || discard) {
+                int card;
+                // card from hand
+                if (hand) {
+                    card = state.getPlayerState(thisPlayerIdx).getHand().getCardAt(fpa.getIndexFrom());
+                } else {
+                    // card from discard
+                    card = state.getPlayerState(thisPlayerIdx).getTopDiscards()[fpa.getIndexFrom()];
+                }
+                // compare card to center piles
+                if (!state.isStartOfGame) {
+                    // is the move valid
+                    int[] center = state.getCenterPiles();
+                    if (center[fpa.getIndexTo()] + 1 == card || (card == 1 && state.getCenterPiles()[fpa.getIndexTo()] == -1)) {
                         //play to this pile
-                        state.playToCenter(topCard, fpa.getCardPile(), fpa.getIndexTo());
+                        state.playToCenter(fpa.getIndexFrom(), fpa.getCardPile(), fpa.getIndexTo());
 
                         // NOTE THE BELOW CODE DOES NOT WORK--IT WON'T BE REACHED CORRECTLY TODO: FIX
                         // did the player Flinch themselves?
-                        if(!flinchPotential) {
+                        if (!flinchPotential) {
                             // check
                             checkForFlinch();
                         } else {
                             // they already had the potential to Flinch themselves
-                            if(flinch) {
+                            if (flinch) {
                                 // they played from their Flinch pile, so might not have Flinched
                                 checkForFlinch();
                             } else {
                                 // they have officially Flinched themselves
                                 numMoves++;
                                 // too many moves have gone by: the flinch is invalid
-                                if(numMoves > 2) {
-                                    state.setFlinchable(state.getWhoseTurn(), false );
+                                if (numMoves > 2) {
+                                    state.setFlinchable(state.getWhoseTurn(), false);
+                                    checkForFlinch();
+                                } else {
+                                    state.setFlinchable(state.getWhoseTurn(), true);
+                                }
+                            }
+                            alreadyFlinchedThisPlay = false;
+                        }
+
+                        //check if they can be flinched now
+                        checkForFlinch();
+                        //check if hand is now empty
+                        isNeedCards();//method checks for us
+                        //check if center pile is full
+                        recycleCards();
+                        return true;//move was completed
+                    }
+                } else {
+                    //can only play a one
+                    if (card != 1) {
+                        return false;
+
+                    } else {
+                        // no longer the start of the game
+                        //state.notStartOfGame();
+                        state.isStartOfGame = false;
+                        // play the one
+                        state.playToCenter(fpa.getIndexFrom(), fpa.getCardPile(), fpa.getIndexTo());
+
+                        // NOTE THE BELOW CODE DOES NOT WORK--IT WON'T BE REACHED CORRECTLY TODO: FIX
+                        // did the player Flinch themselves?
+                        if (!flinchPotential) {
+                            // check
+                            checkForFlinch();
+                        } else {
+                            // they already had the potential to Flinch themselves
+                            if (flinch) {
+                                // they played from their Flinch pile, so might not have Flinched
+                                checkForFlinch();
+                            } else {
+                                // they have officially Flinched themselves
+                                numMoves++;
+                                // too many moves have gone by: the flinch is invalid
+                                if (numMoves > 2) {
+                                    state.setFlinchable(state.getWhoseTurn(), false);
                                     checkForFlinch();
                                 } else {
                                     state.setFlinchable(state.getWhoseTurn(), true);
@@ -163,180 +252,79 @@ public class FLocalGame extends LocalGame{
 
                         //check if center pile is full
                         recycleCards();
-                        return true; //move was completed
-                    }
-
-                } else if (hand || discard) { //from hand
-                    int card;
-                    // card from hand
-                    if(hand) {
-                        card = state.getPlayerState(thisPlayerIdx).getHand().getCardAt(fpa.getIndexFrom());
-                    } else  {
-                        // card from discard
-                        card = state.getPlayerState(thisPlayerIdx).getTopDiscards()[fpa.getIndexFrom()];
-                    }
-                    // compare card to center piles
-                   if(!state.isStartOfGame) {
-                       // is the move valid
-                       int[] center = state.getCenterPiles();
-                        if (center[fpa.getIndexTo()] + 1 == card || (card == 1 && state.getCenterPiles()[fpa.getIndexTo()] == -1)) {
-                            //play to this pile
-                            state.playToCenter(fpa.getIndexFrom(), fpa.getCardPile(), fpa.getIndexTo());
-
-                            // NOTE THE BELOW CODE DOES NOT WORK--IT WON'T BE REACHED CORRECTLY TODO: FIX
-                            // did the player Flinch themselves?
-                            if(!flinchPotential) {
-                                // check
-                                checkForFlinch();
-                            } else {
-                                // they already had the potential to Flinch themselves
-                                if(flinch) {
-                                    // they played from their Flinch pile, so might not have Flinched
-                                    checkForFlinch();
-                                } else {
-                                    // they have officially Flinched themselves
-                                    numMoves++;
-                                    // too many moves have gone by: the flinch is invalid
-                                    if(numMoves > 2) {
-                                        state.setFlinchable(state.getWhoseTurn(), false );
-                                        checkForFlinch();
-                                    } else {
-                                        state.setFlinchable(state.getWhoseTurn(), true);
-                                    }
-                                }
-                                alreadyFlinchedThisPlay = false;
-                            }
-
-                            //check if they can be flinched now
-                            checkForFlinch();
-                            //check if hand is now empty
-                            isNeedCards();//method checks for us
-                            //check if center pile is full
-                            recycleCards();
-                            return true;//move was completed
-                        }
-                    } else {
-                        //can only play a one
-                        if( card != 1) {
-                            return false;
-
-                        } else {
-                            // no longer the start of the game
-                            //state.notStartOfGame();
-                            state.isStartOfGame = false;
-                            // play the one
-                            state.playToCenter(fpa.getIndexFrom(), fpa.getCardPile(), fpa.getIndexTo());
-
-                            // NOTE THE BELOW CODE DOES NOT WORK--IT WON'T BE REACHED CORRECTLY TODO: FIX
-                            // did the player Flinch themselves?
-                            if(!flinchPotential) {
-                                // check
-                                checkForFlinch();
-                            } else {
-                                // they already had the potential to Flinch themselves
-                                if(flinch) {
-                                    // they played from their Flinch pile, so might not have Flinched
-                                    checkForFlinch();
-                                } else {
-                                    // they have officially Flinched themselves
-                                    numMoves++;
-                                    // too many moves have gone by: the flinch is invalid
-                                    if(numMoves > 2) {
-                                        state.setFlinchable(state.getWhoseTurn(), false );
-                                        checkForFlinch();
-                                    } else {
-                                        state.setFlinchable(state.getWhoseTurn(), true);
-                                    }
-                                }
-                                alreadyFlinchedThisPlay = false;
-                            }
-                            
-                            //check if center pile is full
-                            recycleCards();
-                            return true;
-                        }
+                        return true;
                     }
                 }
+            }
 
                 //check if center pile is full
                 recycleCards();
                 return false;// move wasn't made
-            }
         } else if (fma.isDiscard()) {//discard action
             boolean invalidDis = false;
-            // attempt to play when it's the other player's turn
-            if (!canMove(thisPlayerIdx)) {
-                return false;
-            } else {
-                //if this is the start of the game
-                if(state.isStartOfGame) {
-                    //go through center piles
-                    for (int i = 0; i < state.getPlayerState(thisPlayerIdx).getHand().size(); i++) {
-                        //go through cards in hand and search for 1's
-                        if(state.getPlayerState(thisPlayerIdx).getHand().getCardAt(i) == 1) {
-                            //if there is a one then this is an invalid discard action
-                            invalidDis = true;
-                            //check if center pile is full
-                            recycleCards();
-                            return false;
-                        }
+            //if this is the start of the game
+            if(state.isStartOfGame) {
+                //go through center piles
+                for (int i = 0; i < state.getPlayerState(thisPlayerIdx).getHand().size(); i++) {
+                    //go through cards in hand and search for 1's
+                    if(state.getPlayerState(thisPlayerIdx).getHand().getCardAt(i) == 1) {
+                        //if there is a one then this is an invalid discard action
+                        invalidDis = true;
+                        //check if center pile is full
+                        recycleCards();
+                        return false;
                     }
                 }
-                if (invalidDis == false) {
-                    // make a discard action
-                    FDiscardAction fda = (FDiscardAction) fma;
-                    // card from hand
-                    int cardIdx = fda.getIndexFrom();
-                    // get the discards
-                    // if any are blank--then we can only discard to a blank one
-                    boolean blanks = false;
-                    int[] d = state.getPlayerState(thisPlayerIdx).getTopDiscards();
-                    for (int card : d) {
-                        if (card == -1) {
-                            blanks = true;
-                            break;
-                        }
+            }
+            if (invalidDis == false) {
+                // make a discard action
+                FDiscardAction fda = (FDiscardAction) fma;
+                // card from hand
+                int cardIdx = fda.getIndexFrom();
+                // get the discards
+                // if any are blank--then we can only discard to a blank one
+                boolean blanks = false;
+                int[] d = state.getPlayerState(thisPlayerIdx).getTopDiscards();
+                for (int card : d) {
+                    if (card == -1) {
+                        blanks = true;
+                        break;
                     }
-                    if (blanks) {
-                        if (d[fda.getIndexTo()] == -1) {
-                            // the space was blank
-                            //discard the card
-                            discard(cardIdx, thisPlayerIdx, fda);
-                            //check if center pile is full
-                            recycleCards();
-                            return true;//move was completed
-                        } else {
-                            // space not blank, invalid discard
-                            //check if center pile is full
-                            recycleCards();
-                            return false;
-                        }
-                    } else {
+                }
+                if (blanks) {
+                    if (d[fda.getIndexTo()] == -1) {
+                        // the space was blank
                         //discard the card
                         discard(cardIdx, thisPlayerIdx, fda);
                         //check if center pile is full
                         recycleCards();
                         return true;//move was completed
+                    } else {
+                        // space not blank, invalid discard
+                        //check if center pile is full
+                        recycleCards();
+                        return false;
                     }
-                }
-                invalidDis = false; //
-            }
-        } else if (fma.isFlinch()) {//flinch action
-            // attempt to play when it's the other player's turn
-            if (!canMove(thisPlayerIdx)) {
-                return false;
-            } else {
-                // it's the correct player's turn
-                // cast to a play action
-                FFlinchAction ffa = (FFlinchAction) fma;
-                //check if player was flinched already
-                if(alreadyFlinchedThisPlay) {
-                    return false; //player has been flinched already
                 } else {
-                    //flinch the player
-                    state.flinchAPlayer(thisPlayerIdx);
-                    return true;
+                    //discard the card
+                    discard(cardIdx, thisPlayerIdx, fda);
+                    //check if center pile is full
+                    recycleCards();
+                    return true;//move was completed
                 }
+            }
+            invalidDis = false; //
+        } else if (fma.isFlinch()) {//flinch action
+            // it's the correct player's turn
+            // cast to a play action
+            FFlinchAction ffa = (FFlinchAction) fma;
+            //check if player was flinched already
+            if(alreadyFlinchedThisPlay) {
+                return false; //player has been flinched already
+            } else {
+                //flinch the player
+                state.flinchAPlayer(thisPlayerIdx);
+                return true;
             }
         }
         //check if center pile is full
@@ -437,14 +425,15 @@ public class FLocalGame extends LocalGame{
                 state.discard(0, idxTo);
             }
         }
-        // do we need more cards?
-        isNeedCards();
+
         // increment the play?
         thisPlayerIdx++;
         if(thisPlayerIdx >= numPlayers) {
             thisPlayerIdx = 0;
         }
         state.setNextTurn(thisPlayerIdx);
+        // do we need more cards?
+        isNeedCards();
     }
 
     /**
@@ -464,5 +453,5 @@ public class FLocalGame extends LocalGame{
                 state.recycleFullCenterPile(i);
             }
         }
-    }
+    } // end recycle cards
 }
