@@ -117,6 +117,7 @@ public class FState extends GameState implements Serializable
 			// initialize Flinch pile
 			players[i].flinch = new FlinchPile(deck);
 			players[i].hasFlinched = false;
+			players[i].playedThisTurn = false;
 		}
 	}
 
@@ -180,6 +181,9 @@ public class FState extends GameState implements Serializable
 
 	/* MUTATORS */
 
+	public void playedThisTurn(int playerId, boolean played) {
+		players[playerId].playedThisTurn = played;
+	}
 
 	/**
 	 * change whose move it is
@@ -263,9 +267,9 @@ public class FState extends GameState implements Serializable
 	 * @param accusingPlayerId
 	 * 	the player who pressed the flinch button
 	 */
-	public void flinchAPlayer(int accusingPlayerId) {
+	public void flinchAPlayer(int flinchedPlayerId, int accusingPlayerId) {
 		Card c = players[accusingPlayerId].flinch.removeBottomCard();
-		players[toPlay].flinch.addAt(c, players[toPlay].flinch.size() - 1);
+		players[flinchedPlayerId].flinch.addAt(c, players[flinchedPlayerId].flinch.size() - 1);
 	}
 
 	public void notStartOfGame() {

@@ -14,6 +14,7 @@ public class FPlayerState implements Serializable {
     public FlinchPile flinch;
     DiscardPile[] discards;
     boolean hasFlinched;
+    boolean playedThisTurn;
 
     public FPlayerState() {
     }
@@ -23,8 +24,14 @@ public class FPlayerState implements Serializable {
         flinch = orig.flinch;
         discards = orig.discards;
         hasFlinched = orig.hasFlinched;
+        playedThisTurn = orig.playedThisTurn;
     }
 
+    /**
+     * whether the player has played this turn
+     * @return
+     */
+    public boolean hasPlayedThisTurn() {return playedThisTurn; }
 
     /**
      * @return
