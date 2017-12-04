@@ -154,7 +154,7 @@ public class FState extends GameState implements Serializable
 	 * 	the player's publicly available info
 	 */
 	public FPlayerState getPlayerState(int playerID) {
-		if(playerID < 0 || playerID > numPlayers) {
+		if(playerID < 0 || playerID >= numPlayers) {
 			return null;
 		}
 		return players[playerID];

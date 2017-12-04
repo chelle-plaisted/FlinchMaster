@@ -1,27 +1,27 @@
 [
     {
-        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card01_2x.png",
-        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card01_2x.png"
-    },
-    {
-        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card15_2x.png",
-        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card15_2x.png"
-    },
-    {
-        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card10_1x.png",
-        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card10_1x.png"
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card02_2x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card02_2x.png"
     },
     {
         "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card13_2x.png",
         "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card13_2x.png"
     },
     {
-        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card14_2x.png",
-        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card14_2x.png"
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card10_1x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card10_1x.png"
     },
     {
-        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card05_2x.png",
-        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card05_2x.png"
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card06_2x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card06_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card15_2x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card15_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_action_search.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\ic_action_search.png"
     },
     {
         "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card06_1x.png",
@@ -36,28 +36,16 @@
         "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card12_2x.png"
     },
     {
-        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card04_1x.png",
-        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card04_1x.png"
-    },
-    {
-        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card10_2x.png",
-        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card10_2x.png"
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card14_1x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card14_1x.png"
     },
     {
         "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card08_2x.png",
         "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card08_2x.png"
     },
     {
-        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card11_2x.png",
-        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card11_2x.png"
-    },
-    {
-        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card03_1x.png",
-        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card03_1x.png"
-    },
-    {
-        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card09_2x.png",
-        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card09_2x.png"
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card04_1x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card04_1x.png"
     },
     {
         "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card02_1x.png",
@@ -76,16 +64,204 @@
         "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card06_1x.png"
     },
     {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card08_1x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card08_1x.png"
+    },
+    {
         "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card15_1x.png",
         "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card15_1x.png"
+    },
+    {
+        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\flinch_button.png",
+        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\flinch_button.png"
+    },
+    {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card12_2x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card12_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card03_2x.png",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card03_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card11_1x.png",
+        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card11_1x.png"
+    },
+    {
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card12_1x.png",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card12_1x.png"
+    },
+    {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card09_2x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card09_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card02_2x.png",
+        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card02_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card03_2x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card03_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card11_1x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card11_1x.png"
+    },
+    {
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card01_2x.png",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card01_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card06_2x.png",
+        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card06_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card12_2x.png",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card12_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card05_1x.png",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card05_1x.png"
+    },
+    {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card15_1x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card15_1x.png"
+    },
+    {
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card07_2x.png",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card07_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card11_2x.png",
+        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card11_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card04_1x.png",
+        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card04_1x.png"
+    },
+    {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card11_2x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card11_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card03_1x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card03_1x.png"
+    },
+    {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card07_1x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card07_1x.png"
+    },
+    {
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card01_1x.png",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card01_1x.png"
+    },
+    {
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card13_1x.png",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card13_1x.png"
+    },
+    {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\flinch_button.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\flinch_button.png"
+    },
+    {
+        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card07_1x.png",
+        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card07_1x.png"
+    },
+    {
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card08_1x.png",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card08_1x.png"
+    },
+    {
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card04_2x.png",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card04_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card12_1x.png",
+        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card12_1x.png"
+    },
+    {
+        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card15_2x.png",
+        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card15_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card03_2x.png",
+        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card03_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card01_2x.png",
+        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card01_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card15_2x.png",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card15_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card12_1x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card12_1x.png"
+    },
+    {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\playbutton.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\playbutton.png"
+    },
+    {
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card10_1x.png",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card10_1x.png"
+    },
+    {
+        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card14_2x.png",
+        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card14_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card05_2x.png",
+        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card05_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card04_1x.png",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card04_1x.png"
+    },
+    {
+        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card10_2x.png",
+        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card10_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card04_2x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card04_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card11_2x.png",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card11_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card03_1x.png",
+        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card03_1x.png"
+    },
+    {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card10_2x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card10_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card09_2x.png",
+        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card09_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card06_1x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card06_1x.png"
+    },
+    {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card02_1x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card02_1x.png"
     },
     {
         "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card05_2x.png",
         "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card05_2x.png"
     },
     {
-        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\flinch_button.png",
-        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\flinch_button.png"
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card07_2x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card07_2x.png"
+    },
+    {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card14_2x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card14_2x.png"
     },
     {
         "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card13_1x.png",
@@ -100,32 +276,16 @@
         "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card08_1x.png"
     },
     {
-        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card03_2x.png",
-        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card03_2x.png"
-    },
-    {
         "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card09_1x.png",
         "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card09_1x.png"
-    },
-    {
-        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card11_1x.png",
-        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card11_1x.png"
-    },
-    {
-        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card12_1x.png",
-        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card12_1x.png"
-    },
-    {
-        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card02_2x.png",
-        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card02_2x.png"
     },
     {
         "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card10_1x.png",
         "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card10_1x.png"
     },
     {
-        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card01_2x.png",
-        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card01_2x.png"
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card05_2x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card05_2x.png"
     },
     {
         "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card14_2x.png",
@@ -136,6 +296,10 @@
         "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card04_2x.png"
     },
     {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card01_2x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card01_2x.png"
+    },
+    {
         "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card07_1x.png",
         "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card07_1x.png"
     },
@@ -144,12 +308,8 @@
         "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\ic_action_search.png"
     },
     {
-        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card12_2x.png",
-        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card12_2x.png"
-    },
-    {
-        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card06_2x.png",
-        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card06_2x.png"
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card09_1x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card09_1x.png"
     },
     {
         "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card13_2x.png",
@@ -164,32 +324,24 @@
         "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\purple_delete_button.png"
     },
     {
-        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card05_1x.png",
-        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card05_1x.png"
-    },
-    {
-        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card07_2x.png",
-        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card07_2x.png"
-    },
-    {
         "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card08_2x.png",
         "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card08_2x.png"
-    },
-    {
-        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card11_2x.png",
-        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card11_2x.png"
-    },
-    {
-        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card03_1x.png",
-        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card03_1x.png"
     },
     {
         "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card10_2x.png",
         "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card10_2x.png"
     },
     {
-        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card04_1x.png",
-        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card04_1x.png"
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card03_1x.png",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card03_1x.png"
+    },
+    {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\discardbutton.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\discardbutton.png"
+    },
+    {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card13_1x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card13_1x.png"
     },
     {
         "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card09_2x.png",
@@ -204,44 +356,28 @@
         "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card05_1x.png"
     },
     {
-        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card06_2x.png",
-        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card06_2x.png"
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card01_1x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card01_1x.png"
     },
     {
-        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card01_1x.png",
-        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card01_1x.png"
+        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card06_2x.png",
+        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card06_2x.png"
     },
     {
         "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card15_1x.png",
         "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card15_1x.png"
     },
     {
-        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card13_1x.png",
-        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card13_1x.png"
-    },
-    {
-        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card07_1x.png",
-        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card07_1x.png"
-    },
-    {
         "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card14_1x.png",
         "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card14_1x.png"
     },
     {
-        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card04_2x.png",
-        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card04_2x.png"
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card13_2x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card13_2x.png"
     },
     {
-        "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card08_1x.png",
-        "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card08_1x.png"
-    },
-    {
-        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card12_1x.png",
-        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card12_1x.png"
-    },
-    {
-        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card15_2x.png",
-        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card15_2x.png"
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card08_2x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card08_2x.png"
     },
     {
         "merged": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card11_1x.png",
@@ -252,11 +388,15 @@
         "source": "C:\\Users\\pinkertr20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card02_2x.png"
     },
     {
-        "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card03_2x.png",
-        "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card03_2x.png"
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\purple_delete_button.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\purple_delete_button.png"
     },
     {
         "merged": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card09_1x.png",
         "source": "C:\\Users\\plaisted20\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card09_1x.png"
+    },
+    {
+        "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\card05_1x.png",
+        "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\drawable-hdpi\\card05_1x.png"
     }
 ]

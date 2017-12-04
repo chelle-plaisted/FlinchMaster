@@ -85,6 +85,6 @@ public class FMainActivity extends GameMainActivity {
 
     public LocalGame createLocalGame() {
         //FLocalGame needs to be created
-        return new FLocalGame(defaultConfig.getNumPlayers());
+        return new FLocalGame();
     }
 }

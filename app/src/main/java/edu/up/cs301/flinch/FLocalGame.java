@@ -38,12 +38,11 @@ public class FLocalGame extends LocalGame{
 
     /**
      * Constructor to set up the number of players
-     * @param num
      *          Number of players
      *
      */
-    public FLocalGame(int num) {
-        numPlayers = num;
+    public FLocalGame() {
+        numPlayers = this.players.length;
         numMoves = 0;
         flinchPotential = false;
         state = new FState(numPlayers);

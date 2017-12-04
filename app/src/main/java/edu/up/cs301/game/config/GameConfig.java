@@ -676,9 +676,10 @@ public class GameConfig {
 	 * @return
 	 * 		the current number of players specified in the game, corresponding
 	 * 		to whether the configuration is for a local or remote game
-	 * 
+	 *
 	 */
 	public int getNumPlayers() {
+		int a = 0;
 		return isLocal ? selNames.size() : 1;
 	}// getNumPlayers
 

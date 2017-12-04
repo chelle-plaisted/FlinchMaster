@@ -55,10 +55,13 @@ public final class R {
         public static final int card14_2x=0x7f02001b;
         public static final int card15_1x=0x7f02001c;
         public static final int card15_2x=0x7f02001d;
-        public static final int flinch_button=0x7f02001e;
-        public static final int ic_action_search=0x7f02001f;
-        public static final int ic_launcher=0x7f020020;
-        public static final int purple_delete_button=0x7f020021;
+        public static final int discardbutton=0x7f02001e;
+        public static final int flinch_button=0x7f02001f;
+        public static final int flinch_title=0x7f020020;
+        public static final int ic_action_search=0x7f020021;
+        public static final int ic_launcher=0x7f020022;
+        public static final int playbutton=0x7f020023;
+        public static final int purple_delete_button=0x7f020024;
     }
     public static final class id {
         public static final int addPlayerButton=0x7f0a0013;
