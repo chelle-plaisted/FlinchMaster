@@ -24,7 +24,7 @@
         ]
     },
     {
-        "outputFile": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v14\\values-v14.xml",
+        "outputFile": "C:\\Users\\nishimuw18\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v14\\values-v14.xml",
         "map": [
             {
                 "to": {
@@ -35,7 +35,7 @@
                     "endOffset": 127
                 },
                 "from": {
-                    "file": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\values-v14\\styles.xml",
+                    "file": "C:\\Users\\nishimuw18\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\values-v14\\styles.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,

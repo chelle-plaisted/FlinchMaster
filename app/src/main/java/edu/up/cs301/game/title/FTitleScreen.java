@@ -5,4 +5,14 @@ package edu.up.cs301.game.title;
  */
 
 public class FTitleScreen {
+    // instance variables
+
+    /**
+     * FTitleScreen()
+     *
+     * Constructor for FTitleScreen objects.
+     */
+    public FTitleScreen() {
+
+    }
 }

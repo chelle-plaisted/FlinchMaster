@@ -21,10 +21,12 @@ import edu.up.cs301.game.title.FTitleScreen;
 public class FMainActivity extends GameMainActivity {
     public static final int PORT_NUMBER = 4752;
     private GameConfig defaultConfig; // the default configuration
+    private FTitleScreen titleScreen;
 
     public GameConfig createDefaultConfig() {
         //lock orientation to landscape
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         // Define the allowed player types
         ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
 
@@ -79,7 +81,12 @@ public class FMainActivity extends GameMainActivity {
     }//createDefaultConfig
 
     public FTitleScreen createTitleScreen() {
-        return null;
+        //lock orientation to landscape
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        titleScreen = new FTitleScreen();
+
+        return titleScreen;
     }
 
 
