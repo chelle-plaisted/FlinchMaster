@@ -55,6 +55,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     private final static float FLINCH_TOP_HEIGHT = 13;
     private final static float FLINCH_TOP_WIDTH = 8;
     private final static float VERTICAL_BORDER_PERCENT_LEFT = 25;
+    private final static float RIGHT_BORDER_SIDE = 95;
 
 
     // TEMP
@@ -307,6 +308,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 // draw Bottom Player cards
                 counter1 = getBottomCardLocs(counter1, player);
                 counter2 = getBottomCards(counter2, player);
+                player++;
                 if (player >= state.getNumPlayers()) {
                     player = 0;
                 }
@@ -315,6 +317,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 counter1 = getRightLocs(counter1, player);
                 counter2 = getPlayerCards(counter2, player);
                 turnTracker.put(new Integer(player), RIGHT);
+                player++;
                 if (player >= state.getNumPlayers()) {
                     player = 0;
                 }
@@ -328,6 +331,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 // draw Bottom Player cards
                 counter1 = getBottomCardLocs(counter1, player);
                 counter2 = getBottomCards(counter2, player);
+                player++;
                 if (player >= state.getNumPlayers()) {
                     player = 0;
                 }
@@ -337,6 +341,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 counter1 = getRightLocs(counter1, player);
                 counter2 = getPlayerCards(counter2, player);
                 turnTracker.put(new Integer(player), RIGHT);
+                player++;
                 if (player >= state.getNumPlayers()) {
                     player = 0;
                 }
@@ -345,6 +350,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 counter1 = getLeftCardLocs(counter1, player);
                 counter2 = getPlayerCards(counter2, player);
                 turnTracker.put(new Integer(player), LEFT);
+                player++;
                 if (player >= state.getNumPlayers()) {
                     player = 0;
                 }
@@ -426,7 +432,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         turnIndicator = turnTracker.get(state.getWhoseTurn());
 
         paint.setColor(Color.BLUE);
-        canvas.drawRect(turnIndicator, paint);
+        if(turnIndicator != null) canvas.drawRect(turnIndicator, paint);
 
     }
 
@@ -547,21 +553,21 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
      * @param player
      * @return
      */
-    private int getRightLocs(int counter, int player){
-        // TO DELETE
-        cardPlace[counter] = drawLeftDiscardOne();
+    private int getRightLocs (int counter, int player) {
+        cardPlace[counter] = drawRightDiscardOne();
         counter++;
-        cardPlace[counter] = drawLeftDiscardTwo();
+        cardPlace[counter] = drawRightDiscardTwo();
         counter++;
-        cardPlace[counter] = drawLeftDiscardthree();
+        cardPlace[counter] = drawRightDiscardthree();
         counter++;
-        cardPlace[counter] = drawLeftDiscardfour();
+        cardPlace[counter] = drawRightDiscardfour();
         counter++;
-        cardPlace[counter] = drawLeftDiscardfive();
+        cardPlace[counter] = drawRightDiscardfive();
         counter++;
-        cardPlace[counter] = drawLeftFlinch();
+        cardPlace[counter] = drawRightFlinch();
         counter++;
         return counter;
+
     }
 
     /**
@@ -759,72 +765,145 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     int width = surface.getWidth();
     int height = surface.getHeight();
     RectF DiscardLeftOne = new RectF ((LEFT_BORDER_SIDE)*width/100f,
-            (100-VERTICAL_BORDER_PERCENT_LEFT+BUFFER_PERCENT2-CARD_WIDTH_PERCENT)*height/100f,
-            ((LEFT_BORDER_SIDE+CARD_HEIGHT_PERCENT+BUFFER_PERCENT2)) * width/100f ,
+            (100-VERTICAL_BORDER_PERCENT_LEFT-CARD_WIDTH_PERCENT)*height/100f,
+            ((LEFT_BORDER_SIDE+CARD_HEIGHT_PERCENT)) * width/100f ,
             (100-VERTICAL_BORDER_PERCENT_LEFT)*height/100f);
     return DiscardLeftOne;
 
-}
+    }
 
-private RectF drawLeftDiscardTwo () {
+    private RectF drawLeftDiscardTwo () {
 
-    int width = surface.getWidth();
-    int height = surface.getHeight();
-    RectF DiscardLeftTwo = new RectF ((LEFT_BORDER_PERCENT2)*width/100f,
-            (100-VERTICAL_BORDER_PERCENT_LEFT-(CARD_WIDTH_PERCENT*2) - BUFFER_PERCENT2*2)*height/100f,
-            (LEFT_BORDER_PERCENT2+(CARD_HEIGHT_PERCENT*2)+ BUFFER_PERCENT2)*width/100f,
-            (100-(VERTICAL_BORDER_PERCENT_LEFT+CARD_WIDTH_PERCENT)) * height/100f);
-    return DiscardLeftTwo;
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF DiscardLeftTwo = new RectF ((LEFT_BORDER_SIDE)*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_LEFT-(CARD_WIDTH_PERCENT*2) - (BUFFER_PERCENT2))*height/100f,
+                (LEFT_BORDER_SIDE+(CARD_HEIGHT_PERCENT))*width/100f,
+                (100-(VERTICAL_BORDER_PERCENT_LEFT+CARD_WIDTH_PERCENT + BUFFER_PERCENT2)) * height/100f);
+        return DiscardLeftTwo;
 
-}
+    }
 
-private RectF drawLeftDiscardthree() {
+    private RectF drawLeftDiscardthree() {
 
-    int width = surface.getWidth();
-    int height = surface.getHeight();
-    RectF DiscardLeftThree = new RectF ((LEFT_BORDER_PERCENT)*width/100f,
-            (100-VERTICAL_BORDER_PERCENT_LEFT-(CARD_WIDTH_PERCENT*3) - BUFFER_PERCENT2*3)*height/100f,
-            (LEFT_BORDER_PERCENT+(CARD_HEIGHT_PERCENT))*width/100f,
-            (100-(VERTICAL_BORDER_PERCENT_LEFT+CARD_WIDTH_PERCENT+BUFFER_PERCENT2)) * height/100f);
-    return DiscardLeftThree;
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF DiscardLeftThree = new RectF ((LEFT_BORDER_SIDE)*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_LEFT-(CARD_WIDTH_PERCENT*3) - BUFFER_PERCENT2*2)*height/100f,
+                (LEFT_BORDER_SIDE+(CARD_HEIGHT_PERCENT))*width/100f,
+                (100-(VERTICAL_BORDER_PERCENT_LEFT+(CARD_WIDTH_PERCENT * 2)+(BUFFER_PERCENT2 * 2))) * height/100f);
+        return DiscardLeftThree;
 
-}
+    }
 
-private RectF drawLeftDiscardfour() {
+    private RectF drawLeftDiscardfour() {
 
-    int width = surface.getWidth();
-    int height = surface.getHeight();
-    RectF DiscardLeftFour = new RectF ((LEFT_BORDER_PERCENT)*width/100f,
-            (100-VERTICAL_BORDER_PERCENT_LEFT-(CARD_WIDTH_PERCENT*4) - BUFFER_PERCENT2*5)*height/100f,
-            (LEFT_BORDER_PERCENT+(CARD_HEIGHT_PERCENT))*width/100f,
-            (100-(VERTICAL_BORDER_PERCENT_LEFT+CARD_WIDTH_PERCENT+BUFFER_PERCENT2)) * height/100f);
-    return DiscardLeftFour;
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF DiscardLeftFour = new RectF ((LEFT_BORDER_SIDE)*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_LEFT-(CARD_WIDTH_PERCENT*4) - BUFFER_PERCENT2*3)*height/100f,
+                (LEFT_BORDER_SIDE+(CARD_HEIGHT_PERCENT))*width/100f,
+                (100-(VERTICAL_BORDER_PERCENT_LEFT+(CARD_WIDTH_PERCENT* 3)+(BUFFER_PERCENT2 * 3))) * height/100f);
+        return DiscardLeftFour;
 
-}
+    }
 
-private RectF drawLeftDiscardfive() {
+    private RectF drawLeftDiscardfive() {
 
-    int width = surface.getWidth();
-    int height = surface.getHeight();
-    RectF DiscardLeftFive = new RectF ((LEFT_BORDER_PERCENT)*width/100f,
-            (100-VERTICAL_BORDER_PERCENT_LEFT-(CARD_WIDTH_PERCENT*5) - BUFFER_PERCENT2*5)*height/100f,
-            (LEFT_BORDER_PERCENT+CARD_HEIGHT_PERCENT)*width/100f,
-            (100-(VERTICAL_BORDER_PERCENT_LEFT+CARD_WIDTH_PERCENT+BUFFER_PERCENT2)) * height/100f);
-    return DiscardLeftFive;
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF DiscardLeftFive = new RectF ((LEFT_BORDER_SIDE)*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_LEFT-(CARD_WIDTH_PERCENT*5) - (BUFFER_PERCENT2*4))*height/100f,
+                (LEFT_BORDER_SIDE+CARD_HEIGHT_PERCENT)*width/100f,
+                (100-(VERTICAL_BORDER_PERCENT_LEFT+(CARD_WIDTH_PERCENT* 4)+(BUFFER_PERCENT2* 4))) * height/100f);
+        return DiscardLeftFive;
 
-}
+    }
 
-private RectF drawLeftFlinch() {
+    private RectF drawLeftFlinch() {
 
-    int width = surface.getWidth();
-    int height = surface.getHeight();
-    RectF DiscardLeftFlinch = new RectF ((LEFT_BORDER_PERCENT)*width/100f,
-            (100-VERTICAL_BORDER_PERCENT_LEFT-(CARD_WIDTH_PERCENT*6) - BUFFER_PERCENT2*6)*height/100f,
-            (LEFT_BORDER_PERCENT+ (CARD_HEIGHT_PERCENT))*width/100f,
-            (100-(VERTICAL_BORDER_PERCENT_LEFT+CARD_WIDTH_PERCENT+BUFFER_PERCENT2)) * height/100f);
-    return DiscardLeftFlinch;
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF DiscardLeftFlinch = new RectF ((LEFT_BORDER_SIDE)*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_LEFT-(CARD_WIDTH_PERCENT*5) - FLINCH_TOP_WIDTH - BUFFER_PERCENT2*5)*height/100f,
+                (LEFT_BORDER_SIDE+ (FLINCH_TOP_HEIGHT))*width/100f,
+                (100-(VERTICAL_BORDER_PERCENT_LEFT+(CARD_WIDTH_PERCENT * 5)+(BUFFER_PERCENT2 * 5))) * height/100f);
+        return DiscardLeftFlinch;
 
-}
+    }
+    //RIGHT PLAYER
+
+    private RectF drawRightDiscardOne () {
+
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF DiscardRightOne = new RectF ((100 - (LEFT_BORDER_SIDE + CARD_HEIGHT_PERCENT) )*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_LEFT-CARD_WIDTH_PERCENT - FLINCH_TOP_WIDTH - BUFFER_PERCENT2)*height/100f,
+                (100 - LEFT_BORDER_SIDE)*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_LEFT - FLINCH_TOP_WIDTH - BUFFER_PERCENT2)*height/100f);
+        return DiscardRightOne;
+
+    }
+
+    private RectF drawRightDiscardTwo () {
+
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF DiscardRightTwo = new RectF ((100 - (LEFT_BORDER_SIDE + CARD_HEIGHT_PERCENT) )*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_LEFT-(CARD_WIDTH_PERCENT*2) - FLINCH_TOP_WIDTH- (BUFFER_PERCENT2 * 2))*height/100f,
+                (100 - LEFT_BORDER_SIDE )*width/100f,
+                (100-(VERTICAL_BORDER_PERCENT_LEFT+CARD_WIDTH_PERCENT + FLINCH_TOP_WIDTH + (BUFFER_PERCENT2* 2))) * height/100f);
+        return DiscardRightTwo;
+
+    }
+
+    private RectF drawRightDiscardthree() {
+
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF DiscardRightThree = new RectF ((100 - (LEFT_BORDER_SIDE + CARD_HEIGHT_PERCENT) )*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_LEFT-(CARD_WIDTH_PERCENT*3) - FLINCH_TOP_WIDTH -BUFFER_PERCENT2*3)*height/100f,
+                (100 - LEFT_BORDER_SIDE )*width/100f,
+                (100-(VERTICAL_BORDER_PERCENT_LEFT+(CARD_WIDTH_PERCENT * 2)+ FLINCH_TOP_WIDTH +(BUFFER_PERCENT2 * 3))) * height/100f);
+        return DiscardRightThree;
+
+    }
+
+    private RectF drawRightDiscardfour() {
+
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF DiscardRightFour = new RectF ((100 - (LEFT_BORDER_SIDE + CARD_HEIGHT_PERCENT) )*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_LEFT-(CARD_WIDTH_PERCENT*4) - FLINCH_TOP_WIDTH -BUFFER_PERCENT2*4)*height/100f,
+                (100 - LEFT_BORDER_SIDE )*width/100f,
+                (100-(VERTICAL_BORDER_PERCENT_LEFT+(CARD_WIDTH_PERCENT* 3)+ FLINCH_TOP_WIDTH +(BUFFER_PERCENT2 * 4))) * height/100f);
+        return DiscardRightFour;
+
+    }
+
+    private RectF drawRightDiscardfive() {
+
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF DiscardRightFive = new RectF ((100 - (LEFT_BORDER_SIDE + CARD_HEIGHT_PERCENT) )*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_LEFT-(CARD_WIDTH_PERCENT*5) - FLINCH_TOP_WIDTH -(BUFFER_PERCENT2*5))*height/100f,
+                (100 - LEFT_BORDER_SIDE)*width/100f,
+                (100-(VERTICAL_BORDER_PERCENT_LEFT+(CARD_WIDTH_PERCENT* 4)+ FLINCH_TOP_WIDTH +(BUFFER_PERCENT2* 5))) * height/100f);
+        return DiscardRightFive;
+
+    }
+
+    private RectF drawRightFlinch() {
+
+        int width = surface.getWidth();
+        int height = surface.getHeight();
+        RectF DiscardRightFlinch = new RectF ((100 - LEFT_BORDER_SIDE - FLINCH_TOP_HEIGHT)*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_LEFT - FLINCH_TOP_WIDTH)*height/100f,
+                (100 - LEFT_BORDER_SIDE)*width/100f,
+                (100-VERTICAL_BORDER_PERCENT_LEFT) * height/100f);
+        return DiscardRightFlinch;
+
+    }
 
     /**
      *
@@ -1060,79 +1139,6 @@ private RectF drawLeftFlinch() {
 
     //LEFT PLAYER
     //STILL NEEDS TO BE COMPLETED
-
-/* TO DELETE
-    private RectF drawLeftDiscardOne () {
-
-        int width = surface.getWidth();
-        int height = surface.getHeight();
-        RectF DiscardLeftOne = new RectF ((LEFT_BORDER_SIDE)*height/100f,
-                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+FLINCH_PILE_WIDTH+BUFFER_PERCENT2)*width/100f,
-                ((LEFT_BORDER_SIDE+CARD_HEIGHT_PERCENT+BUFFER_PERCENT2)) * height/100f ,
-                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER)*width/100f);
-        return DiscardLeftOne;
-
-    }
-
-    private RectF drawLeftDiscardTwo () {
-
-        int width = surface.getWidth();
-        int height = surface.getHeight();
-        RectF DiscardLeftTwo = new RectF ((LEFT_BORDER_PERCENT2+FLINCH_PILE_WIDTH+BUFFER_PERCENT2)*width/100f,
-                (100-VERTICAL_BORDER_PERCENT_TOPPLAYER-(CARD_HEIGHT_PERCENT*2) - BUFFER_PERCENT2)*height/100f,
-                (LEFT_BORDER_PERCENT2+CARD_WIDTH_PERCENT + FLINCH_PILE_WIDTH + BUFFER_PERCENT2)*width/100f,
-                (100-(VERTICAL_BORDER_PERCENT_TOPPLAYER+CARD_HEIGHT_PERCENT+BUFFER_PERCENT2)) * height/100f);
-        return DiscardLeftTwo;
-
-    }
-
-    private RectF drawLeftDiscardthree() {
-
-        int width = surface.getWidth();
-        int height = surface.getHeight();
-        RectF DiscardLeftThree = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*3 + (CARD_WIDTH_PERCENT * 2))*width/100f,
-                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(CARD_HEIGHT_PERCENT*2) - BUFFER_PERCENT2)*height/100f,
-                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*3 + (CARD_WIDTH_PERCENT * 3))*width/100f,
-                (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+CARD_HEIGHT_PERCENT+BUFFER_PERCENT2)) * height/100f);
-        return DiscardLeftThree;
-
-    }
-
-    private RectF drawLeftDiscardfour() {
-
-        int width = surface.getWidth();
-        int height = surface.getHeight();
-        RectF DiscardLeftFour = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*4 + (CARD_WIDTH_PERCENT * 3))*width/100f,
-                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(CARD_HEIGHT_PERCENT*2) - BUFFER_PERCENT2)*height/100f,
-                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*4 + (CARD_WIDTH_PERCENT * 4))*width/100f,
-                (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+CARD_HEIGHT_PERCENT+BUFFER_PERCENT2)) * height/100f);
-        return DiscardLeftFour;
-
-    }
-
-    private RectF drawLeftDiscardfive() {
-
-        int width = surface.getWidth();
-        int height = surface.getHeight();
-        RectF DiscardLeftFive = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*5 + (CARD_WIDTH_PERCENT * 4))*width/100f,
-                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(CARD_HEIGHT_PERCENT*2) - BUFFER_PERCENT2)*height/100f,
-                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*5 + (CARD_WIDTH_PERCENT * 5))*width/100f,
-                (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+CARD_HEIGHT_PERCENT+BUFFER_PERCENT2)) * height/100f);
-        return DiscardLeftFive;
-
-    }
-
-    private RectF drawLeftFlinch() {
-
-        int width = surface.getWidth();
-        int height = surface.getHeight();
-        RectF DiscardLeftFlinch = new RectF ((LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*5 + (CARD_WIDTH_PERCENT * 4))*width/100f,
-                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-(CARD_HEIGHT_PERCENT*2) - BUFFER_PERCENT2)*height/100f,
-                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*5 + (CARD_WIDTH_PERCENT * 5))*width/100f,
-                (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+CARD_HEIGHT_PERCENT+BUFFER_PERCENT2)) * height/100f);
-        return DiscardLeftFlinch;
-
-    } */
 
     /**
      *

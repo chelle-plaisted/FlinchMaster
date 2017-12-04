@@ -42,11 +42,22 @@ public class FLocalGame extends LocalGame{
      *
      */
     public FLocalGame() {
-        numPlayers = this.players.length;
+     //   numPlayers = this.players.length;
         numMoves = 0;
         flinchPotential = false;
-        state = new FState(numPlayers);
+       // state = new FState(numPlayers);
         alreadyFlinchedThisPlay = false;
+    }
+
+    /**
+     *
+     * @param players
+     */
+    @Override
+    public void start(GamePlayer[] players) {
+        super.start(players);
+        numPlayers = this.players.length;
+        state = new FState(numPlayers);
     }
 
      /**
