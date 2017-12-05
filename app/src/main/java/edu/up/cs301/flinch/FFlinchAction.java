@@ -11,8 +11,10 @@ import edu.up.cs301.game.GamePlayer;
 public class FFlinchAction extends FMoveAction implements Serializable{
 
 
-    public FFlinchAction(GamePlayer p) {
+    private int accusedId;
+    public FFlinchAction(GamePlayer p, int accused) {
         super(p);
+        accusedId = accused;
     }
 
     /**
@@ -24,5 +26,11 @@ public class FFlinchAction extends FMoveAction implements Serializable{
     public boolean isFlinch() {
         return true;
     }
+
+    /**
+     *
+     * @return
+     */
+    public int getAccusedId() { return accusedId; }
 
 }

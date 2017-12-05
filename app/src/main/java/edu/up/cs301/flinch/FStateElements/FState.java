@@ -25,6 +25,9 @@ public class FState extends GameState implements Serializable
 	// the Deck the game will be played with
 	Deck deck;
 
+	// TO DELETE
+	public boolean successfulFlinch = false;
+
 	// whose turn is it to turn a card?
 	int toPlay;
 	// how many players are there
@@ -270,6 +273,7 @@ public class FState extends GameState implements Serializable
 	public void flinchAPlayer(int flinchedPlayerId, int accusingPlayerId) {
 		Card c = players[accusingPlayerId].flinch.removeBottomCard();
 		players[flinchedPlayerId].flinch.addAt(c, players[flinchedPlayerId].flinch.size() - 1);
+		successfulFlinch = true;
 	}
 
 	public void notStartOfGame() {

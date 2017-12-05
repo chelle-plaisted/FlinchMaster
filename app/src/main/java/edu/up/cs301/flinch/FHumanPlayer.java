@@ -120,9 +120,11 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     @Override
     public void receiveInfo(GameInfo info) {
         Log.i("FComputerPlayer", "receiving updated state ("+info.getClass()+")");
-        if (info instanceof IllegalMoveInfo || info instanceof NotYourTurnInfo) {
-            // if we had an out-of-turn or illegal move, flash the screen
+        if (info instanceof IllegalMoveInfo) {
+            // if we had an out-of-turn or illegal move, flash the screen blue
             surface.flash(Color.rgb(102,178,255), 50);
+        } else if(info instanceof NotYourTurnInfo) {
+            surface.flash(Color.GREEN, 50);
         }
         else if (!(info instanceof FState)) {
             // otherwise, if it's not a game-state message, ignore
@@ -157,24 +159,27 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
             } else if (state.getNumPlayers() == 3) {
 
-                //draw Right player's cards (5 discard and one flinch pile)
+                //draw left player's cards (5 discard and one flinch pile)
                 counter = getPlayerCards(counter, player);
+                player++;
                 if (player >= state.getNumPlayers()) {
                     player = 0;
                 }
 
-                //draw Left player's cards (5 discard and one flinch pile)
+                //draw right player's cards (5 discard and one flinch pile)
                 counter = getPlayerCards(counter, player);
 
             } else if (state.getNumPlayers() == 4) {
                 //draw Right player's cards (5 discard and one flinch pile)
                 counter = getPlayerCards(counter, player);
+                player++;
                 if (player >= state.getNumPlayers()) {
                     player = 0;
                 }
 
                 //draw Left player's cards (5 discard and one flinch pile)
                 counter = getPlayerCards(counter, player);
+                player++;
                 if (player >= state.getNumPlayers()) {
                     player = 0;
                 }
@@ -260,10 +265,10 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         //if the array is empty will add according to statements below
         if (cardPlace == null ) {
             // turn tracking values
-            RectF LEFT = new RectF(0, 0, (2 * width) / 100f, (100 * height) / 100f);
-            RectF RIGHT  = new RectF((98 * width) / 100f, 0, (100 * width) / 100f, (100 * height) / 100f);
+            RectF LEFT = new RectF(0, 0, (2 * width) / 100f, height);
+            RectF RIGHT  = new RectF((98 * width) / 100f, 0, width, height);
             RectF TOP = new RectF(0, 0, width, (2 * height) / 100f);
-            RectF BOTTOM  = new RectF(0, (100 - 2) * height / 100f, width, 100 * height / 100f);
+            RectF BOTTOM  = new RectF(0, (98) * height / 100f, width, height);
 
             getNumPlayers = 10 + 6 * state.getNumPlayers() + 5;
             //filling array with the amount of numplayers for RectF
@@ -313,34 +318,27 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                     player = 0;
                 }
 
-                //draw Right player's cards (5 discard and one flinch pile)
-                counter1 = getRightLocs(counter1, player);
-                counter2 = getPlayerCards(counter2, player);
-                turnTracker.put(new Integer(player), RIGHT);
-                player++;
-                if (player >= state.getNumPlayers()) {
-                    player = 0;
-                }
 
                 //draw Left player's cards (5 discard and one flinch pile)
                 counter1 = getLeftCardLocs(counter1, player);
                 counter2 = getPlayerCards(counter2, player);
                 turnTracker.put(new Integer(player), LEFT);
 
-            } else if (state.getNumPlayers() == 4) {
-                // draw Bottom Player cards
-                counter1 = getBottomCardLocs(counter1, player);
-                counter2 = getBottomCards(counter2, player);
+
                 player++;
                 if (player >= state.getNumPlayers()) {
                     player = 0;
                 }
 
-
                 //draw Right player's cards (5 discard and one flinch pile)
                 counter1 = getRightLocs(counter1, player);
                 counter2 = getPlayerCards(counter2, player);
                 turnTracker.put(new Integer(player), RIGHT);
+
+            } else if (state.getNumPlayers() == 4) {
+                // draw Bottom Player cards
+                counter1 = getBottomCardLocs(counter1, player);
+                counter2 = getBottomCards(counter2, player);
                 player++;
                 if (player >= state.getNumPlayers()) {
                     player = 0;
@@ -359,6 +357,17 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                 counter1 = getTopCardLocs(counter1, player);
                 counter2 = getPlayerCards(counter2, player);
                 turnTracker.put(new Integer(player), TOP);
+                player++;
+                if (player >= state.getNumPlayers()) {
+                    player = 0;
+                }
+
+                //draw Right player's cards (5 discard and one flinch pile)
+                counter1 = getRightLocs(counter1, player);
+                counter2 = getPlayerCards(counter2, player);
+                turnTracker.put(new Integer(player), RIGHT);
+
+
             }
             // add the center cards
             counter1 = getCenterCardsLocs(counter1);
@@ -433,6 +442,12 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
         paint.setColor(Color.BLUE);
         if(turnIndicator != null) canvas.drawRect(turnIndicator, paint);
+
+        // TO DELETE
+        if(state.successfulFlinch) {
+            paint.setColor(Color.YELLOW);
+            canvas.drawRect(0, 0, 50, 50, paint);
+        }
 
     }
 
@@ -1259,7 +1274,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         } else {
             // it is not the player's turn --did they Flinch someone?
             if(buttons[0].contains(x,y)) {
-                game.sendAction(new FFlinchAction(this));
+                game.sendAction(new FFlinchAction(this, state.getWhoseTurn()));
             } else {
                 // illegal touch-location: flash for 1/20 second
                 surface.flash(Color.RED, 50);

@@ -36,8 +36,7 @@ public class FComputerPlayer extends GameComputerPlayer
 	 */
 	public FComputerPlayer(String name) {
 		// invoke general constructor to create player whose average reaction
-		// time is half a second.
-		//this(name, 0.5);
+
 		super(name);
 	}
 
@@ -72,7 +71,7 @@ public class FComputerPlayer extends GameComputerPlayer
 	 */
 	@Override
 	protected void receiveInfo(GameInfo info) {
-
+		// if it is a flinch action pending--wait by returning
 		// if we don't have a game-state, ignore
 		if (!(info instanceof FState)) {
 			return;

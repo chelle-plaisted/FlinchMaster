@@ -1,5 +1,6 @@
 package edu.up.cs301.game;
 
+import edu.up.cs301.flinch.FFlinchAction;
 import edu.up.cs301.game.actionMsg.GameAction;
 import edu.up.cs301.game.actionMsg.GameOverAckAction;
 import edu.up.cs301.game.actionMsg.MyNameIsAction;
@@ -266,13 +267,21 @@ public abstract class LocalGame implements Game, Tickable {
 		
 		// if the player is NOT a player who is presently allowed to
 		// move, send the player a message
-		if (!canMove(playerId)) {;
-			player.sendInfo(new NotYourTurnInfo());
-			return;
+		if (!canMove(playerId)) {
+			if(!(action instanceof FFlinchAction)) {
+				player.sendInfo(new NotYourTurnInfo());
+				return;
+			}
+		} else {
+			if(action instanceof FFlinchAction) {
+				player.sendInfo(new NotYourTurnInfo());
+				return;
+			}
 		}
 
 		// attempt to make the move; if the move was not a legal one,
 		// send the player a message to that effect
+
 		if (!makeMove(action)) {
 			player.sendInfo(new IllegalMoveInfo());
 			return;
