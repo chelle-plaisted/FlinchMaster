@@ -353,6 +353,8 @@ public class FLocalGame extends LocalGame{
             //flinch the player
             state.flinchAPlayer(id_current, id_accuse);
             alreadyFlinchedThisPlay = true;
+            // make it the next player's turn
+            setUpNextTurn(id_current);
             return true;
         } else {
             // invalid flinch attempt
@@ -459,6 +461,11 @@ public class FLocalGame extends LocalGame{
             state.setFlinchable(thisPlayerIdx, true);
         }
 
+        setUpNextTurn(thisPlayerIdx);
+
+    }
+
+    private void setUpNextTurn(int thisPlayerIdx) {
         // NEXT PLAYER'S TURN
         // increment the play
         thisPlayerIdx++;
@@ -473,7 +480,7 @@ public class FLocalGame extends LocalGame{
         // this player cannot flinch selves yet
         state.setFlinchable(thisPlayerIdx, false);
         // this player hasn't played yet this turn
-         state.playedThisTurn(thisPlayerIdx, false);
+        state.playedThisTurn(thisPlayerIdx, false);
     }
 
     /**

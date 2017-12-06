@@ -189,7 +189,6 @@ public class FState extends GameState implements Serializable
 	 */
 	public void retireFlinchMessage() {
 		flinchMessageTracker[0] = 0;
-
 	}
 
 	/**

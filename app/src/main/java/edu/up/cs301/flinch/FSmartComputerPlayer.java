@@ -47,7 +47,7 @@ public class FSmartComputerPlayer extends FComputerPlayer {
             playCards();
             discard();
         } else {
-            if(Math.random() < 0.33) {
+            if(Math.random() < 1) {
                 if(savedState.getPlayerState(savedState.getWhoseTurn()).isFlinchable()) {
                     game.sendAction(new FFlinchAction(this, savedState.getWhoseTurn()));
                 }
@@ -142,7 +142,7 @@ public class FSmartComputerPlayer extends FComputerPlayer {
             // but don't play the card if it will aid my opponent
             for(int scan = 0; scan < savedState.getNumPlayers(); scan++ ) {
                 if (scan == this.playerNum) continue;
-                if(h.getCardAt(i) == savedState.getPlayerState(scan).getTopFlinchCard() - 1) {
+                if(h.getCardAt(i) == savedState.getPlayerState(scan).getTopFlinchCard() - 1 && h.getCardAt(i) != 1) {
                     dontPlay = true;
                 }
             }
