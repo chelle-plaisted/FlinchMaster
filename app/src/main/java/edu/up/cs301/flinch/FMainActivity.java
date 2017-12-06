@@ -80,14 +80,18 @@ public class FMainActivity extends GameMainActivity {
         return defaultConfig;
     }//createDefaultConfig
 
+    /*
     public FTitleScreen createTitleScreen() {
+
         //lock orientation to landscape
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         titleScreen = new FTitleScreen();
 
         return titleScreen;
+
     }
+    */
 
 
     public LocalGame createLocalGame() {

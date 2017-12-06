@@ -1,6 +1,7 @@
 package edu.up.cs301.game;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -16,6 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -29,6 +32,8 @@ import edu.up.cs301.game.config.GameConfig;
 import edu.up.cs301.game.config.GamePlayerType;
 import edu.up.cs301.game.util.IPCoder;
 import edu.up.cs301.game.util.MessageBox;
+
+import static android.os.SystemClock.sleep;
 
 /**
  * class GameMainActivity
@@ -48,6 +53,11 @@ View.OnClickListener {
 	 * Instance Variables
 	 * --------------------------------------------------------------------
 	 */
+
+	// TITLE SCREEN INSTANCE VARIABLES
+	private Button startButton;
+	private Button learnToPlayButton;
+	private boolean start;
 
 	// A reference to the object representing the game itself. This is the
 	// object that knows the rules of the game. This variable is initialized in
@@ -140,18 +150,22 @@ View.OnClickListener {
 	public final void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		// TITLE SCREEN INITIALIZATION
+		//setContentView(R.layout.f_title_screen
+
+
 		// Initialize the layout
 		setContentView(R.layout.game_config_main);
 
 		// create the default configuration for this game
 		this.config = createDefaultConfig();
-		
+
 		// if there is a saved configuration, modify the default configuration accordingly
 		if (!this.config.restoreSavedConfig(saveFileName(), this)) {
 			MessageBox.popUpMessage("Error in attempting to read game configuration file.",
 					this);
 		}
-		
+
 		if (this.config.isUserModifiable()) { // normal run: user has chance to modify configuration
 
 			// initialize and show the GUI that allows the user to specify the game's
@@ -164,13 +178,13 @@ View.OnClickListener {
 
 			// allow buttons to interact
 			justStarted = false;
-		}
-		else { // special run (during debugging?): use the given configuration, unmodified
+		} else { // special run (during debugging?): use the given configuration, unmodified
 			String msg = launchGame(this.config);
 			if (msg != null) {
 				// we have an error message
 				MessageBox.popUpMessage(msg, this);
 			}
+
 		}
 
 	}// onCreate
@@ -429,7 +443,7 @@ View.OnClickListener {
 	 * places the data from this.config into the GUI.
 	 * 
 	 */
-	protected void initStarterGui() {
+	protected void  initStarterGui() {
 		// do nothing without a game config
 		if (this.config == null)
 			return;
@@ -475,7 +489,7 @@ View.OnClickListener {
 	 * NOTE: With the current layout it could either be a Button or ImageButton.
 	 */
 	public void onClick(View button) {
-		
+
 		Log.i("onClick", "just clicked");
 		
 		// if the GUI many not have been fully initialized, ignore

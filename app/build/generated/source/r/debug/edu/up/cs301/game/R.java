@@ -74,9 +74,10 @@ public final class R {
         public static final int ipCodeLabel=0x7f0a0015;
         public static final int learnToPlayButton=0x7f0a000b;
         public static final int learnToPlayButtonLayout=0x7f0a000a;
+        public static final int learnToPlayTitle=0x7f0a0023;
         public static final int localGameTab=0x7f0a000f;
         public static final int localTabLayout=0x7f0a0010;
-        public static final int menu_settings=0x7f0a0023;
+        public static final int menu_settings=0x7f0a0025;
         public static final int minusButton=0x7f0a0003;
         public static final int playGameButton=0x7f0a000e;
         public static final int playerNameEditText=0x7f0a001b;
@@ -100,6 +101,7 @@ public final class R {
         public static final int textView2=0x7f0a001a;
         public static final int titleScreenLayout=0x7f0a0006;
         public static final int top_gui_layout=0x7f0a0000;
+        public static final int userManual=0x7f0a0024;
     }
     public static final class layout {
         public static final int counter_human_player=0x7f030000;
@@ -111,6 +113,7 @@ public final class R {
         public static final int game_no_gui=0x7f030006;
         public static final int game_player_list_row=0x7f030007;
         public static final int game_remote_tab=0x7f030008;
+        public static final int learn_to_play=0x7f030009;
     }
     public static final class menu {
         public static final int game_main=0x7f090000;
@@ -138,6 +141,7 @@ public final class R {
         public static final int server_ip_code=0x7f080010;
         public static final int start_the_game=0x7f080011;
         public static final int title_activity_game_main=0x7f080012;
+        public static final int user_manual=0x7f080013;
     }
     public static final class style {
         public static final int AppTheme=0x7f050000;

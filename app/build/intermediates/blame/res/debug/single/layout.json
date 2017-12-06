@@ -76,6 +76,10 @@
         "source": "C:\\Users\\nishimuw18\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\layout\\game_config_tabhost.xml"
     },
     {
+        "merged": "C:\\Users\\nishimuw18\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\layout\\learn_to_play.xml",
+        "source": "C:\\Users\\nishimuw18\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\layout\\learn_to_play.xml"
+    },
+    {
         "merged": "C:\\Users\\nishimuw18\\StudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\layout\\f_title_screen.xml",
         "source": "C:\\Users\\nishimuw18\\StudioProjects\\FlinchMaster\\app\\src\\main\\res\\layout\\f_title_screen.xml"
     },

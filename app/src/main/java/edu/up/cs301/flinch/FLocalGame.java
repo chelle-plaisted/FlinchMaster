@@ -172,26 +172,31 @@ public class FLocalGame extends LocalGame{
             if (flinch) {
                 //get top flinch card
                 int topCard = state.getPlayerState(thisPlayerIdx).getTopFlinchCard();
-                // if flinch card can be played to center pile
-                if(state.getCenterPiles()[fpa.getIndexTo()]+1 == topCard || (topCard == 1 && state.getCenterPiles()[fpa.getIndexTo()] == -1)) {
-                    //play to this pile
-                    state.playToCenter(topCard, fpa.getCardPile(), fpa.getIndexTo());
-                    // if the player played a one at the start of the game: no longer start of game
-                    if(state.isStartOfGame && topCard == 1) {
-                        state.notStartOfGame();
-                    }
-                    // if I have flinched myself but correct it by playing the flinch card, that flinch is now invalid
-                    if(state.getPlayerState(thisPlayerIdx).isFlinchable()) {
-                        state.setFlinchable(thisPlayerIdx, false);
-                    }
-                    // Now that the player has played a card, check if the player has the risk for flinch
-                    setFlinchPotential();
-                    // this player has played this turn
-                    state.playedThisTurn(thisPlayerIdx, true);
 
-                    //check if center pile is full
-                    recycleCards();
-                    return true; //move was completed
+                //check if index in in bounds
+                if(fpa.getIndexTo() > 0 && fpa.getIndexTo() < 9) {
+                    // if flinch card can be played to center pile
+                    if (state.getCenterPiles()[fpa.getIndexTo()] + 1 == topCard ||
+                            (topCard == 1 && state.getCenterPiles()[fpa.getIndexTo()] == -1)) {
+                        //play to this pile
+                        state.playToCenter(topCard, fpa.getCardPile(), fpa.getIndexTo());
+                        // if the player played a one at the start of the game: no longer start of game
+                        if (state.isStartOfGame && topCard == 1) {
+                            state.notStartOfGame();
+                        }
+                        // if I have flinched myself but correct it by playing the flinch card, that flinch is now invalid
+                        if (state.getPlayerState(thisPlayerIdx).isFlinchable()) {
+                            state.setFlinchable(thisPlayerIdx, false);
+                        }
+                        // Now that the player has played a card, check if the player has the risk for flinch
+                        setFlinchPotential();
+                        // this player has played this turn
+                        state.playedThisTurn(thisPlayerIdx, true);
+
+                        //check if center pile is full
+                        recycleCards();
+                        return true; //move was completed
+                    }
                 }
 
             } else if (hand || discard) {
