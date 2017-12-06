@@ -127,5 +127,6 @@ public class Deck extends CardPile implements Serializable {
             // add the new Card object to the pile
             cardPile.add(c);
         }
+        shuffle();
     }
 }

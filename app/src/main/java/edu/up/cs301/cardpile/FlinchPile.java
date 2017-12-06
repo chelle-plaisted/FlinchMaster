@@ -80,4 +80,22 @@ public class FlinchPile extends CardPile implements Serializable{
             return null;
         }
     }
+
+    /**
+     * addAt()
+     *
+     * Method to add a Card object in a particular position in the CardPile object.
+     *
+     * @param c
+     * @param index
+     */
+    @Override
+    public void addAt(Card c, int index) {
+        // if the card pile is not full, Card object is valid, and the index is valid
+        // a Card object with an invalid number should not be added
+        if((c != null) && (index >= 0) && (c.getNum() != -1)) {
+            // add the Card object (c) to the given position (index)
+            cardPile.add(index, c);
+        }
+    }
 }

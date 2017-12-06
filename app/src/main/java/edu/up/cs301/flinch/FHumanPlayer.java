@@ -27,6 +27,7 @@ import edu.up.cs301.game.R;
 import edu.up.cs301.game.infoMsg.GameInfo;
 import edu.up.cs301.game.infoMsg.IllegalMoveInfo;
 import edu.up.cs301.game.infoMsg.NotYourTurnInfo;
+import edu.up.cs301.game.util.MessageBox;
 
 /**
  * Created by alexaruiz on 11/6/17.
@@ -137,6 +138,13 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             this.state = (FState) info;
 
             Log.i("human player", "receiving");
+
+            // do we have a flinch message?\
+            int[] messages = state.getFlinchMessageTracker();
+            if(messages[0] == 1) {
+            MessageBox.popUpMessage(this.allPlayerNames[messages[1]] + " got Flinched by " + this.allPlayerNames[messages[2]], myActivity);
+            }
+            state.retireFlinchMessage();
 
             //update cards for all the players
             if (toDraw == null) {
@@ -443,11 +451,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         paint.setColor(Color.BLUE);
         if(turnIndicator != null) canvas.drawRect(turnIndicator, paint);
 
-        // TO DELETE
-        if(state.successfulFlinch) {
-            paint.setColor(Color.YELLOW);
-            canvas.drawRect(0, 0, 50, 50, paint);
-        }
+
 
     }
 
@@ -1274,7 +1278,9 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         } else {
             // it is not the player's turn --did they Flinch someone?
             if(buttons[0].contains(x,y)) {
-                game.sendAction(new FFlinchAction(this, state.getWhoseTurn()));
+                //synchronized (syncObj) {
+                    game.sendAction(new FFlinchAction(this, state.getWhoseTurn()));
+                //}
             } else {
                 // illegal touch-location: flash for 1/20 second
                 surface.flash(Color.RED, 50);

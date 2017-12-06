@@ -12,6 +12,8 @@ import edu.up.cs301.game.infoMsg.GameInfo;
  */
 
 public interface GamePlayer {
+
+	Integer syncObj = new Integer(1);
 	
 	// sets this player as the GUI player (implemented as final in the
 	// major player classes)

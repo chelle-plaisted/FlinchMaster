@@ -115,7 +115,7 @@ public class FLocalGame extends LocalGame{
      *          Return true if the move was made and false if the move can't be made
      *///TODO finish- basics done
     @Override
-    protected boolean makeMove(GameAction action) {
+    protected synchronized boolean makeMove(GameAction action) {
 
         // check that we have a move action; if so cast it
         if (!(action instanceof FMoveAction)) {
@@ -174,7 +174,7 @@ public class FLocalGame extends LocalGame{
                 int topCard = state.getPlayerState(thisPlayerIdx).getTopFlinchCard();
 
                 //check if index in in bounds
-                if(fpa.getIndexTo() > 0 && fpa.getIndexTo() < 9) {
+                if(fpa.getIndexTo() >= 0 && fpa.getIndexTo() <= 9) {
                     // if flinch card can be played to center pile
                     if (state.getCenterPiles()[fpa.getIndexTo()] + 1 == topCard ||
                             (topCard == 1 && state.getCenterPiles()[fpa.getIndexTo()] == -1)) {
@@ -373,7 +373,7 @@ public class FLocalGame extends LocalGame{
         for(int i = 0; i < numPlayers; i++) {
            //if their flinch pile is empty
             if (state.getPlayerState(i).isFlinchEmpty()) {
-                return "Game Over: Player " + i +" won the game."; //game is over
+                return "Game Over: " + playerNames[i] +" won the game."; //game is over
             }
         }
 

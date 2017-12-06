@@ -1,6 +1,7 @@
 package edu.up.cs301.flinch.FStateElements;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 import edu.up.cs301.card.*;
 import edu.up.cs301.cardpile.*;
@@ -25,8 +26,8 @@ public class FState extends GameState implements Serializable
 	// the Deck the game will be played with
 	Deck deck;
 
-	// TO DELETE
-	public boolean successfulFlinch = false;
+	// KEEP TRACK OF FLINCHING MESSAGES
+	int[] flinchMessageTracker;
 
 	// whose turn is it to turn a card?
 	int toPlay;
@@ -61,6 +62,10 @@ public class FState extends GameState implements Serializable
 		//this is the start of the game
 		isStartOfGame = true;
 
+		// flinch tracker
+		flinchMessageTracker = new int[3];
+		Arrays.fill(flinchMessageTracker, 0);
+
 		// initialize center piles to empty
 		center = new CenterPile[10];
 		for(int i = 0; i < 10; i++){
@@ -86,6 +91,12 @@ public class FState extends GameState implements Serializable
 
 		//is this the start of the game
 		isStartOfGame = orig.isStartOfGame;
+
+		// flinch message tracker
+		flinchMessageTracker = new int[3];
+		flinchMessageTracker[0] = orig.flinchMessageTracker[0];
+		flinchMessageTracker[1] = orig.flinchMessageTracker[1];
+		flinchMessageTracker[2] = orig.flinchMessageTracker[2];
 
 		//center piles
 		center = new CenterPile[10];
@@ -126,6 +137,7 @@ public class FState extends GameState implements Serializable
 
 	/* ACCESSORS */
 
+	public int[] getFlinchMessageTracker() { return flinchMessageTracker;}
 	/**
 	 * Gives the given deck.
 	 *
@@ -174,6 +186,14 @@ public class FState extends GameState implements Serializable
 
 	/**
 	 *
+	 */
+	public void retireFlinchMessage() {
+		flinchMessageTracker[0] = 0;
+
+	}
+
+	/**
+	 *
 	 * @return
 	 * 	whether it is the start of the game
 	 */
@@ -218,6 +238,7 @@ public class FState extends GameState implements Serializable
 		if(center[index] != null) {
 			center[index].empty();
 		}
+		deck.addSet();
 	}
 
 	/**
@@ -273,7 +294,9 @@ public class FState extends GameState implements Serializable
 	public void flinchAPlayer(int flinchedPlayerId, int accusingPlayerId) {
 		Card c = players[accusingPlayerId].flinch.removeBottomCard();
 		players[flinchedPlayerId].flinch.addAt(c, players[flinchedPlayerId].flinch.size() - 1);
-		successfulFlinch = true;
+        flinchMessageTracker[0] = 1;
+        flinchMessageTracker[1] = flinchedPlayerId;
+        flinchMessageTracker[2] = accusingPlayerId;
 	}
 
 	public void notStartOfGame() {

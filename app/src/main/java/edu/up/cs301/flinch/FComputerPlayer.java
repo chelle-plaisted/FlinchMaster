@@ -73,19 +73,21 @@ public class FComputerPlayer extends GameComputerPlayer
 	protected void receiveInfo(GameInfo info) {
 		// if it is a flinch action pending--wait by returning
 		// if we don't have a game-state, ignore
-		if (!(info instanceof FState)) {
-			return;
-		}
+	//	synchronized (syncObj) {
+			if (!(info instanceof FState)) {
+				return;
+			}
 
-		// update our state variable
-		savedState = (FState)info;
-		me = savedState.getPlayerState(this.playerNum);
+			// update our state variable
+			savedState = (FState) info;
+			me = savedState.getPlayerState(this.playerNum);
 
-		// if it is our turn, we will play cards
-		// otherwise, monitor for Flinches if able to
+			// if it is our turn, we will play cards
+			// otherwise, monitor for Flinches if able to
 
-		// rest 3 seconds so play isn't immediate
-		sleep(3000);
+			// rest 3 seconds so play isn't immediate
+			sleep(3000);
+	//	}
 	}
 
 	/**
