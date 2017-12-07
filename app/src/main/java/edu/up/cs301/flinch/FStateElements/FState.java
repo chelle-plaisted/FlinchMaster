@@ -53,7 +53,7 @@ public class FState extends GameState implements Serializable
 		numPlayers = num;
 		// randomly pick the player who starts
 		toPlay = (int)(num * Math.random());
-		//toPlay = 0;
+		// TEST HOOK toPlay = 0;
 
 		// start a new Deck and shuffle it
 		deck = new Deck();
@@ -133,6 +133,12 @@ public class FState extends GameState implements Serializable
 			players[i].hasFlinched = false;
 			players[i].playedThisTurn = false;
 		}
+/* TEST HOOK FOR SMART COMPUTER PLAYER
+		players[0].hand.removeCardAt(0);
+		players[0].hand.addAt(new Card(1), 0);
+
+		players[1].flinch.addAt(new Card(2), 0);
+		*/
 	}
 
 	/* ACCESSORS */
