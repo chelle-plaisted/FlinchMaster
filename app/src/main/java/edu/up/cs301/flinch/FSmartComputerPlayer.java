@@ -19,11 +19,9 @@ import edu.up.cs301.game.infoMsg.GameInfo;
 public class FSmartComputerPlayer extends FComputerPlayer {
     // INSTANCE VARIABLES
     private int goalIndex;
-    private ArrayList<Integer[]> buildingCards;
     public FSmartComputerPlayer(String name) {
         super(name);
         goalIndex = -1;
-        buildingCards = new ArrayList<Integer[]>();
     }
 
     /**
@@ -91,8 +89,6 @@ public class FSmartComputerPlayer extends FComputerPlayer {
         goalIndex = potentiallyPlayable();
 
         if(goalIndex != -1) {
-            boolean cardPlayed;
-
             // see if the hand can play the next card
             if (playHand()) {
                 // the hand played the next card, return true to update state
@@ -110,7 +106,6 @@ public class FSmartComputerPlayer extends FComputerPlayer {
     private boolean playHand() {
         // look at the Hand---every card
         // if I can play the card, play it -- and send index
-        boolean played = false;
         Hand h = me.getHand();
         for(int i = 0; i < h.size(); i++) {
             // This is for building cards, ignore if we are playing regularly from the the Hand
@@ -142,10 +137,9 @@ public class FSmartComputerPlayer extends FComputerPlayer {
 
                     game.sendAction(new FPlayAction(this, i, index, new Hand()));
                     sleep(3000);
-                    played = true;
+                    return true;
                 }
             }
-            return played;
         }
         return false;
     }
@@ -153,7 +147,6 @@ public class FSmartComputerPlayer extends FComputerPlayer {
     private boolean playDiscard() {
         // look at the Discard---every card
         // if I can play the card, play it -- and send index
-        boolean played = false;
         int[] d = me.getTopDiscards();
         for(int i = 0; i < d.length; i++) {
             // This is for building cards, ignore if we are playing regularly from the the Hand
@@ -167,15 +160,24 @@ public class FSmartComputerPlayer extends FComputerPlayer {
                     continue;
                 }
             } else {
+                boolean dontPlay = false;
+                // but don't play the card if it will aid my opponent
+                for (int scan = 0; scan < savedState.getNumPlayers(); scan++) {
+                    if (scan == this.playerNum) continue;
+                    if (d[i] == savedState.getPlayerState(scan).getTopFlinchCard() - 1 && d[i] != 1) {
+                        dontPlay = true;
+                    }
+                }
+                if (dontPlay) continue;
                 int index = isCardPlayable(d[i]);
                 if (index != -1) {
                     // I can play the card
                     game.sendAction(new FPlayAction(this, i, index, new DiscardPile()));
-                    sleep(3000);
-                    played = true;
+                    sleep(2000);
+                    return true;
                 }
             }
-            return played;
+
         }
         return false;
     }
@@ -186,6 +188,9 @@ public class FSmartComputerPlayer extends FComputerPlayer {
         int cardDifference = 16;
         int closest = -1;
         for(int i = 0; i < centers.length; i++) {
+            if(centers[i] == -1 && cardVal != 1) {
+                continue;
+            }
             if (cardVal - centers[i] < cardDifference && cardVal - centers[i] >= 0) {
                 cardDifference = cardVal - centers[i];
                 closest = i;

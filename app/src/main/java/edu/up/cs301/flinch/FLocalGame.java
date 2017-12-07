@@ -124,6 +124,8 @@ public class FLocalGame extends LocalGame{
         }
         FMoveAction fma = (FMoveAction) action;
 
+        // retire any old flinch messages
+        state.retireFlinchMessage();
         // get the index of the player making the move; return false
         int thisPlayerIdx = getPlayerIdx(fma.getPlayer());
 
@@ -409,7 +411,7 @@ public class FLocalGame extends LocalGame{
         FState stateForPlayer = new FState(state); // copy of state
         // send the modified copy of the state to the player
         p.sendInfo(stateForPlayer);
-        state.retireFlinchMessage();
+//        state.retireFlinchMessage();
     }
 
     /**
@@ -473,8 +475,10 @@ public class FLocalGame extends LocalGame{
     }
 
     private void setUpNextTurn(int thisPlayerIdx) {
+
         // NEXT PLAYER'S TURN
         // increment the play
+
         thisPlayerIdx++;
         if(thisPlayerIdx >= numPlayers) {
             thisPlayerIdx = 0;
