@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\Users\\Rhianna\\Documents\\School\\Obj. Oriented\\FLINCH!!\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\menu\\game_main.xml",
+        "source": "C:\\Users\\Rhianna\\Documents\\School\\Obj. Oriented\\FLINCH!!\\FlinchMaster\\app\\src\\main\\res\\menu\\game_main.xml"
+    },
+    {
         "merged": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\build\\intermediates\\res\\merged\\debug\\menu\\game_main.xml",
         "source": "C:\\Users\\rae-o\\AndroidStudioProjects\\FlinchMaster\\app\\src\\main\\res\\menu\\game_main.xml"
     },
