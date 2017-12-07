@@ -20,9 +20,12 @@ public class FPlayerState implements Serializable {
     }
 
     public FPlayerState(FPlayerState orig) {
-        hand = orig.hand;
-        flinch = orig.flinch;
-        discards = orig.discards;
+        hand = new Hand(orig.hand);
+        flinch = new FlinchPile(orig.flinch);
+        discards = new DiscardPile[orig.discards.length];
+        for (int i= 0; i < discards.length; i++) {
+            discards[i] = new DiscardPile(orig.discards[i]);
+        }
         hasFlinched = orig.hasFlinched;
         playedThisTurn = orig.playedThisTurn;
     }

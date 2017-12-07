@@ -56,7 +56,10 @@ public abstract class CardPile implements Serializable {
         // if the CardPile is valid
         if(orig != null) {
             // grab the cardPile ArrayList from orig and copy it
-            cardPile = orig.getCardPile();
+            for(int i = 0; i < orig.cardPile.size(); i++) {
+                this.cardPile.add(orig.cardPile.get(i));
+            }
+            //cardPile = orig.getCardPile();
         }
     }
 
