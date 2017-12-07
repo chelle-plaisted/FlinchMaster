@@ -20,6 +20,9 @@ import edu.up.cs301.card.Card;
  * @version November 2018
  */
 public class Hand extends CardPile implements Serializable{
+    // to satisfy the Serializable interface
+    private static final long serialVersionUID = 4973540099988776655L;
+
     /**
      * Hand()
      *

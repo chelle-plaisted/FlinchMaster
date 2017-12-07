@@ -16,6 +16,10 @@ import java.io.Serializable;
  * @version November 2018
  */
 public class DiscardPile extends CardPile implements Serializable{
+
+    // to satisfy the Serializable interface
+    private static final long serialVersionUID = 497556631125888742L;
+
     /**
      * DiscardPile
      *

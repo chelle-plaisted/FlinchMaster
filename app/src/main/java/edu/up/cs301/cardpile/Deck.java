@@ -22,6 +22,9 @@ import edu.up.cs301.card.Card;
  * @version November 2018
  */
 public class Deck extends CardPile implements Serializable {
+    // to satisfy the Serializable interface
+    private static final long serialVersionUID = 490318190009998888L;
+
     /**
      * Deck()
      *

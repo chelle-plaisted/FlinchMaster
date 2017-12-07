@@ -16,6 +16,10 @@ import java.io.Serializable;
  * @version November 2018
  */
 public class CenterPile extends CardPile implements Serializable {
+
+    // to satisfy the Serializable interface
+    private static final long serialVersionUID = 6789876567896546765L;
+
     /**
      * CenterPile()
      *

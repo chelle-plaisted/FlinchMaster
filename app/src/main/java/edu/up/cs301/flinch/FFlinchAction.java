@@ -9,7 +9,8 @@ import edu.up.cs301.game.GamePlayer;
  */
 
 public class FFlinchAction extends FMoveAction implements Serializable{
-
+    // to satisfy the Serializable interface
+    private static final long serialVersionUID = 983542865434931852L;
 
     private int accusedId;
     public FFlinchAction(GamePlayer p, int accused) {

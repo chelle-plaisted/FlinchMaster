@@ -19,6 +19,9 @@ import edu.up.cs301.card.Card;
  * @version November 2018
  */
 public class FlinchPile extends CardPile implements Serializable{
+    // to satisfy the Serializable interface
+    private static final long serialVersionUID = 4009874333455670342L;
+
     /**
      * FlinchPile
      *

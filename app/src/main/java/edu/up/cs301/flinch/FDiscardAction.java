@@ -11,6 +11,9 @@ import edu.up.cs301.game.GamePlayer;
 
 public class FDiscardAction extends FMoveAction implements Serializable {
 
+    // to satisfy the Serializable interface
+    private static final long serialVersionUID = 309876544567890342L;
+
     private int indexFrom; //this index of the Card to be discarded from the hand
     private int indexTo; // the index fo where the card is going to in the discards
     public FDiscardAction(GamePlayer player, int source, int destination) {

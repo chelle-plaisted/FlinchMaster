@@ -19,6 +19,9 @@ import edu.up.cs301.card.Card;
  * @version November 2018
  */
 public abstract class CardPile implements Serializable {
+    // to satisfy the Serializable interface
+    private static final long serialVersionUID = 4973546318190030342L;
+
     // instance variables
     protected ArrayList<Card> cardPile; // the ArrayList to hold all card objects
     protected int maxCards; // maximum number of allowable cards in a pile

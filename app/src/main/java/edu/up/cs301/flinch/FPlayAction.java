@@ -10,6 +10,8 @@ import edu.up.cs301.game.GamePlayer;
  */
 
 public class FPlayAction extends FMoveAction implements Serializable {
+    // to satisfy the Serializable interface
+    private static final long serialVersionUID = 954293110990030342L;
 
     /* INSTANCE VARIABLES */
     private int indexFrom; // the index of the Card played in its CardPile

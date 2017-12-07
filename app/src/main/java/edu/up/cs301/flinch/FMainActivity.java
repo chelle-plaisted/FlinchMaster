@@ -3,6 +3,7 @@ package edu.up.cs301.flinch;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import edu.up.cs301.flinch.FComputerPlayer;
