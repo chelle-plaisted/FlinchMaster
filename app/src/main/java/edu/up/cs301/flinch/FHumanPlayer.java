@@ -141,9 +141,9 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
             // do we have a flinch message?\
             int[] messages = state.getFlinchMessageTracker();
+
             if(messages[0] == 1) {
-                 MessageBox.popUpMessage(this.allPlayerNames[messages[1]] + " got Flinched by " + this.allPlayerNames[messages[2]], myActivity);
-                state.retireFlinchMessage();
+                MessageBox.popUpMessage(this.allPlayerNames[messages[1]] + " got Flinched by " + this.allPlayerNames[messages[2]], myActivity);
             }
 
 

@@ -6,6 +6,7 @@ import edu.up.cs301.flinch.FStateElements.* ;
 import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.LocalGame;
 import edu.up.cs301.game.actionMsg.GameAction;
+import edu.up.cs301.game.util.MessageBox;
 
 /**
  * Created by pinkertr20 on 11/7/2017.
@@ -195,6 +196,7 @@ public class FLocalGame extends LocalGame{
 
                         //check if center pile is full
                         recycleCards();
+                        alreadyFlinchedThisPlay = false;
                         return true; //move was completed
                     }
                 }
@@ -244,6 +246,7 @@ public class FLocalGame extends LocalGame{
                         isNeedCards();//method checks for us
                         //check if center pile is full
                         recycleCards();
+                        alreadyFlinchedThisPlay = false;
                         return true;//move was completed
                     }
                 } else {
@@ -272,6 +275,7 @@ public class FLocalGame extends LocalGame{
 
                         //check if center pile is full
                         recycleCards();
+                        alreadyFlinchedThisPlay = false;
                         return true;
                     }
                 }
@@ -353,6 +357,8 @@ public class FLocalGame extends LocalGame{
             //flinch the player
             state.flinchAPlayer(id_current, id_accuse);
             alreadyFlinchedThisPlay = true;
+
+
             // make it the next player's turn
             setUpNextTurn(id_current);
             return true;
@@ -403,6 +409,7 @@ public class FLocalGame extends LocalGame{
         FState stateForPlayer = new FState(state); // copy of state
         // send the modified copy of the state to the player
         p.sendInfo(stateForPlayer);
+        state.retireFlinchMessage();
     }
 
     /**
@@ -481,6 +488,7 @@ public class FLocalGame extends LocalGame{
         state.setFlinchable(thisPlayerIdx, false);
         // this player hasn't played yet this turn
         state.playedThisTurn(thisPlayerIdx, false);
+        alreadyFlinchedThisPlay = false;
     }
 
     /**

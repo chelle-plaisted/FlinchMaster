@@ -2,6 +2,7 @@ package edu.up.cs301.flinch;
 
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.view.View;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -49,23 +50,7 @@ public class FMainActivity extends GameMainActivity {
             public GamePlayer createPlayer(String name) {
                 return new FSmartComputerPlayer(name);
             }
-        }); /*
-        playerTypes.add(new GamePlayerType("computer player (slow)") {
-            public GamePlayer createPlayer(String name) {
-                return new FComputerPlayer(name, 1.0);
-            }
         });
-        playerTypes.add(new GamePlayerType("computer player (very fast)") {
-            public GamePlayer createPlayer(String name) {
-                return new FComputerPlayer(name, 0.15);
-            }
-        });
-        playerTypes.add(new GamePlayerType("computer player (very slow)") {
-            public GamePlayer createPlayer(String name) {
-                return new FComputerPlayer(name, 3.5);
-            }
-        });
-        */
 
         // Create a game configuration class for Flinch
         defaultConfig = new GameConfig(playerTypes, 2, 4, "Flinch", PORT_NUMBER);
@@ -81,18 +66,18 @@ public class FMainActivity extends GameMainActivity {
         return defaultConfig;
     }//createDefaultConfig
 
-    /*
-    public FTitleScreen createTitleScreen() {
+
+    public FTitleScreen createTitleScreen(View v) {
 
         //lock orientation to landscape
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        titleScreen = new FTitleScreen();
+        titleScreen = new FTitleScreen(v);
 
         return titleScreen;
 
     }
-    */
+
 
 
     public LocalGame createLocalGame() {

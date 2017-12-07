@@ -5,11 +5,6 @@
     android:background="#cce5ff"
     android:orientation="vertical">
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="10" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,8 +38,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_height="0dp"
+        android:layout_weight="5">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,7 +52,16 @@
                 android:layout_height="wrap_content"
                 android:text="@string/user_manual"
                 android:textSize="18sp" />
+
+
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/goBackButton"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Go Back" />
 
 </LinearLayout>

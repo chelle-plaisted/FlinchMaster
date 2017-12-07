@@ -1,18 +1,18 @@
 package edu.up.cs301.game;
 
 import java.util.ArrayList;
-import java.util.Timer;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -26,14 +26,14 @@ import android.widget.TabHost;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
+
+import edu.up.cs301.flinch.FTitleScreenActivity;
+import edu.up.cs301.flinch.FUserManualActivity;
 import edu.up.cs301.game.config.GameConfig;
 import edu.up.cs301.game.config.GamePlayerType;
 import edu.up.cs301.game.util.IPCoder;
 import edu.up.cs301.game.util.MessageBox;
-
-import static android.os.SystemClock.sleep;
 
 /**
  * class GameMainActivity
@@ -155,7 +155,12 @@ View.OnClickListener {
 
 
 		// Initialize the layout
+		//TRY TITLE
+		//setContentView(R.layout.f_title_screen);
+
 		setContentView(R.layout.game_config_main);
+
+
 
 		// create the default configuration for this game
 		this.config = createDefaultConfig();
@@ -478,9 +483,30 @@ View.OnClickListener {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+
 		getMenuInflater().inflate(R.menu.game_main, menu);
 		return true;
 	}//onCreateOptionsMenu
+
+	/**
+	 *
+	 * @param item
+	 * @return
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// respond to menu item selection
+		int itemId = item.getItemId();
+		if(itemId == R.id.menu_user_manual) {
+			Intent switchLayout = new Intent(this, FUserManualActivity.class);
+			startActivity(switchLayout);
+			/*setContentView(R.layout.learn_to_play);
+			View v = findViewById(R.id.goBackButton);
+			v.setOnClickListener(this); */
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * this method is called whenever the user clicks on a button.
@@ -495,6 +521,11 @@ View.OnClickListener {
 		// if the GUI many not have been fully initialized, ignore
 		if (justStarted) {
 			return;
+		}
+
+		if(button.getId() == R.id.goBackButton) {
+//		setContentView(R.layout.game_config_main);
+
 		}
 		
 		// Add Player Button
