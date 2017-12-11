@@ -857,7 +857,8 @@ View.OnClickListener {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
 		builder.setTitle("FLINCH USER MANUAL");
-		builder.setMessage("Layout:\n"
+		builder.setMessage("To exit this manual and resume play, tap the game screen outside of the manual.\n\n"
+				+"Layout:\n"
 				+"The bottom row of cards is your hand, which no other players can see. You also cannot see their hands of cards. "
 				+"Above that, the five slots are places for your give discard piles. You can see the discard piles of other players. "
 				+"The pile of cards on the left is called your Flinch Pile. The objective of the game is to get rid of all the cards in this pile. Note the “Flinch” section below on additional rules for this pile. You can also see the Flinch Pile of other players. "
