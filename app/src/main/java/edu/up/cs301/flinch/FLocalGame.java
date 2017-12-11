@@ -9,18 +9,7 @@ import edu.up.cs301.game.actionMsg.GameAction;
 import edu.up.cs301.game.util.MessageBox;
 
 /**
- * Created by pinkertr20 on 11/7/2017.
- */
-
-
-/*
-    Flinching: A player flinches self by playing another card when he/she could have played from the flinch pile
-        This flinch becomes invalid when:
-        -The player corrects the action by playing from the flinch card
-        -The player lays down 3 other cards (flinch is too old)
-        If the player flinches self by ending her/his turn too early:
-        -This flinch is valid until the next player plays a card, the flincher will be given an opportunity to clarify whose he/she is trying to accuse
-        TODO: ABOVE
+ * Created by Rhianna on 11/7/2017.
  */
 
 public class FLocalGame extends LocalGame{
@@ -33,7 +22,6 @@ public class FLocalGame extends LocalGame{
 
     /**
      * Constructor to set up the number of players
-     *          Number of players
      *
      */
     public FLocalGame() {
@@ -45,6 +33,9 @@ public class FLocalGame extends LocalGame{
     }
 
     /**
+     * start()
+     *
+     * Starts  the game
      *
      * @param players
      */
@@ -66,11 +57,12 @@ public class FLocalGame extends LocalGame{
         int topCard = state.getPlayerState(state.getWhoseTurn()).getTopFlinchCard();
         //compare each card in center pile
         flinchPotential = false;
+        //iterate through center piles
         for (int j : state.getCenterPiles()) {
             if (j+1 == topCard || topCard == 1) {
                 // they could possibly flinch themselves
                 flinchPotential = true;
-            } // add a break
+            }
         }
     }
 
@@ -103,12 +95,13 @@ public class FLocalGame extends LocalGame{
      *
      * note--will it let us do a Flinch action since its not this player's turn
      *
-     * checks the validity of a move and acts accordingly
+     * Checks the validity of a move and acts accordingly
+     *
      * @param action
      * 			The move that the player has sent to the game
      * @return
      *          Return true if the move was made and false if the move can't be made
-     *///TODO finish- basics done
+     */
     @Override
     protected synchronized boolean makeMove(GameAction action) {
 
@@ -159,7 +152,6 @@ public class FLocalGame extends LocalGame{
             } else  { //card from discard pile
                 discard = true;
             } // end card searching
-            // NOTE: I think the below if(flinch) and if(hand || discard) structures could be consolidated TODO: fix
             // from flinch hand
             if (flinch) {
                 //get top flinch card
@@ -209,7 +201,6 @@ public class FLocalGame extends LocalGame{
                         //play to this pile
                         state.playToCenter(fpa.getIndexFrom(), fpa.getCardPile(), fpa.getIndexTo());
 
-
                          // do I have an active flinch?
                         if(state.getPlayerState(thisPlayerIdx).isFlinchable()) {
                             if(numMoves >= 4) {
@@ -247,7 +238,6 @@ public class FLocalGame extends LocalGame{
 
                     } else {
                         // no longer the start of the game
-                        //state.notStartOfGame();
                         state.isStartOfGame = false;
                         // play the one
                         state.playToCenter(fpa.getIndexFrom(), fpa.getCardPile(), fpa.getIndexTo());
@@ -284,14 +274,12 @@ public class FLocalGame extends LocalGame{
                     //go through cards in hand and search for 1's
                     if(state.getPlayerState(thisPlayerIdx).getHand().getCardAt(i) == 1) {
                         //if there is a one then this is an invalid discard action
-                       // invalidDis = true;
                         //check if center pile is full
                         recycleCards();
                         return false;
                     }
                 }
             }
-         //   if (invalidDis == false) {
                 // make a discard action
                 FDiscardAction fda = (FDiscardAction) fma;
                 // card from hand
@@ -327,8 +315,6 @@ public class FLocalGame extends LocalGame{
                     recycleCards();
                     return true;//move was completed
                 }
-          //  }
-            //invalidDis = false; //
         }
         //check if center pile is full
         recycleCards();
@@ -337,10 +323,18 @@ public class FLocalGame extends LocalGame{
     }
 
     /**
+     * makeFlinch()
+     *
+     * Flinches a player
      *
      * @param id_current
+     *      Current player's ID
      * @param id_accuse
+     *      ID of the player accused
+     * @param discardFlinch
+     *      Boolean to tell if the flinch card was discarded
      * @return
+     *      Return true if the player was flinched
      */
     private boolean makeFlinch(int id_current, int id_accuse, boolean discardFlinch) {
 
@@ -466,12 +460,21 @@ public class FLocalGame extends LocalGame{
 
     }
 
+    /**
+     * setUpNextTurn()
+     *
+     * Sets up the next player for their turn
+     *
+     * @param thisPlayerIdx
+     *      Current player's index
+     */
     private void setUpNextTurn(int thisPlayerIdx) {
 
         // NEXT PLAYER'S TURN
         // increment the play
 
         thisPlayerIdx++;
+        //if the player idx is invalid
         if(thisPlayerIdx >= numPlayers) {
             thisPlayerIdx = 0;
         }
@@ -490,7 +493,7 @@ public class FLocalGame extends LocalGame{
     /**
      * recycleCards()
      *
-     * Checks if a center pile is full and recyles that pile
+     * Checks if a center pile is full and recycles that pile
      *
      */
     private void recycleCards() {
