@@ -1,6 +1,6 @@
 TERM PROJECT LOG
 
-Entry #1
+Entry #1 (Weslyn Nishimura)
 Date:
     November 14, 2017
 Problem:
@@ -12,9 +12,22 @@ Source Used:
 Solution:
     The source above discusses a method for shuffling cards using the Random class to generate a
     random number and setting that as the index for a given card. Continually doing this for all
-    cards will randomly shuffle the whole deck.
+    cards will randomly shuffle the whole deck. Another method suggested was to use the Collections
+    class which can change the order of objects within the ArrayList.
 
-Entry #2 (Rhianna Pinkerton and Chelle Plaisted)
+Entry #2 (Weslyn Nishimura and Rhianna Pinkerton)
+Date:
+    December 4, 2017
+Problem:
+    Unable to toggle between different GUI Layouts for the Title Screen and the Game Configuration
+    Screen.
+Source Used:
+    Rhianna and Weslyn when to see Dr. Vegdahl. Chelle Plaisted was also a resource.
+Solution:
+    Make multiple activities and call on the other activity when needed (Chelle implemented this
+    into the code).
+
+Entry #3 (Rhianna Pinkerton and Chelle Plaisted)
 Date:
     December 6, 2017
 Problem:
@@ -23,9 +36,3 @@ Source Used:
     Dr. Vegdahl
 Solution:
     Deep copy the state and card elements.
-
-Entry #3
-Date:
-Problem:
-Source Used:
-Solution:

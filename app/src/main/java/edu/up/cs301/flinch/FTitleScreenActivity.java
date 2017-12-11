@@ -2,6 +2,7 @@ package edu.up.cs301.flinch;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.widget.*;
 import android.view.View;
@@ -21,6 +22,7 @@ public class FTitleScreenActivity extends Activity implements View.OnClickListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.f_title_screen);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         start = (Button) findViewById(R.id.startButton);
         start.setOnClickListener(this);
