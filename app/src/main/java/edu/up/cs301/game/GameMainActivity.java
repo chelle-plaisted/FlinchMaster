@@ -3,6 +3,7 @@ package edu.up.cs301.game;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -498,6 +499,7 @@ View.OnClickListener {
 		// respond to menu item selection
 		int itemId = item.getItemId();
 		if(itemId == R.id.menu_user_manual) {
+			showInfo(item);
 	//		Intent switchLayout = new Intent(this, FUserManualActivity.class);
 	//		startActivity(switchLayout);
 			/*setContentView(R.layout.learn_to_play);
@@ -849,6 +851,60 @@ View.OnClickListener {
 	 */
 	public void doFinish(View v) {
 		finish();
+	}
+
+	public void showInfo(MenuItem view){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+		builder.setTitle("FLINCH USER MANUAL");
+		builder.setMessage("Layout:\n"
+				+"The bottom row of cards is your hand, which no other players can see. You also cannot see their hands of cards. "
+				+"Above that, the five slots are places for your give discard piles. You can see the discard piles of other players. "
+				+"The pile of cards on the left is called your Flinch Pile. The objective of the game is to get rid of all the cards in this pile. Note the “Flinch” section below on additional rules for this pile. You can also see the Flinch Pile of other players. "
+				+"To the right of your hand and discard is the button menu. When it is your turn, you will see buttons labeled “play” and “discard.” The function of these buttons is found in the “Interacting with the GUI” sections below. When it is not your turn, you will see a button labeled “Flinch” that can be used to flinch other players. For more details, see the “Flinch” section below. "
+				+"In the center of the screen, there are ten slots for the piles of cards used for the gameplay. These decks will be played to in ascending order, starting with a One and terminating with a Fifteen. \n\n"
+
+				+"Interacting with the GUI—Play a Card:\n"
+				+"To play a card from the hand or Flinch Pile, tap the card, and then tap the center to which you want the card to go. If this move is invalid, the screen will flash. "
+				+"To play from the discard pile, set the game in play-mode by tapping the play button to highlight it. Then you may select a card from the discard pile and play it to the center as above. Play mode has no bearing on playing from the Flinch Pile or hand.\n\n"
+
+				+"Interacting with the GUI—Discard a Card:\n"
+				+"To discard a card from the hand, set the game in discard-mode by tapping the discard button to highlight it. Then you may select a card from the hand to discard and tap the discard pile to which you want it to go. If the discard is invalid, the screen will flash. Discard mode has no bearing on playing from the hand or Flinch Pile. \n\n"
+
+				+"The First Turn:\n"
+				+"The first turn will start with a random player. This player must play a One if he/she possesses a One (you may not discard if you are holding a One and do not play it on the first turn). If not, the player will discard the entire hand into separate discard piles. "
+				+"Play will proceed clockwise as above, with players receiving new hands if needed, until a One is produced. Then normal play will commence. \n\n"
+
+				+"Your Remaining Turns:\n"
+				+"Play cards to the center piles on your turn. "
+				+"When deciding which card to place in the center, look first if you can play a card off your Flinch Pile because this pile holds top priority. If you miss an opportunity to play from your Flinch Pile, another player can click the Flinch button. See the Flinch section for more details. "
+				+"You can play as many legal cards from your Flinch pile, hand, or discard pile as you choose. "
+				+"If you have a One, it must be played to the center to start a new center pile. "
+				+"If at any point in your turn prior to discarding, you run out of cards, you will be dealt five fresh cards from the reserves. "
+				+"Once you do not wish to play more or cannot play more cards to the center, place one of the cards from your hand into the discard pile. Your turn is over.\n\n"
+
+				+"Discard Piles:\n"
+				+"These piles start empty. To conclude each turn, you will discard something from your hand to these piles. "
+				+ "You must discard to an empty slot if one is available. Otherwise, choose which discard pile you want to add to. The new discard will completely overlap the old one.	You may play from these piles your turn. \n\n"
+
+				+"Flinch:\n"
+				+"If the current player’s top card in their Flinch pile could be played but the player fails to notice and plays another card, the other players can press their “Flinch!” button located in the bottom right corner of the screen. "
+				+"If the Flinch was correctly called, the bottom Flinch card from the accuser will be removed and added to the bottom of the offender’s Flinch pile. The offender’s turn is now over and no discard takes place. "
+				+"If the Flinch was incorrectly called, the accuser is affected as such and the accused may continue the turn. The Flinch must be called within two card plays of the offending action or the Flinch becomes null. If the offender ends his/her turn with an active Flinch, it is valid until the next player plays the first card of their turn. The Flinch is also null as soon as the offending player “corrects” it by playing from the Flinch card. "
+				+"In this way, if someone Flinched at the beginning but has more than one card since then (and has not Flinched again), you cannot call her/him out on it anymore.\n\n"
+
+				+"Making an Invalid Move:\n"
+				+"If you make an invalid move (an incorrect Flinch, an illegal card selection or move…), the screen will flash.\n\n"
+
+				+"Winning the Game/Game Over:\n"
+				+"Whosever’s Flinch pile runs out first is the winner. If no one wins the game but the deck of 150 cards is depleted, the game ends with no winner.\n\n"
+
+				+"Exiting the Game:\n"
+				+"Pressing the back button on the Android will allow you to exit the game at any time. This will not, however, save the current game.");
+
+
+		AlertDialog alert = builder.create();
+		alert.show();
 	}
 }
 
