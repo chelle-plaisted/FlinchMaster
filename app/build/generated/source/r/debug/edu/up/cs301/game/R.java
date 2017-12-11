@@ -71,13 +71,15 @@ public final class R {
         public static final int counterValueTextView=0x7f0a0004;
         public static final int delPlayerButton=0x7f0a001d;
         public static final int flinchTitle=0x7f0a0007;
+        public static final int goBackButton=0x7f0a0025;
         public static final int ipCodeLabel=0x7f0a0015;
         public static final int learnToPlayButton=0x7f0a000b;
         public static final int learnToPlayButtonLayout=0x7f0a000a;
         public static final int learnToPlayTitle=0x7f0a0023;
         public static final int localGameTab=0x7f0a000f;
         public static final int localTabLayout=0x7f0a0010;
-        public static final int menu_settings=0x7f0a0025;
+        public static final int menu_settings=0x7f0a0026;
+        public static final int menu_user_manual=0x7f0a0027;
         public static final int minusButton=0x7f0a0003;
         public static final int playGameButton=0x7f0a000e;
         public static final int playerNameEditText=0x7f0a001b;

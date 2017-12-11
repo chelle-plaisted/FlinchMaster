@@ -11,9 +11,6 @@ import edu.up.cs301.card.Card;
  * Class that inherits from CardPile. Creates the set of cards a player can play from during a game
  * of Flinch.
  *
- * @author Alexa Ruiz
- * @author Chelle Plaisted
- * @author Rhianna Pinkerton
  * @author Weslyn Nishimura
  *
  * @version November 2018
@@ -23,13 +20,21 @@ public class FlinchPile extends CardPile implements Serializable{
     private static final long serialVersionUID = 4009874333455670342L;
 
     /**
-     * FlinchPile
+     * FlinchPile()
      *
      * The FlinchPile constructor. Creates a FlinchPile object using inheritance from CardPile.
      */
     public FlinchPile() {
-        // DO NOT CHANGE THIS
+        // this has intentionally been left empty
     }
+
+    /**
+     * FlinchPile()
+     *
+     * Another FlinchPile constructor. Creates a FlinchPile object.
+     *
+     * @param d
+     */
     public FlinchPile(Deck d) {
         // initialize the cardPile ArrayList
         cardPile = new ArrayList<Card>();
@@ -53,6 +58,7 @@ public class FlinchPile extends CardPile implements Serializable{
      * @param orig
      */
     public FlinchPile(FlinchPile orig) {
+        // inheritance from CardPile
         super(orig);
 
         // set the maximum number of allowable cards to 10

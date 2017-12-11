@@ -8,9 +8,6 @@ import java.io.Serializable;
  * Class that inherits from CardPile. Creates piles of cards for the center of the board in the
  * Flinch game.
  *
- * @author Alexa Ruiz
- * @author Chelle Plaisted
- * @author Rhianna Pinkerton
  * @author Weslyn Nishimura
  *
  * @version November 2018
@@ -26,6 +23,7 @@ public class CenterPile extends CardPile implements Serializable {
      * The CenterPile constructor. Creates a CenterPile object using inheritance from CardPile.
      */
     public CenterPile() {
+        // inheritance from CardPile
         super();
 
         // set the maximum number of allowable cards to 15
@@ -40,6 +38,7 @@ public class CenterPile extends CardPile implements Serializable {
      * @param orig
      */
     public CenterPile(CenterPile orig) {
+        // inheritance from CardPile
         super(orig);
 
         // set the maximum number of allowable cards to 15

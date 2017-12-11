@@ -11,9 +11,6 @@ import edu.up.cs301.card.Card;
  * Abstract class from which all card piles inherit. A card pile is a collection of card object with
  * methods unique to the particular pile.
  *
- * @author Alexa Ruiz
- * @author Chelle Plaisted
- * @author Rhianna Pinkerton
  * @author Weslyn Nishimura
  *
  * @version November 2018
@@ -169,7 +166,7 @@ public abstract class CardPile implements Serializable {
     /**
      * getTopCard()
      *
-     * Method to get the value of the top Card object in the cardPile ArrayLisst
+     * Method to get the value of the top Card object in the cardPile ArrayList
      *
      * @return the value of the top Card object in the pile
      *         -1 if the top Card does not exist
@@ -192,6 +189,14 @@ public abstract class CardPile implements Serializable {
 
 
     // TESTING HOOKS BELOW HERE
+
+    /**
+     * testerGetMax()
+     *
+     * Method to be used as a testing hook
+     *
+     * @return the maximum allowable number of cards
+     */
     public int testerGetMax() {
         return maxCards;
     }

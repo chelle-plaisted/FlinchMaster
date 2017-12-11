@@ -25,10 +25,8 @@ import edu.up.cs301.game.R;
  * NOTE: In order to display the card-images on the android you need to call the
  * Card.initImages(currentActivity) method during initialization;
  *
- * @author Alexa Ruiz
- * @author Chelle Plaisted
- * @author Rhianna Pinkerton
  * @author Weslyn Nishimura
+ * @author Dr. Vegdahl (this card class is modeled after Dr. Vegdahl's)
  *
  * @version November 2018
  */
@@ -37,7 +35,7 @@ public class Card implements Serializable {
     // to satisfy the Serializable interface
     private static final long serialVersionUID = 893542931190030342L;
 
-    // instance variables: the card's rank and the suit
+    // instance variables
     private int cardNum;
 
     /**
@@ -51,6 +49,7 @@ public class Card implements Serializable {
             // set the Card object number to num
             cardNum = num;
         } else {
+            // otherwise set to -1 to indicate an empty card
             cardNum = -1;
         }
     }

@@ -14,9 +14,6 @@ import edu.up.cs301.card.Card;
  * Class that inherits from CardPile. Creates the set of Card objects to be used throughout the game
  * of Flinch.
  *
- * @author Alexa Ruiz
- * @author Chelle Plaisted
- * @author Rhianna Pinkerton
  * @author Weslyn Nishimura
  *
  * @version November 2018
@@ -32,7 +29,10 @@ public class Deck extends CardPile implements Serializable {
      * Fills the deck object.
      */
     public Deck() {
+        // inheritance from CardPile
         super();
+
+        // By default, when a new deck is made, fill it
         fillDeck();
     }
 
@@ -44,6 +44,7 @@ public class Deck extends CardPile implements Serializable {
      * @param orig
      */
     public Deck(Deck orig) {
+        // inheritance from CardPile
         super(orig);
     }
 
@@ -76,44 +77,8 @@ public class Deck extends CardPile implements Serializable {
      * Method to randomly sort the Card objects in the deck
      */
     public void shuffle() {
+        // Randomly sort the card objects in the ArrayList
         Collections.shuffle(cardPile);
-
-        /* DO NOT DELETE
-
-        Random rand = new Random();
-
-        // if the deck is not empty
-        if(cardPile.size() != 0) {
-            // shuffle the deck
-
-            // variable to store the random number
-            int random;
-
-            // variable to store temporary number
-            int temp = 0;
-
-            // hashSet to store numbers assigned
-            HashSet<Integer> randHash = new HashSet<Integer>();
-
-            // go through all Card objects
-            while(temp < cardPile.size()) {
-                // generate a random number between 0 and the total number of Card objects
-                random = rand.nextInt(cardPile.size() - 1);
-
-                // if the randomly generated number has NOT already been used
-                if(!randHash.contains(random)) {
-                    // swap the current Card object with the Card object in the new location
-                    Card tempCard = cardPile.get(random);
-                    cardPile.set(random, cardPile.get(temp));
-                    cardPile.set(temp, tempCard);
-                }
-
-                // increment the count to move to the next Card object
-                temp++;
-            }
-        }
-        */
-
     }
 
     /**

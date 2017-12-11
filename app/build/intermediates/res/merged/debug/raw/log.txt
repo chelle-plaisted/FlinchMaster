@@ -2,7 +2,7 @@ TERM PROJECT LOG
 
 Entry #1
 Date:
-    November 14, 2018
+    November 14, 2017
 Problem:
     Unknown how to randomly arrange the cards in an ArrayList for the shuffle() methods in the Deck
     class.
@@ -14,7 +14,17 @@ Solution:
     random number and setting that as the index for a given card. Continually doing this for all
     cards will randomly shuffle the whole deck.
 
-Entry #2
+Entry #2 (Rhianna Pinkerton and Chelle Plaisted)
+Date:
+    December 6, 2017
+Problem:
+    Network play did not show up on remote player's tablet.
+Source Used:
+    Dr. Vegdahl
+Solution:
+    Deep copy the state and card elements.
+
+Entry #3
 Date:
 Problem:
 Source Used:

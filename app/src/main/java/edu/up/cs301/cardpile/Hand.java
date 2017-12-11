@@ -12,9 +12,6 @@ import edu.up.cs301.card.Card;
  * Class that inherits from CardPile. Creates the set of cards a player can play from during a game
  * of Flinch.
  *
- * @author Alexa Ruiz
- * @author Chelle Plaisted
- * @author Rhianna Pinkerton
  * @author Weslyn Nishimura
  *
  * @version November 2018
@@ -29,9 +26,18 @@ public class Hand extends CardPile implements Serializable{
      * The Hand constructor. Creates a Hand object using inheritance from CardPile.
      */
     public Hand() {
-        // DO NOT CHANGE THIS
+        // this has intentionally been left empty
     }
+
+    /**
+     * Hand()
+     *
+     * The hand constructor. Creates a Hand object using inheritance from CardPile.
+     *
+     * @param d
+     */
     public Hand(Deck d) {
+        // inheritance from CardPile
         super();
 
         // set the maximum number of allowable cards to 5
@@ -43,6 +49,8 @@ public class Hand extends CardPile implements Serializable{
             // this assumes that the deck has already been shuffled
             cardPile.add(d.removeTopCard());
         }
+
+        // by default, automatically sort the hand when it is made
         arrangeHand();
     }
 
@@ -54,6 +62,7 @@ public class Hand extends CardPile implements Serializable{
      * @param orig
      */
     public Hand(Hand orig) {
+        // inheritance from CardPile
         super(orig);
 
         // set the maximum number of allowable cards to 5

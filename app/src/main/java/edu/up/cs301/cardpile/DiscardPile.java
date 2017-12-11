@@ -8,9 +8,6 @@ import java.io.Serializable;
  * Class that inherits from CardPile. Creates the set of cards a player can discard to at the end of
  * their turn during a game of Flinch.
  *
- * @author Alexa Ruiz
- * @author Chelle Plaisted
- * @author Rhianna Pinkerton
  * @author Weslyn Nishimura
  *
  * @version November 2018
@@ -26,6 +23,7 @@ public class DiscardPile extends CardPile implements Serializable{
      * The DiscardPile constructor. Creates a DiscardPile object using inheritance from CardPile.
      */
     public DiscardPile() {
+        // inheritance from CardPile
         super();
     }
 
@@ -37,6 +35,7 @@ public class DiscardPile extends CardPile implements Serializable{
      * @param orig
      */
     public DiscardPile(DiscardPile orig) {
+        // inheritance from CardPile
         super(orig);
     }
 }
