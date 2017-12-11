@@ -58,9 +58,10 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     private final static float VERTICAL_BORDER_PERCENT_LEFT = 25;
     private final static float RIGHT_BORDER_SIDE = 95;
 
+    // Card origin constants
+    private final static int FLINCH = 0, HAND = 1, DISCARD = 2, CENTER = 3;
 
-    // TEMP
-    RectF flinchRect;
+    // INSTANCE VARIABLES
     // non-card icons
     private Bitmap[] icons;
 
@@ -82,6 +83,8 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     // our game state
     protected FState state;
 
+    // an array to hold values for where the cards come from
+    private int[] cardOrigins;
     // our activity
     private Activity myActivity;
 
@@ -143,7 +146,12 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             int[] messages = state.getFlinchMessageTracker();
 
             if(messages[0] == 1) {
-                MessageBox.popUpMessage(this.allPlayerNames[messages[1]] + " got Flinched by " + this.allPlayerNames[messages[2]], myActivity);
+                String str = "";
+                if(messages[3] == 1) {
+                    // This is a false accusation flinch
+                    str = "FALSE ACCUSATION.\n";
+                }
+                MessageBox.popUpMessage(str + this.allPlayerNames[messages[1]] + " got Flinched by " + this.allPlayerNames[messages[2]], myActivity);
             }
 
 
@@ -283,7 +291,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             //filling array with the amount of numplayers for RectF
             cardPlace = new RectF[getNumPlayers];
             toDraw = new int[getNumPlayers];
-
+            cardOrigins = new int[getNumPlayers];
             // for turn tracking
             turnTracker = new HashMap<Integer, RectF>();
             turnTracker.put(new Integer(this.playerNum), BOTTOM); // HUMAN PLAYER IS ALWAYS ON THE BOTTOM
@@ -393,8 +401,13 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
             // TODO: loop to add center cards, draw center cards (make sure it doesn't crash when the card is null), other players, link the rectF's to the actual cards in the state
         } // setup completed
+
+        // card background colors
         Paint paint = new Paint();
-        paint.setColor(Color.rgb(181, 205, 255));
+        int colorHand = Color.rgb(100,130,207);
+        int colorDiscards = Color.rgb(135, 170, 243);
+        int colorCenter = Color.rgb(181, 205, 255);
+        paint.setColor(Color.rgb(181, 205, 255)); // default color
 
         // draw the cards
 
@@ -402,12 +415,32 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             if (toDraw[i] < 1) {
                 // there is no card to draw here, just draw a rectangle
                 if (cardPlace[i] != null) {
+                    if(cardOrigins[i] == HAND){
+                        paint.setColor(colorHand);
+                    } else if(cardOrigins[i] == DISCARD) {
+                        paint.setColor(colorDiscards);
+                    } else if(cardOrigins[i] == CENTER){
+                        paint.setColor(colorCenter);
+                    }
                     canvas.drawRect(cardPlace[i], paint);
                     continue;
                 }
             }
             if (cardPlace[i] != null) {
-                drawCard(canvas, cardPlace[i], new Card(toDraw[i]));
+                /*
+                if (state.getNumPlayers() == 3) {
+                    if(i > 10 && i < cardPlace.length - 10) {
+                        // draw the card sideways
+                        drawCard(canvas, cardPlace[i], new Card(toDraw[i]), 1);
+                    }
+                } else if(state.getNumPlayers() == 4) {
+                    if(((i > 10 && i < 17) || (i > 22)) && i < cardPlace.length) {
+                        // draw the card side ways
+                        drawCard(canvas, cardPlace[i], new Card(toDraw[i]), 1);
+                    }
+                } */
+
+                drawCard(canvas, cardPlace[i], new Card(toDraw[i]), 0);
             }
         }
 
@@ -605,13 +638,16 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
      */
     private int getBottomCards(int counter, int player) {
         toDraw[counter] = state.getPlayerState(player).getTopFlinchCard();
+        cardOrigins[counter] = FLINCH;
         counter++;
         for(int i = 0; i < 5; i++) {
             toDraw[counter] = state.getPlayerState(player).getHand().getCardAt(i);
+            cardOrigins[counter] = HAND;
             counter++;
         }
         for(int i = 0; i < 5; i++) {
             toDraw[counter] = state.getPlayerState(player).getTopDiscards()[i];
+            cardOrigins[counter] = DISCARD;
             counter++;
         }
         return counter;
@@ -626,9 +662,11 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     private int getPlayerCards(int counter, int player) {
         for(int i = 0; i < 5; i++) {
             toDraw[counter] = state.getPlayerState(player).getTopDiscards()[i];
+            cardOrigins[counter] = DISCARD;
             counter++;
         }
         toDraw[counter] = state.getPlayerState(player).getTopFlinchCard();
+        cardOrigins[counter] = FLINCH;
         counter++;
         return counter;
     }
@@ -636,6 +674,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     private int getCenterCards(int counter) {
         for(int i = 0; i < 10; i++) {
             toDraw[counter] = state.getCenterPiles()[i];
+            cardOrigins[counter] = CENTER;
             counter++;
         }
         return counter;
@@ -1183,7 +1222,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
     public void onTouch(MotionEvent event) {
 
-        if(state == null) {return;}
+        if(state == null || cardPlace == null || toDraw == null) {return;}
         // ignore everything except down-touch events
         if (event.getAction() != MotionEvent.ACTION_DOWN) return;
 
@@ -1318,6 +1357,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         return -1;
 
     }
+    /*
     private void drawCardBacks(Canvas g, RectF topRect, float deltaX, float deltaY,
                                int numCards) {
         // loop through from back to front, drawing a card-back in each location
@@ -1330,7 +1370,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                     null);
         }
     }
-
+*/
     /**
      * draws a card on the canvas; if the card is null, draw a card-back
      *  
@@ -1347,7 +1387,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
      * 		the card to draw; if null, a card-back is drawn
      */
 
-    private static void drawCard(Canvas g, RectF rect, Card c) {
+    private static void drawCard(Canvas g, RectF rect, Card c, int needToFlip) {
         if (c == null) {
             // null: draw a card-back, consisting of a blue card
             // with a white line near the border. We implement this
@@ -1368,7 +1408,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         else {
             // just draw the card
             //drawOn method?
-            c.drawOn(g, rect);
+            c.drawOn(g, rect, needToFlip);
         }
     }
 

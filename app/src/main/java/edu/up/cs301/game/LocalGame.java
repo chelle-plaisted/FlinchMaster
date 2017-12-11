@@ -267,17 +267,17 @@ public abstract class LocalGame implements Game, Tickable {
 		
 		// if the player is NOT a player who is presently allowed to
 		// move, send the player a message
-		if (!canMove(playerId)) {
+		if (!canMove(playerId)) { // not my turn
 			if(!(action instanceof FFlinchAction)) {
 				player.sendInfo(new NotYourTurnInfo());
 				return;
 			}
-		} else {
+		} /* TEST else {
 			if(action instanceof FFlinchAction) {
 				player.sendInfo(new NotYourTurnInfo());
 				return;
 			}
-		}
+		} */
 
 		// attempt to make the move; if the move was not a legal one,
 		// send the player a message to that effect

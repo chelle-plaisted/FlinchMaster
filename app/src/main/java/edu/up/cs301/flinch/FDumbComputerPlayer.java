@@ -65,7 +65,7 @@ public class FDumbComputerPlayer extends FComputerPlayer{
                     // I can play the card
 
                     game.sendAction(new FPlayAction(this, 0, index, new FlinchPile()));
-                    sleep(3000);
+                    sleep(1500);
                     return true;
                 }
             } else if (toLook[idx] == LOOK_HAND) {
@@ -77,7 +77,7 @@ public class FDumbComputerPlayer extends FComputerPlayer{
                     if(index != -1) {
                         // I can play the card
                         game.sendAction(new FPlayAction(this, i, index, new Hand()));
-                        sleep(3000);
+                        sleep(1500);
                         return true;
                     }
                 }

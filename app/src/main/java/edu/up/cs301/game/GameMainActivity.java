@@ -498,8 +498,8 @@ View.OnClickListener {
 		// respond to menu item selection
 		int itemId = item.getItemId();
 		if(itemId == R.id.menu_user_manual) {
-			Intent switchLayout = new Intent(this, FUserManualActivity.class);
-			startActivity(switchLayout);
+	//		Intent switchLayout = new Intent(this, FUserManualActivity.class);
+	//		startActivity(switchLayout);
 			/*setContentView(R.layout.learn_to_play);
 			View v = findViewById(R.id.goBackButton);
 			v.setOnClickListener(this); */

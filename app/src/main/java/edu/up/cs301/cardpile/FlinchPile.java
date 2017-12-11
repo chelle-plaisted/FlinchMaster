@@ -73,7 +73,7 @@ public class FlinchPile extends CardPile implements Serializable{
         int lastCard = cardPile.size() - 1;
 
         // if the last card exists
-        if((lastCard > 0) && (lastCard < maxCards)) {
+        if((lastCard >= 0)) {
             // remove and return the bottom card
             return cardPile.remove(lastCard);
         }

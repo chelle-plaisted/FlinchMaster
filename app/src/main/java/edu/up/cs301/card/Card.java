@@ -5,7 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
@@ -98,7 +100,7 @@ public class Card implements Serializable {
      * @param g  the graphics object on which to draw
      * @param where  a rectangle that tells where the card should be drawn
      */
-    public void drawOn(Canvas g, RectF where) {
+    public void drawOn(Canvas g, RectF where, int needFlip) {
         // don't draw an invalid card
         if(cardNum < 1) {
             return;
@@ -113,9 +115,28 @@ public class Card implements Serializable {
         // create the source rectangle
         Rect r = new Rect(0,0,bitmap.getWidth(),bitmap.getHeight());
 
+        // does the bitmap need flipped?
+        if(needFlip == 1) {
+            bitmap = flip(bitmap, Direction.VERTICAL);
+        }
 
         // draw the bitmap into the target rectangle
         g.drawBitmap(bitmap, r, where, p);
+    }
+    public enum Direction {VERTICAL, HORIZONTAL}
+    public static Bitmap flip(Bitmap src, Direction type) {
+        Matrix matrix = new Matrix();
+
+        if(type == Direction.VERTICAL) {
+            matrix.preScale(1.0f, -1.0f);
+        }
+        else if(type == Direction.HORIZONTAL) {
+            matrix.preScale(-1.0f, 1.0f);
+        } else {
+            return src;
+        }
+
+        return Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), matrix, true);
     }
 
     // array that contains the android resource indices for the 52 card

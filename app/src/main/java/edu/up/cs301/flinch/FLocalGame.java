@@ -12,12 +12,6 @@ import edu.up.cs301.game.util.MessageBox;
  * Created by pinkertr20 on 11/7/2017.
  */
 
-/*
-NOTE: TEST CASE THAT MIGHT FAIL WITH CURRENT DESIGN
-    A player fails to play from their flinch pile (flinches themselves) but plays that Flinch card NEXT
-        Since only two plays have gone by, if someone calls a Flinch action--it SHOULD be valid...but it might accidentally be reset
-
- */
 
 /*
     Flinching: A player flinches self by playing another card when he/she could have played from the flinch pile
@@ -141,18 +135,13 @@ public class FLocalGame extends LocalGame{
             } else {
                 // is the flinch correct?
                 //has the player played this turn
-                //   if(state.getPlayerState(state.getWhoseTurn()).hasPlayedThisTurn()) {
-                // the player has played this turn, the flinch action applies to the current player
-                return makeFlinch(ffa.getAccusedId(), thisPlayerIdx);
-               /* } // the player has not palyed this turn, the flinch action applies to the previous player
+                if(state.getPlayerState(thisPlayerIdx).hasPlayedThisTurn()) {
+                    // the player has played this turn, the flinch action applies to the current player
+                    return makeFlinch(ffa.getAccusedId(), thisPlayerIdx, false);
+               } // the player has not palyed this turn, the flinch action applies to the previous player
                 else {
-                    // get the index of the previous player
-                    int playerIndex = state.getWhoseTurn() - 1;
-                    if(playerIndex < 0) {
-                        playerIndex = numPlayers - 1;
-                    }
-                    return makeFlinch(playerIndex, thisPlayerIdx);
-                }*/
+                    return makeFlinch(ffa.getAccusedId(), thisPlayerIdx,true);
+                }
             }
         }
         //play action
@@ -353,20 +342,23 @@ public class FLocalGame extends LocalGame{
      * @param id_accuse
      * @return
      */
-    private boolean makeFlinch(int id_current, int id_accuse) {
+    private boolean makeFlinch(int id_current, int id_accuse, boolean discardFlinch) {
 
         if(state.getPlayerState(id_current).isFlinchable()) {
             //flinch the player
-            state.flinchAPlayer(id_current, id_accuse);
+            state.flinchAPlayer(id_current, id_accuse, 0);
             alreadyFlinchedThisPlay = true;
-
-
-            // make it the next player's turn
-            setUpNextTurn(id_current);
+            if(!discardFlinch) {
+                // make it the next player's turn
+                setUpNextTurn(id_current);
+            } else {
+                state.setFlinchable(id_current, false);
+            }
             return true;
         } else {
             // invalid flinch attempt
-            return false;
+            state.flinchAPlayer(id_accuse, id_current, 1);
+            return true;
         }
     }
 
