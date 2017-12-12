@@ -59,3 +59,13 @@ Resource Used:
     CS 301 Hearts' team member Lindsay Lavee steered me towards an AlertDialogBuilder to complete the task.
 Solution:
     Was able to bring up the menu at any point during the game.
+
+ENTRY $6 (Chelle Plaisted)
+Date:
+    12/7/17
+Problem:
+    Wanted to have and load multiple layout for the title screen.
+Resource Used:
+    https://lowercasecatastrophe.wordpress.com/2011/07/15/how-to-make-more-than-one-view-in-your-app/
+Solution:
+    I was able to use the Intent class to toggle between views.
