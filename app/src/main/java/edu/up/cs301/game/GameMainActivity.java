@@ -891,7 +891,7 @@ View.OnClickListener {
 				+"Flinch:\n"
 				+"If the current player’s top card in their Flinch pile could be played but the player fails to notice and plays another card, the other players can press their “Flinch!” button located in the bottom right corner of the screen. "
 				+"If the Flinch was correctly called, the bottom Flinch card from the accuser will be removed and added to the bottom of the offender’s Flinch pile. The offender’s turn is now over and no discard takes place. "
-				+"If the Flinch was incorrectly called, the accuser is affected as such and the accused may continue the turn. The Flinch must be called within two card plays of the offending action or the Flinch becomes null. If the offender ends his/her turn with an active Flinch, it is valid until the next player plays the first card of their turn. The Flinch is also null as soon as the offending player “corrects” it by playing from the Flinch card. "
+				+"If the Flinch was incorrectly called, the accuser is affected as such and the accused may continue the turn. The Flinch must be called within three card plays of the offending action or the Flinch becomes null. If the offender ends his/her turn with an active Flinch, it is valid until the next player plays the first card of their turn. The Flinch is also null as soon as the offending player “corrects” it by playing from the Flinch card. "
 				+"In this way, if someone Flinched at the beginning but has more than one card since then (and has not Flinched again), you cannot call her/him out on it anymore.\n\n"
 
 				+"Making an Invalid Move:\n"

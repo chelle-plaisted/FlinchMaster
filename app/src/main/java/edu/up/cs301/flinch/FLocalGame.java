@@ -345,12 +345,12 @@ public class FLocalGame extends LocalGame{
             //flinch the player
             state.flinchAPlayer(id_current, id_accuse, 0);
             alreadyFlinchedThisPlay = true;
+            state.setFlinchable(id_current, false);
             if(!discardFlinch) {
                 // make it the next player's turn
                 setUpNextTurn(id_current);
-            } else {
-                state.setFlinchable(id_current, false);
             }
+
             return true;
         } else {
             // invalid flinch attempt

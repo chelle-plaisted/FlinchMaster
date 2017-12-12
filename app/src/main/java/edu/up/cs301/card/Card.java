@@ -109,18 +109,39 @@ public class Card implements Serializable {
         p.setColor(Color.BLACK);
 
         // get the bitmap for the card
-        Bitmap bitmap = cardImages[0][this.getNum()-1]; //.ordinal()][this.getRank().ordinal()];
+        Rect r;
+        Bitmap bitmap;
+        if(needFlip != 1) {
+            bitmap = cardImages[0][this.getNum() - 1];
 
-        // create the source rectangle
-        Rect r = new Rect(0,0,bitmap.getWidth(),bitmap.getHeight());
+            // create the source rectangle
+            r = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+            g.drawBitmap(bitmap, r, where, p);
+        } else {
+            // draw the rotated bitmap
+            bitmap = cardImages[0][this.getNum() - 1];
+            bitmap = RotateBitmap(bitmap, 90);
+            bitmap = bitmap.createScaledBitmap(bitmap, (int)(where.right - where.left), (int)(where.bottom - where.top), false);
 
-        // does the bitmap need flipped?
-        if(needFlip == 1) {
-            bitmap = flip(bitmap, Direction.VERTICAL);
+            // create the source rectangle
+            r = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+            g.drawBitmap(bitmap, where.left, where.top, p);
         }
 
+        // does the bitmap need flipped?
+        /*if(needFlip == 1) {
+            bitmap = flip(bitmap, Direction.VERTICAL);
+        } */
+
         // draw the bitmap into the target rectangle
-        g.drawBitmap(bitmap, r, where, p);
+        //g.drawBitmap(bitmap, r, where, p);
+    }
+
+    public static Bitmap RotateBitmap(Bitmap source, float angle)
+    {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
     public enum Direction {VERTICAL, HORIZONTAL}
     public static Bitmap flip(Bitmap src, Direction type) {
@@ -171,7 +192,7 @@ public class Card implements Serializable {
         if (cardImages != null) return;
 
         // create the outer array
-        cardImages = new Bitmap[resIdx.length][];
+        cardImages = new Bitmap[resIdx.length][resIdx.length];
 
         // loop through the resource-index array, creating a
         // "parallel" array with the images themselves

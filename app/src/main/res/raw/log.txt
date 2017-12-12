@@ -60,7 +60,7 @@ Resource Used:
 Solution:
     Was able to bring up the menu at any point during the game.
 
-ENTRY $6 (Chelle Plaisted)
+ENTRY #6 (Chelle Plaisted)
 Date:
     12/7/17
 Problem:
