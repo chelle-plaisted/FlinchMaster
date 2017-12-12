@@ -6,7 +6,11 @@ import edu.up.cs301.cardpile.CardPile;
 import edu.up.cs301.game.GamePlayer;
 
 /**
- * Created by Rachel on 11/7/2017.
+ * This defines an action to play a card in a flinch game
+ *
+ *
+ * @author Chelle Plaisted
+ * @version Dec. 2017
  */
 
 public class FPlayAction extends FMoveAction implements Serializable {

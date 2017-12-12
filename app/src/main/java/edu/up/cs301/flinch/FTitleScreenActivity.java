@@ -6,11 +6,14 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.widget.*;
 import android.view.View;
-
 import edu.up.cs301.game.R;
 
 /**
- * Created by Rachel on 12/7/2017.
+ * This is an activity to control the title screen
+ *
+ *
+ * @author Chelle Plaisted
+ * @version Dec. 2017
  */
 
 public class FTitleScreenActivity extends Activity implements View.OnClickListener {

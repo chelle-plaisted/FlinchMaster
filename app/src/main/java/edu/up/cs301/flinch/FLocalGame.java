@@ -9,9 +9,12 @@ import edu.up.cs301.game.actionMsg.GameAction;
 import edu.up.cs301.game.util.MessageBox;
 
 /**
- * Created by Rhianna on 11/7/2017.
+ * The LocalGame class for a Flinch game.  Defines and enforces
+ * the game rules; handles interactions between players.
+ *
+ * @author Rhianna Pinkerton
+ * @version Dec. 2017
  */
-
 public class FLocalGame extends LocalGame{
     //instance variables
     private FState state; //state of game

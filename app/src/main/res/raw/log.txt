@@ -1,6 +1,9 @@
 TERM PROJECT LOG
 
-Entry #1 (Weslyn Nishimura)
+NOTE: Steven Vegdahl's slapjack game and CS 301 game framework were used extensively to build and inspire different
+    algorithms in the game.
+
+ENTRY #1 (Weslyn Nishimura)
 Date:
     November 14, 2017
 Problem:
@@ -15,7 +18,7 @@ Solution:
     cards will randomly shuffle the whole deck. Another method suggested was to use the Collections
     class which can change the order of objects within the ArrayList.
 
-Entry #2 (Weslyn Nishimura and Rhianna Pinkerton)
+ENTRY #2 (Weslyn Nishimura and Rhianna Pinkerton)
 Date:
     December 4, 2017
 Problem:
@@ -27,7 +30,7 @@ Solution:
     Make multiple activities and call on the other activity when needed (Chelle implemented this
     into the code).
 
-Entry #3 (Rhianna Pinkerton and Chelle Plaisted)
+ENTRY #3 (Rhianna Pinkerton and Chelle Plaisted)
 Date:
     December 6, 2017
 Problem:
@@ -36,3 +39,23 @@ Source Used:
     Dr. Vegdahl
 Solution:
     Deep copy the state and card elements.
+
+ENTRY #4 (Alexa Ruiz)
+Date:
+    November 25, 2017
+Problem:
+    Having a hard time figuring out correct placements of cards on screen.
+Resource Used:
+    https://developer.android.com/training/custom-views/custom-drawing.html
+Solution:
+    Able to read through the developer information and get a better grasp on how the rectangles should be drawing using percentages.
+
+ENTRY #5 (Chelle Plaisted)
+Date:
+    12/7/17
+Problem:
+    Couldn't figure out how to correctly have the drop down top menu bring up a pop-up for the user manual.
+Resource Used:
+    CS 301 Hearts' team member Lindsay Lavee steered me towards an AlertDialogBuilder to complete the task.
+Solution:
+    Was able to bring up the menu at any point during the game.

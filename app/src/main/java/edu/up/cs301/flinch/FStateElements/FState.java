@@ -2,18 +2,18 @@ package edu.up.cs301.flinch.FStateElements;
 
 import java.io.Serializable;
 import java.util.Arrays;
-
 import edu.up.cs301.card.*;
 import edu.up.cs301.cardpile.*;
 import edu.up.cs301.game.infoMsg.GameState;
 
 /**
- * Contains the state of a Slapjack game.  Sent by the game when
+ * Contains the state of a Flinch game.  Sent by the game when
  * a player wants to enquire about the state of the game.  (E.g., to display
  * it, or to help figure out its next move.)
  *
- * @author Steven R. Vegdahl 
- * @version July 2013
+ * This code borrows from Steven Vegdahl's SJState in the game Slapjack
+ * @author Chelle Plaisted
+ * @version Dec. 2017
  */
 public class FState extends GameState implements Serializable
 {
@@ -26,7 +26,7 @@ public class FState extends GameState implements Serializable
 	// the Deck the game will be played with
 	Deck deck;
 
-	// KEEP TRACK OF FLINCHING MESSAGES
+	// whether there is any new message about flinches
 	int[] flinchMessageTracker;
 
 	// whose turn is it to turn a card?
@@ -134,14 +134,22 @@ public class FState extends GameState implements Serializable
 			players[i].hasFlinched = false;
 			players[i].playedThisTurn = false;
 		}
-// TEST HOOK FOR SMART COMPUTER PLAYER
-	/*	players[0].hand.removeCardAt(0);
-		players[0].hand.addAt(new Card(1), 0);
-		players[0].flinch.addAt(new Card(2), 0); */
+        // TEST HOOK FOR SMART COMPUTER PLAYER
+	    /*	players[0].hand.removeCardAt(0);
+		    players[0].hand.addAt(new Card(1), 0);
+		    players[0].flinch.addAt(new Card(2), 0); */
 
 	}
 
 	/* ACCESSORS */
+    /**
+     *
+     * @return
+     *  the number of players in the game
+     */
+    public int getNumPlayers() {
+        return numPlayers;
+    }
 
 	public int[] getFlinchMessageTracker() { return flinchMessageTracker;}
 	/**
@@ -307,6 +315,9 @@ public class FState extends GameState implements Serializable
 
 	}
 
+    /**
+     * Updates the state to say that it is no longer the start of the game
+     */
 	public void notStartOfGame() {
 		isStartOfGame = false;
 	}
@@ -325,6 +336,13 @@ public class FState extends GameState implements Serializable
 		players[playerId].hasFlinched = flinchable;
 	}
 
+    /**
+     * For testing. Will put a specific card into a player's hand
+     * @param player
+     *  player to add card to
+     * @param cardNum
+     *  card number to add
+     */
 	public void givePlayerCard(int player, int cardNum) {
 		players[player].hand = new Hand();
 		players[player].hand.add(new Card(cardNum));
@@ -341,13 +359,7 @@ public class FState extends GameState implements Serializable
 				isStartOfGame != compare.isStartOfGame || center != compare.center || players != compare.players) {
 			return false;
 		}
-
-
 		return true;
-	}
-
-	public int getNumPlayers() {
-		return numPlayers;
 	}
 
 }

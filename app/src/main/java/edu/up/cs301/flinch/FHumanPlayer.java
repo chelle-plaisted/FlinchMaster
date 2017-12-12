@@ -11,9 +11,7 @@ import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-
 import java.util.HashMap;
-
 import edu.up.cs301.animation.AnimationSurface;
 import edu.up.cs301.animation.Animator;
 import edu.up.cs301.card.Card;
@@ -30,12 +28,19 @@ import edu.up.cs301.game.infoMsg.NotYourTurnInfo;
 import edu.up.cs301.game.util.MessageBox;
 
 /**
- * Created by alexaruiz on 11/6/17.
+ * A GUI that allows a human to play Slapjack. Moves are made by clicking
+ * regions on a surface. Presently, it is laid out for landscape orientation.
+ * If the device is held in portrait mode, the cards will be very long and
+ * skinny.
+ *
+ * Inspired by Steven Vegdahl's SJHumanPlayer
+ *
+ * @author Alexa Ruiz
+ * @version Dec. 2017
  */
 
-//
-
 public class FHumanPlayer extends GameHumanPlayer implements Animator {
+    //CONSTANTS
     private final static float CARD_HEIGHT_PERCENT = 10; // height of a card
     private final static float CARD_WIDTH_PERCENT = 5; // width of a card
     private final static float LEFT_BORDER_PERCENT = 18; // width of left border
@@ -43,7 +48,6 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     private final static float LEFT_BORDER_SIDE = 5;
     private final static float BUFFER_PERCENT2 = 5;
     private final static float VERTICAL_BORDER_PERCENT_BOTTOMPLAYER = 5; // width of top/bottom borders
-    private final static float VERTICAL_BORDER_PERCENT_2 = 10;
     private final static float VERTICAL_BORDER_PERCENT_TOPPLAYER = 70;
     private final static float VERTICAL_CENTERONE = VERTICAL_BORDER_PERCENT_BOTTOMPLAYER + 10 + (CARD_HEIGHT_PERCENT * 2);
     private final static float VERTICAL_CENTERTWO = 20;
@@ -56,10 +60,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     private final static float FLINCH_TOP_HEIGHT = 13;
     private final static float FLINCH_TOP_WIDTH = 8;
     private final static float VERTICAL_BORDER_PERCENT_LEFT = 25;
-    private final static float RIGHT_BORDER_SIDE = 95;
-
-    // Card origin constants
-    private final static int FLINCH = 0, HAND = 1, DISCARD = 2, CENTER = 3;
+    private final static int FLINCH = 0, HAND = 1, DISCARD = 2, CENTER = 3;  // Card origin constants
 
     // INSTANCE VARIABLES
     // non-card icons
@@ -111,7 +112,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     public FHumanPlayer(String name, int bkColor) {
         super(name);
         backgroundColor = bkColor;
-        selected = -1;
+        selected = -1; // no cards are selected
         inPlayMode = true; // assume we start in play mode
     }
 
@@ -142,7 +143,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
             Log.i("human player", "receiving");
 
-            // do we have a flinch message?\
+            // do we have a flinch message?
             int[] messages = state.getFlinchMessageTracker();
 
             if(messages[0] == 1) {
@@ -157,7 +158,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
             //update cards for all the players
             if (toDraw == null) {
-                return;
+                return; // not ready yet
             }
             int counter = 0;
             int player = this.playerNum;
@@ -212,6 +213,8 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     /**
      * call-back method: called whenever the GUI has changed (e.g., at the beginning
      * of the game, or when the screen orientation changes).
+     *
+     * also initializes all bitmap images (note this could be moved
      *
      * @param activity
      * 		the current activity
@@ -269,12 +272,12 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     }
 
     public void tick(Canvas canvas) {
-        // get the height and width of the animation surface
-        // TODO: BELOW
+
         if(state == null) {
             // don't do things yet
             return;
         }
+        // get the height and width of the animation surface
         int height = surface.getHeight();
         int width = surface.getWidth();
 
@@ -398,8 +401,6 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
                         2: toggle discard
                  */
             setUpButtons();
-
-            // TODO: loop to add center cards, draw center cards (make sure it doesn't crash when the card is null), other players, link the rectF's to the actual cards in the state
         } // setup completed
 
         // card background colors
@@ -413,7 +414,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
         for (int i = 0; i < getNumPlayers; i++) {
             if (toDraw[i] < 1) {
-                // there is no card to draw here, just draw a rectangle
+                // there is no card to draw here, just draw a rectangle-- in the specified color
                 if (cardPlace[i] != null) {
                     if(cardOrigins[i] == HAND){
                         paint.setColor(colorHand);
@@ -444,7 +445,6 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             }
         }
 
-        // if it is the player's turn, draw what card they have selected
         /* EXTRA GUI ELEMENTS BELOW */
         // if it is the player's turn, indicate what card was selected and show the card indicator
         // otherwise, draw the flinch button;
@@ -481,7 +481,6 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
          // DRAW WHOSE TURN IT IS
         turnIndicator = turnTracker.get(state.getWhoseTurn());
-
         paint.setColor(Color.BLUE);
         if(turnIndicator != null) canvas.drawRect(turnIndicator, paint);
 
@@ -522,7 +521,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     }
 
     /**
-     *
+     * Computes locations for bottom player's cards
      * @param counter
      * @param player
      * @return
@@ -555,6 +554,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
     /**
      *
+     * computes locations for top player's cards
      * @param counter
      * @param player
      * @return
@@ -575,6 +575,11 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         return counter;
     }
 
+    /**
+     * computes locations for the center piles' locations
+     * @param counter
+     * @return
+     */
     private int getCenterCardsLocs (int counter){
         cardPlace[counter] = drawCenterOne();
         counter++;
@@ -601,7 +606,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     }
 
     /**
-     *
+     * computes locations for the right player's cards
      * @param counter
      * @param player
      * @return
@@ -624,14 +629,8 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     }
 
     /**
-     *
-     * @param counter
-     * @param player
-     * @return
-     */
-
-    /**
-     *Note this should call get player cards to be more efficient
+     *(Note this should call get player cards to be more efficient)
+     * provides the state of the bottom player's cards and where the cards are from
      * @param counter
      * @param player
      * @return
@@ -654,7 +653,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     }
 
     /**
-     *
+     * provies the state of a non-bottom player's cards and where the cards are from
      * @param counter
      * @param player
      * @return
@@ -671,6 +670,11 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         return counter;
     }
 
+    /**
+     * provides the cards for the center pile and states their origin
+     * @param counter
+     * @return
+     */
     private int getCenterCards(int counter) {
         for(int i = 0; i < 10; i++) {
             toDraw[counter] = state.getCenterPiles()[i];
@@ -680,9 +684,9 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         return counter;
     }
 
-
-
-
+    /*
+            CARD DRAWINGS
+     */
     //this will represent the human player's cards
     private RectF drawBottomPlayerFLINCH() {
         int width = surface.getWidth();
@@ -807,17 +811,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         return DiscardFive;
 
     }
-/*
-    private RectF drawFlinchButton() {
-        int width = surface.getWidth();
-        int height = surface.getHeight();
-        RectF FlinchButton = new RectF ((LEFT_BORDER_PERCENT+ FLINCH_PILE_WIDTH+(BUFFER_PERCENT2)*6 +( FLINCH_BUTTON_WIDTH *5)) *width/100f,
-                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-FLINCH_BUTTON_HEIGHT*2 - BUFFER_PERCENT2)*height/100f,
-                (LEFT_BORDER_PERCENT+FLINCH_PILE_WIDTH+ (BUFFER_PERCENT2)*6) + (FLINCH_PILE_WIDTH* 6 )*width/100f,
-                (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+FLINCH_BUTTON_HEIGHT+BUFFER_PERCENT2)) * height /100f);
-        return FlinchButton;
-    }
-    */
+
     // side player drawing
     private RectF drawLeftDiscardOne () {
 
@@ -965,7 +959,7 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     }
 
     /**
-     *
+     * computes card locations for a left side player
      * @param counter
      * @param player
      * @return
@@ -1110,16 +1104,6 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
     }
 
-   /* private RectF drawAllButtons() {
-        int width = surface.getWidth();
-        int height = surface.getHeight();
-        RectF FlinchButton = new RectF (BUFFER_PERCENT_FLINCH_BUTTON *width/100f,
-                (100-VERTICAL_BORDER_PERCENT_BOTTOMPLAYER-CARD_HEIGHT_PERCENT-5)*height/100f,
-                (BUFFER_PERCENT_FLINCH_BUTTON+FLINCH_BUTTON_WIDTH)*width/100f,
-                (100-(VERTICAL_BORDER_PERCENT_BOTTOMPLAYER+CARD_HEIGHT_PERCENT+15)) * height /100f);
-        return FlinchButton;
-    }*/
-
    //drawing of top player cards ( 5 discard 1 flinch)
 
     //discard one (left most)
@@ -1196,12 +1180,11 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
 
     }
 
-    //LEFT PLAYER
-    //STILL NEEDS TO BE COMPLETED
 
     /**
      *
      * @return
+     *  a rectangle to indicate what card was chosen
      */
     private RectF getSelectRect() {
         // if there is no card selected
@@ -1215,14 +1198,11 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
     }
 
 
-    /*
-        PROBLEM: HOW DO WE DIFFERENTIATE BETWEEN SELECTING A CARD FROM THE DISCARD PILE TO PLAY AND SELECTING A DISCARD PILE TO DISCARD TO
-        INTERIM SOLUTION: YOU CANNOT PLAY FROM THE DISCARD PILE
-     */
 
     public void onTouch(MotionEvent event) {
-
+        // make sure we are ready to process touch actions
         if(state == null || cardPlace == null || toDraw == null) {return;}
+
         // ignore everything except down-touch events
         if (event.getAction() != MotionEvent.ACTION_DOWN) return;
 
@@ -1328,6 +1308,13 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         }
     }
 
+    /**
+     * method to say whether a touch action correlates to one of the discard piles
+     * @param xTouch
+     * @param yTouch
+     * @return
+     *  the index (in cardPlace) of discard pile touched, -1 if none
+     */
     private int isDiscardPileTouched(int xTouch, int yTouch) {
         int index = 6;
         for(int i = 0; i < 5; i++){
@@ -1357,27 +1344,11 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
         return -1;
 
     }
-    /*
-    private void drawCardBacks(Canvas g, RectF topRect, float deltaX, float deltaY,
-                               int numCards) {
-        // loop through from back to front, drawing a card-back in each location
-        for (int i = numCards-1; i >= 0; i--) {
-            // determine theh position of this card's top/left corner
-            float left = topRect.left + i*deltaX;
-            float top = topRect.top + i*deltaY;
-            // draw a card-back (hence null) into the appropriate rectangle
-            drawCard(g, new RectF(left, top, left + topRect.width(), top + topRect.height()),
-                    null);
-        }
-    }
-*/
-    /**
-     * draws a card on the canvas; if the card is null, draw a card-back
-     *  
-     */
+
+
 
     /**
-     * draws a card on the canvas; if the card is null, draw a card-back
+     * draws a card on the canvas; ignore if the card is null
      *
      * @param g
      * 		the canvas object

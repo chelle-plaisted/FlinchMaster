@@ -1,21 +1,16 @@
 package edu.up.cs301.flinch;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-
-import edu.up.cs301.card.Card;
 import edu.up.cs301.cardpile.DiscardPile;
 import edu.up.cs301.cardpile.FlinchPile;
 import edu.up.cs301.cardpile.Hand;
-import edu.up.cs301.flinch.FStateElements.FPlayerState;
-import edu.up.cs301.flinch.FStateElements.FState;
 import edu.up.cs301.game.infoMsg.GameInfo;
 
 /**
- * Created by rae-o on 11/5/2017.
+ * This is a smart computer player that plays with strategy and discards at random
+ *
+ * @author Chelle Plaisted
+ * @version Dec. 2017
  */
-
 public class FSmartComputerPlayer extends FComputerPlayer {
     // INSTANCE VARIABLES
     private int goalIndex;
@@ -73,15 +68,11 @@ public class FSmartComputerPlayer extends FComputerPlayer {
 
     }
 
-    private void playCards() {
-        boolean cardPlayed;
-        do{
-            cardPlayed = false;
-            if(playFlinch() || playHand() || playDiscard())
-                cardPlayed = true;
-        }while(cardPlayed);
-    }
-
+    /**
+     * play from the flinch pile, building to the flinch pile if necessary
+     * @return
+     *  whether or not a card was played
+     */
     private boolean playFlinch() {
         // look at the flinch pile
         // if there is a card in the center higher than the flinch pile, hunt to see if we can build to it
@@ -115,6 +106,10 @@ public class FSmartComputerPlayer extends FComputerPlayer {
         return false;
     }
 
+    /**
+     * play from the hand
+     * @return
+     */
     private boolean playHand() {
         // look at the Hand---every card
         // if I can play the card, play it -- and send index
@@ -156,6 +151,10 @@ public class FSmartComputerPlayer extends FComputerPlayer {
         return false;
     }
 
+    /**
+     * play from the discard pile
+     * @return
+     */
     private boolean playDiscard() {
         // look at the Discard---every card
         // if I can play the card, play it -- and send index
@@ -194,6 +193,10 @@ public class FSmartComputerPlayer extends FComputerPlayer {
         return false;
     }
 
+    /**
+     * tells whether a card could potentially be played from the center
+     * @return
+     */
     private int potentiallyPlayable() {
         int cardVal = me.getTopFlinchCard();
         int[] centers = savedState.getCenterPiles();
@@ -210,6 +213,4 @@ public class FSmartComputerPlayer extends FComputerPlayer {
         }
         return closest;
     }
-
-
 }

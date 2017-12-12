@@ -3,22 +3,32 @@ package edu.up.cs301.flinch.FStateElements;
 import java.io.Serializable;
 
 import edu.up.cs301.cardpile.*;
-import edu.up.cs301.card.*;
 
 /**
- * Created by rae-o on 10/18/2017.
+ * Contains the state of an individual Flinch player. Used by FState.Slapjack game.
+ *
+ * @author Chelle Plaisted
+ * @version Nov. 2017
  */
-
 public class FPlayerState implements Serializable {
-    Hand hand;
-    public FlinchPile flinch;
-    DiscardPile[] discards;
-    boolean hasFlinched;
-    boolean playedThisTurn;
+    // INSTANCE VARIABLES: all package-access only
+    Hand hand; // the cards of the player's hand
+    public FlinchPile flinch; // flinch pile
+    DiscardPile[] discards; // 5 discard piles
+    boolean hasFlinched; // whether the player has flinched themselves
+    boolean playedThisTurn; // whether the player has played this turn
 
+    /**
+     * default constructor
+     */
     public FPlayerState() {
     }
 
+    /**
+     * copy constructor
+     * @param orig
+     *  FPlayerState object to copy
+     */
     public FPlayerState(FPlayerState orig) {
         hand = new Hand(orig.hand);
         flinch = new FlinchPile(orig.flinch);
@@ -29,6 +39,8 @@ public class FPlayerState implements Serializable {
         hasFlinched = orig.hasFlinched;
         playedThisTurn = orig.playedThisTurn;
     }
+
+    // METHODS
 
     /**
      * whether the player has played this turn
@@ -93,8 +105,6 @@ public class FPlayerState implements Serializable {
         } else if(this.discards != compare.discards || this.flinch != compare.flinch || this.hasFlinched != compare.hasFlinched) {
             return false;
         }
-
-
         return true;
     }
 }

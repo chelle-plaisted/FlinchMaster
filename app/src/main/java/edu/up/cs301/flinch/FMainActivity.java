@@ -3,12 +3,7 @@ package edu.up.cs301.flinch;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.view.View;
-
-import java.io.Serializable;
 import java.util.ArrayList;
-
-import edu.up.cs301.flinch.FComputerPlayer;
-import edu.up.cs301.flinch.FHumanPlayer;
 import edu.up.cs301.game.GameMainActivity;
 import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.LocalGame;
@@ -17,7 +12,10 @@ import edu.up.cs301.game.config.GamePlayerType;
 import edu.up.cs301.game.title.FTitleScreen;
 
 /**
- * Created by alexaruiz on 11/6/17.
+ * Main activty of flinch game
+ *
+ * @author Alexa Ruiz, Chelle Plaisted, Rhianna Pinkerton
+ * @version Dec. 2017
  */
 
 public class FMainActivity extends GameMainActivity {

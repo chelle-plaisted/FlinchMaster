@@ -1,21 +1,23 @@
 package edu.up.cs301.flinch;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collections;
-
-import edu.up.cs301.card.Card;
-import edu.up.cs301.flinch.FStateElements.FPlayerState;
-import edu.up.cs301.flinch.FStateElements.FState;
 import edu.up.cs301.cardpile.*;
 import edu.up.cs301.game.infoMsg.GameInfo;
 
 /**
- * Created by rae-o on 11/5/2017.
+ * This is a dumb computer player that plays and discards at random
+ *
+ *
+ * @author Chelle Plaisted
+ * @version Dec. 2017
  */
-
 public class FDumbComputerPlayer extends FComputerPlayer{
 
+    /**
+     * default constructor
+     * @param name
+     */
     public FDumbComputerPlayer(String name) {
         super(name);
     }
@@ -36,9 +38,10 @@ public class FDumbComputerPlayer extends FComputerPlayer{
     @Override
     protected void receiveInfo(GameInfo info) {
         super.receiveInfo(info);
-
+        // ignore if it is not my turn
         if(this.playerNum == savedState.getWhoseTurn()) {
             if(playCards()) {
+                // will allow state to update
                 return;
             }
             sleep(1500);
@@ -49,7 +52,7 @@ public class FDumbComputerPlayer extends FComputerPlayer{
 
     /**
      * Method to generate plays by playing as many cards as possible
-     * Will rest 3 seconds after playing a card
+     * Will rest 1.5 seconds after playing a card
      */
     private boolean playCards() {
 

@@ -6,11 +6,13 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
 import edu.up.cs301.game.R;
 
 /**
- * Created by Rachel on 12/7/2017.
+ * This is an activity to control the learn to play screen
+ *
+ * @author Chelle Plaisted
+ * @version Dec. 2017
  */
 
 public class FUserManualActivity extends Activity implements View.OnClickListener {

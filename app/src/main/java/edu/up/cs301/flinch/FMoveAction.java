@@ -6,7 +6,11 @@ import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.actionMsg.GameAction;
 
 /**
- * Created by Rachel on 11/7/2017.
+ * This outlines a general flinch game action
+ *
+ *
+ * @author Chelle Plaisted
+ * @version Dec. 2017
  */
 
 public abstract class FMoveAction extends GameAction implements Serializable{

@@ -1,31 +1,28 @@
 package edu.up.cs301.flinch;
 
-import edu.up.cs301.card.*;
 import edu.up.cs301.cardpile.Hand;
 import edu.up.cs301.flinch.FStateElements.*;
 import edu.up.cs301.game.GameComputerPlayer;
 import edu.up.cs301.game.infoMsg.GameInfo;
 
 /**
- * This is a computer player that slaps at an average rate given
- * by the constructor parameter.
+ * This class outlines a general computer player.
  *
- * @author Steven R. Vegdahl
- * @version July 2013
+ * Inspired by Steven Vegdahl's SJComputerPlayer
+ *
+ * @author Chelle Plaisted
+ * @version Dec. 2017
  */
-public class FComputerPlayer extends GameComputerPlayer
+public abstract class FComputerPlayer extends GameComputerPlayer
 {
-	// the minimum reaction time for this player, in milliseconds
-	protected double minReactionTimeInMillis;
+	// INSTANCE VARIABLES
+	// constants
+	protected static final int LOOK_FLINCH = 0;
+	protected static final int LOOK_HAND = 1;
 
 	// the most recent state of the game
 	protected FState savedState;
 	protected FPlayerState me;
-
-	// constants
-	protected static final int LOOK_FLINCH = 0;
-	protected static final int LOOK_HAND = 1;
-	protected static final int LOOK_DISCARD = 2;
 
 	/**
 	 * Constructor for the FComputerPlayer class; creates an "average"
@@ -35,24 +32,9 @@ public class FComputerPlayer extends GameComputerPlayer
 	 * 		the player's name
 	 */
 	public FComputerPlayer(String name) {
-		// invoke general constructor to create player whose average reaction
 
 		super(name);
 	}
-
-	/*
-     * Constructor for the FComputerPlayer class
-     */
-	/*
-	public FComputerPlayer(String name, double avgReactionTime) {
-		// invoke superclass constructor
-		super(name);
-
-		// set the minimim reaction time, which is half the average reaction
-		// time, converted to milliseconds (0.5 * 1000 = 500)
-		minReactionTimeInMillis = 500*avgReactionTime;
-	}
-	*/
 
 	/**
 	 * Invoked whenever the player's timer has ticked. It is expected
@@ -73,7 +55,6 @@ public class FComputerPlayer extends GameComputerPlayer
 	protected void receiveInfo(GameInfo info) {
 		// if it is a flinch action pending--wait by returning
 		// if we don't have a game-state, ignore
-	//	synchronized (syncObj) {
 			if (!(info instanceof FState)) {
 				return;
 			}
@@ -87,7 +68,6 @@ public class FComputerPlayer extends GameComputerPlayer
 
 			// rest 3 seconds so play isn't immediate
 			sleep(3000);
-	//	}
 	}
 
 	/**
@@ -109,12 +89,12 @@ public class FComputerPlayer extends GameComputerPlayer
 				return i;
 			}
 		}
-		return -1;
+		return -1; // card is not playable
 	}
 
 
 	/**
-	 * method to discard a card
+	 * method to discard a card at random
 	 */
 	protected void discard() {
 		// select a random card from the hand
@@ -130,6 +110,7 @@ public class FComputerPlayer extends GameComputerPlayer
 				break;
 			}
 		}
+		// make sure you are prioritizing correct discards
 		if(blanks) {
 			while (d[discardIndex] != -1) {
 				discardIndex = (int) (Math.random() * d.length);
@@ -137,5 +118,5 @@ public class FComputerPlayer extends GameComputerPlayer
 		}
 
 		game.sendAction(new FDiscardAction(this,handIndex,discardIndex));
-	}
+	} // end discard
 }
