@@ -429,21 +429,21 @@ public class FHumanPlayer extends GameHumanPlayer implements Animator {
             }
             if (cardPlace[i] != null) {
 
-                if (state.getNumPlayers() == 3) {
+               /* if (state.getNumPlayers() == 3) {
                     if(i > 10 && i < cardPlace.length - 10) {
                         // draw the card sideways
                         drawCard(canvas, cardPlace[i], new Card(toDraw[i]), 1);
-                    } else {
+                    } else {*/
                         drawCard(canvas, cardPlace[i], new Card(toDraw[i]), 0);
-                    }
-                }  else if(state.getNumPlayers() == 4) {
+                   // }
+             /*   }  else if(state.getNumPlayers() == 4) {
                     if(((i > 10 && i < 17) || (i > 22)) && i < cardPlace.length - 10) {
                         // draw the card side ways
                         drawCard(canvas, cardPlace[i], new Card(toDraw[i]), 1);
                     } else {
                         drawCard(canvas, cardPlace[i], new Card(toDraw[i]), 0);
                     }
-                }
+                }*/
 
             }
         }
